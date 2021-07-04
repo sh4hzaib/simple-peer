@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet } from "react-native";
 import { colors } from "../constants/theme";
 import ButtonListItem from "./ButtonListItem";
 import { useSelector, useDispatch } from "react-redux";
+
 import {
   addButtonToDeviceR,
   removeButtonFromDeviceR,
@@ -51,7 +52,7 @@ const AllBtn = () => {
   });
 
   return (
-    <View style={{ height: "55%" }}>
+    <View>
       <Text style={styles.title}>Buttons:</Text>
       <View>
         <FlatList

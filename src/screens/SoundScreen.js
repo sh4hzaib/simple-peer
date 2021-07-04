@@ -9,14 +9,13 @@ import {
   FlatList,
 } from "react-native";
 import { Button } from "react-native-paper";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { useDispatch, useSelector } from "react-redux";
 import AppHeader from "../components/AppHeader";
 import ButtonComponent from "../components/ButtonComponent";
 import { colors } from "../constants/theme";
 import { addDeviceR } from "../redux/deviceSlice";
 import { setIPAdressR, setNewsUrlR } from "../redux/settingsSlice";
-import { CircularSlider } from 'react-native-elements-universe';
+import { CircularSlider } from "react-native-elements-universe";
 
 const LivingRoomScreen = () => {
   const deviceList = useSelector((state) => state.device);
@@ -24,10 +23,19 @@ const LivingRoomScreen = () => {
   const enabledDevices = deviceList.filter((device) => device.status);
   // console.log(enabledDevices);
   const dispatch = useDispatch();
-  const btnList = [];
+  let btnList = [];
   for (let index = 0; index < enabledDevices.length; index++) {
     btnList.push(...enabledDevices[index].buttons);
   }
+  for (let index = 0; index < btnList.length; index++) {
+    // if(btnList[index].rooms.includes(rooms[0]))
+    btnList = btnList.filter((btn) =>
+      btn.rooms.find((room) => {
+        return room === "Sound";
+      })
+    );
+  }
+  console.log(btnList);
 
   const initSettings = async () => {
     try {
@@ -134,7 +142,7 @@ const LivingRoomScreen = () => {
           ))}
         </View>
       </ScrollView>
-      
+
       <View style={styles.muteContainer}>
         <Button
           style={styles.btnMute}
@@ -197,8 +205,8 @@ const styles = StyleSheet.create({
     // minWidth: 120,
     width: "32%",
     fontWeight: "bold",
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center",
     // height: 60,
   },
   header: {
@@ -208,7 +216,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     backgroundColor: colors.bgColor,
-    color: "#fff"
+    color: "#fff",
   },
 });
 export default LivingRoomScreen;

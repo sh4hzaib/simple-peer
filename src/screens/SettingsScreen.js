@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, Text, SafeAreaView, StyleSheet, Alert } from "react-native";
+import { View, Text, ScrollView, StyleSheet, Alert } from "react-native";
 import { Button, Title } from "react-native-paper";
 import AppHeader from "../components/AppHeader";
 import InputField from "../components/InputField";
@@ -35,7 +35,7 @@ const SettingsScreen = ({ navigation }) => {
   return (
     <>
       <AppHeader title="Settings" />
-      <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.container}>
         {/* <Text>In Living Room</Text> */}
         <View style={styles.btnContainer}>
           <Title style={styles.title}>Server IP Address</Title>
@@ -92,7 +92,7 @@ const SettingsScreen = ({ navigation }) => {
         </View>
         <DeviceList />
         {/* <SettingsSection /> */}
-      </SafeAreaView>
+      </ScrollView>
     </>
   );
 };

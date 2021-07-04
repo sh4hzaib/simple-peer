@@ -22,10 +22,19 @@ const ScreenRoomScreen = () => {
   const enabledDevices = deviceList.filter((device) => device.status);
   // console.log(enabledDevices);
   const dispatch = useDispatch();
-  const btnList = [];
+  let btnList = [];
   for (let index = 0; index < enabledDevices.length; index++) {
     btnList.push(...enabledDevices[index].buttons);
   }
+  for (let index = 0; index < btnList.length; index++) {
+    // if(btnList[index].rooms.includes(rooms[0]))
+    btnList = btnList.filter((btn) =>
+      btn.rooms.find((room) => {
+        return room === "Screen";
+      })
+    );
+  }
+  console.log(btnList);
 
   const initSettings = async () => {
     try {

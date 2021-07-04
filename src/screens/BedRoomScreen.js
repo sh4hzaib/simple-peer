@@ -12,22 +12,31 @@ import AppHeader from "../components/AppHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { colors } from "../constants/theme";
 import ButtonComponent from "../components/ButtonComponent";
+import rooms from "../constants/rooms";
 
 const BedRoomScreen = () => {
   const deviceList = useSelector((state) => state.device);
   const enabledDevices = deviceList.filter((device) => device.status);
-  console.log(enabledDevices);
-  const btnList = [];
+  // console.log(enabledDevices);
+  let btnList = [];
   for (let index = 0; index < enabledDevices.length; index++) {
     btnList.push(...enabledDevices[index].buttons);
   }
-
+  for (let index = 0; index < btnList.length; index++) {
+    // if(btnList[index].rooms.includes(rooms[0]))
+    btnList = btnList.filter((btn) =>
+      btn.rooms.find((room) => {
+        return room === "Projector";
+      })
+    );
+  }
+  console.log(btnList);
   const renderItem = useCallback(({ item }) => {
     return (
       <Button
         icon=""
         mode="contained"
-        onPress={() => console.log("Button1 at BedRoomScreen")}
+        // onPress={() => console.log("Button1 at BedRoomScreen")}
         style={styles.btn}
         labelStyle={{ fontSize: 12 }}
       >
