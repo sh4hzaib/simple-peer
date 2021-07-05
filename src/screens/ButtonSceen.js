@@ -24,7 +24,7 @@ const ButtonSceen = () => {
 
   const [btnName, setBtnName] = useState("");
   const [deviceName, setDeviceName] = useState(
-    deviceList[0] ? deviceList[0].deviceName : "No Devices available"
+    deviceList.length ? deviceList[0].deviceName : "No Devices available"
   );
   const [cmd, setCmd] = useState("");
   const [room, setRoom] = useState([]);
@@ -51,6 +51,12 @@ const ButtonSceen = () => {
       if (alreadyExists < 0 && deviceDoesExist >= 0) {
         dispatch(addButtonToDeviceR({ deviceIndex: deviceDoesExist, button }));
         Alert.alert("Button has been Added");
+        //   buttonName: btnName,
+        // buttonCommand: protocol + "://" + cmd,
+        // deviceName: deviceName,
+        // rooms: room,
+        setBtnName("");
+        setCmd("");
       } else if (alreadyExists >= 0) {
         throw new Error("Button with this Name and Device already exists");
       } else {

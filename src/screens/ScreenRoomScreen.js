@@ -14,7 +14,11 @@ import AppHeader from "../components/AppHeader";
 import ButtonComponent from "../components/ButtonComponent";
 import { colors } from "../constants/theme";
 import { addDeviceR } from "../redux/deviceSlice";
-import { setIPAdressR, setNewsUrlR } from "../redux/settingsSlice";
+import {
+  setIPAdressR,
+  setNewsUrlR,
+  setSoundModeR,
+} from "../redux/settingsSlice";
 
 const ScreenRoomScreen = () => {
   const deviceList = useSelector((state) => state.device);
@@ -38,18 +42,20 @@ const ScreenRoomScreen = () => {
 
   const initSettings = async () => {
     try {
-      let temp;
+      // let temp;
       const keys = await AsyncStorage.getAllKeys();
       const findSettings = keys.find((key) => key === "SETTINGS");
       if (findSettings) {
         const getSettings = await AsyncStorage.getItem("SETTINGS");
-        temp = await JSON.parse(getSettings);
+        const temp = await JSON.parse(getSettings);
         dispatch(setIPAdressR(temp.ipAdress));
         dispatch(setNewsUrlR(temp.newsUrl));
+        dispatch(setSoundModeR(temp.soundMode));
       } else {
         const jsonValue = JSON.stringify({
           ipAdress: "000.000.000.000",
           newsUrl: "www.google.com",
+          soundMode: "Dolby",
         });
         await AsyncStorage.setItem("SETTINGS", jsonValue);
         console.log("Settings Set");

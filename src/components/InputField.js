@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
 const InputField = (props) => {
-  const { value, placeholder, setValue, max, type } = props;
+  const { value, placeholder, setValue, max, type, onBlur } = props;
+
   //   const [text, setText] = useState("");
   return (
     <TextInput
@@ -13,6 +14,7 @@ const InputField = (props) => {
       style={styles.input}
       onChangeText={(text) => setValue(text)}
       keyboardType={type || "default"}
+      onBlur={onBlur}
     />
   );
 };
