@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,25 +9,40 @@ import {
   FlatList,
 } from "react-native";
 import { Button } from "react-native-paper";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { useDispatch, useSelector } from "react-redux";
 import AppHeader from "../components/AppHeader";
+import AdjustSoundSlider from "../components/AdjustSoundSlider";
 import ButtonComponent from "../components/ButtonComponent";
 import { colors } from "../constants/theme";
 import { addDeviceR } from "../redux/deviceSlice";
-import { setIPAdressR, setNewsUrlR } from "../redux/settingsSlice";
-import { CircularSlider } from 'react-native-elements-universe';
+import {
+  setIPAdressR,
+  setNewsUrlR,
+  setSoundModeR,
+} from "../redux/settingsSlice";
+// import { CircularSlider } from "react-native-elements-universe";
 
 const LivingRoomScreen = () => {
+  const [soundValue, setSoundValue] = useState(0);
+
   const deviceList = useSelector((state) => state.device);
   const settings = useSelector((state) => state.settings);
   const enabledDevices = deviceList.filter((device) => device.status);
   // console.log(enabledDevices);
   const dispatch = useDispatch();
-  const btnList = [];
+  let btnList = [];
   for (let index = 0; index < enabledDevices.length; index++) {
     btnList.push(...enabledDevices[index].buttons);
   }
+  for (let index = 0; index < btnList.length; index++) {
+    // if(btnList[index].rooms.includes(rooms[0]))
+    btnList = btnList.filter((btn) =>
+      btn.rooms.find((room) => {
+        return room === "Sound";
+      })
+    );
+  }
+  // console.log(btnList);
 
   const initSettings = async () => {
     try {
@@ -39,10 +54,12 @@ const LivingRoomScreen = () => {
         temp = await JSON.parse(getSettings);
         dispatch(setIPAdressR(temp.ipAdress));
         dispatch(setNewsUrlR(temp.newsUrl));
+        dispatch(setSoundModeR(temp.soundMode));
       } else {
         const jsonValue = JSON.stringify({
           ipAdress: "000.000.000.000",
           newsUrl: "www.google.com",
+          soundMode: "Dolby",
         });
         await AsyncStorage.setItem("SETTINGS", jsonValue);
         console.log("Settings Set");
@@ -96,25 +113,17 @@ const LivingRoomScreen = () => {
     } else console.log("Alreeady Devices");
   }, []);
 
-  const renderItem = useCallback(({ item }) => {
-    return (
-      <Button
-        icon=""
-        mode="contained"
-        onPress={() => console.log("Button1 at LivingRoomScreen")}
-        style={styles.btn}
-        labelStyle={{ fontSize: 12 }}
-      >
-        {item.buttonName}
-      </Button>
-    );
-  });
-
   return (
     <>
       <AppHeader title="Sound" />
       <Text style={styles.text}>Presets:</Text>
+      {/* <View> */}
+      {/* <CircularSlider value={value} onChange={setValue} /> */}
+      {/* </View> */}
       <ScrollView style={styles.container}>
+        <View>
+          <AdjustSoundSlider value={soundValue} setValue={setSoundValue} />
+        </View>
         <View style={styles.btnContainer}>
           {btnList.map((button, index) => (
             // <Button
@@ -134,7 +143,6 @@ const LivingRoomScreen = () => {
           ))}
         </View>
       </ScrollView>
-      
       <View style={styles.muteContainer}>
         <Button
           style={styles.btnMute}
@@ -197,8 +205,8 @@ const styles = StyleSheet.create({
     // minWidth: 120,
     width: "32%",
     fontWeight: "bold",
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center",
     // height: 60,
   },
   header: {
@@ -208,7 +216,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     backgroundColor: colors.bgColor,
-    color: "#fff"
+    color: "#fff",
   },
 });
 export default LivingRoomScreen;

@@ -34,7 +34,7 @@ const DeviceList = () => {
   return (
     <View style={{ paddingHorizontal: 20 }}>
       <Text style={styles.title}>Devices:</Text>
-      <View style={{ height: "47%" }}>
+      <View style={{}}>
         <FlatList
           data={deviceList}
           renderItem={renderItem}

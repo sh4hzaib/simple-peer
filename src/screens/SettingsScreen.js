@@ -1,23 +1,34 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, Text, SafeAreaView, StyleSheet, Alert } from "react-native";
+import { View, Text, ScrollView, StyleSheet, Alert } from "react-native";
 import { Button, Title } from "react-native-paper";
 import AppHeader from "../components/AppHeader";
 import InputField from "../components/InputField";
+import RadioButtons from "../components/RadioButtons";
 import { colors } from "../constants/theme";
 import DeviceList from "../components/DeviceList";
 import { useDispatch, useSelector } from "react-redux";
-import { setIPAdressR, setNewsUrlR } from "../redux/settingsSlice";
+import {
+  setIPAdressR,
+  setNewsUrlR,
+  setSoundModeR,
+} from "../redux/settingsSlice";
 import { IpPattern, UrlPattern } from "../constants/RegEx";
+import soundModes from "../constants/soundModes";
+import axios from "axios";
 // import settingsData from "../constants/settings.json";
 
 const SettingsScreen = ({ navigation }) => {
   // console.log(settingsData);
-
+  useEffect(() => {
+    isServerOnline();
+  }, []);
   const settings = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   // console.log(settings);
   const [IpAdress, setIpAdress] = useState(settings.ipAdress);
   const [URL, setURL] = useState(settings.newsUrl);
+  const [soundMode, setSoundMode] = useState(settings.soundMode);
+  const [serverStatus, setServerStatus] = useState("Offline");
 
   const settingsHandler = useCallback(() => {
     const validIP = IpPattern.test(IpAdress);
@@ -25,6 +36,7 @@ const SettingsScreen = ({ navigation }) => {
     console.log(validIP, validURL);
     if (validIP && validURL) {
       dispatch(setIPAdressR(IpAdress));
+      dispatch(setSoundModeR(soundMode));
       dispatch(setNewsUrlR(URL));
       Alert.alert("Settings have been updated");
     } else {
@@ -32,28 +44,81 @@ const SettingsScreen = ({ navigation }) => {
     }
   });
 
+  const isServerOnline = () => {
+    console.log("Sending Request to ip" + IpAdress);
+    axios
+      .get(`http://${IpAdress}`, { timeout: 5000 })
+      .then((response) => {
+        console.log("inREsponse");
+        // console.log(response);
+        if (response.status === 200) {
+          console.log("success");
+          setServerStatus("Online");
+        } else {
+          setServerStatus("Offline");
+          console.log("error");
+        }
+      })
+      .catch((error) => {
+        setServerStatus("Offline");
+        console.log("in Error");
+        console.log("network error: " + error);
+      });
+  };
+
   return (
     <>
       <AppHeader title="Settings" />
-      <SafeAreaView style={styles.container}>
+
+      <ScrollView style={styles.container}>
         {/* <Text>In Living Room</Text> */}
         <View style={styles.btnContainer}>
-          <Title style={styles.title}>Server IP Address</Title>
-
-          <InputField
-            value={IpAdress}
-            placeholder="Set IP Adress"
-            setValue={setIpAdress}
-            max={15}
-            type="decimal-pad"
-          />
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Title style={styles.title}>Server IP Address</Title>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View
+                style={{
+                  backgroundColor:
+                    serverStatus === "Online"
+                      ? colors.buttonUnmute
+                      : colors.buttonMute,
+                  width: 15,
+                  marginRight: 10,
+                  height: 15,
+                  borderRadius: 150 / 2,
+                }}
+              ></View>
+              <Text style={{ fontSize: 13 }}>{serverStatus}</Text>
+            </View>
+          </View>
+          <View>
+            <InputField
+              value={IpAdress}
+              placeholder="Set IP Adress"
+              setValue={setIpAdress}
+              max={15}
+              type="decimal-pad"
+              onBlur={isServerOnline}
+            />
+          </View>
           <Title>Set IMB IP</Title>
           <InputField
             value={URL}
             placeholder="Set News URL"
             setValue={setURL}
           />
-
+          <RadioButtons
+            title="Choose Mode"
+            listItems={soundModes}
+            value={soundMode}
+            setValue={setSoundMode}
+          />
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
@@ -92,7 +157,7 @@ const SettingsScreen = ({ navigation }) => {
         </View>
         <DeviceList />
         {/* <SettingsSection /> */}
-      </SafeAreaView>
+      </ScrollView>
     </>
   );
 };
