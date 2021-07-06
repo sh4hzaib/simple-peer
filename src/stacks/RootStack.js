@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import BottomNavigationBar from "../components/BottomNavigationBar";
 import ButtonSceen from "../screens/ButtonSceen";
 import DeviceScreen from "../screens/DeviceScreen";
+import SettingsScreen from "../screens/SettingsScreen";
 
 const Root = createStackNavigator();
 
@@ -15,6 +16,13 @@ const RootStack = () => {
         <Root.Screen
           name="BottomNavigationBar"
           component={BottomNavigationBar}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Root.Screen
+          name="SettingsScreen"
+          component={SettingsScreen}
           options={{
             headerShown: false,
           }}

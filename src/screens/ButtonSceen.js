@@ -1,18 +1,22 @@
 import React, { useCallback, useState } from "react";
-import { Alert, StyleSheet, View, ScrollView, Text } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
+import { Alert, SafeAreaView } from "react-native";
 import { Button, Checkbox } from "react-native-paper";
-import AllBtn from "../components/AllBtn";
 import InputField from "../components/InputField";
 import DropDownList from "../components/DropDownList";
 import RadioButtons from "../components/RadioButtons";
-// import { BUTTONS, DEVICES } from "../constants/devices";
-import Slider from "@react-native-community/slider";
 
-import { useSelector, useDispatch } from "react-redux";
-import { addButtonToDeviceR } from "../redux/deviceSlice";
 import rooms from "../constants/rooms";
 import protocols from "../constants/protocols";
 import { colors } from "../constants/theme";
+
+import ButtonListItem from "../components/ButtonListItem";
+import { useSelector, useDispatch } from "react-redux";
+
+import {
+  addButtonToDeviceR,
+  removeButtonFromDeviceR,
+} from "../redux/deviceSlice";
 
 const ButtonSceen = () => {
   const deviceList = useSelector((state) => state.device);
@@ -37,7 +41,7 @@ const ButtonSceen = () => {
       deviceName: deviceName,
       rooms: room,
     };
-    console.log(button);
+    // console.log(button);
     try {
       const alreadyExists = btnList.findIndex(
         (btn) =>
@@ -67,73 +71,115 @@ const ButtonSceen = () => {
     }
   });
 
-  return (
-    <ScrollView style={styles.container}>
-      <InputField
-        value={btnName}
-        placeholder="Button Name"
-        setValue={setBtnName}
+  const removeButtonHandler = useCallback((button) => {
+    // const tempList = [...buttonList];
+    const indexOfBtn = btnList.findIndex(
+      (btn) => btn.buttonName === button.buttonName
+    );
+    const indexOfDevice = deviceList.findIndex(
+      (dev) => dev.deviceName === button.deviceName
+    );
+    // console.log(indexOfBtn, indexOfDevice);
+    dispatch(
+      removeButtonFromDeviceR({
+        deviceIndex: indexOfDevice,
+        buttonIndex: indexOfBtn,
+      })
+    );
+    // console.log("INDEX:" + indexOfBtn);
+    // console.log("BTN:" + button);
+    // tempList.splice(indexOfBtn, 1);
+  });
+
+  const renderItem = useCallback(({ item }) => {
+    return (
+      <ButtonListItem
+        name={item.buttonName}
+        command={item.buttonCommand}
+        device={item.deviceName}
+        onBtnClick={() => {
+          removeButtonHandler(item);
+        }}
       />
-      {/* <InputField
+    );
+  });
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {/* <AllBtn /> */}
+      <View>
+        <View>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            ListHeaderComponent={
+              <>
+                <InputField
+                  value={btnName}
+                  placeholder="Button Name"
+                  setValue={setBtnName}
+                />
+                {/* <InputField
         value={deviceName}
         placeholder="Device Name"
         setValue={setDeviceName}
       /> */}
-      {/* asdadadsadsadasdasd */}
-      <DropDownList
-        listItems={deviceList}
-        value={deviceName}
-        setValue={setDeviceName}
-      />
-      <Text style={{ fontSize: 17, marginTop: 10 }}>Choose Rooms</Text>
-      <View
-        style={{
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
-      >
-        {rooms.map((r, index) => (
-          <View
-            style={{ flexDirection: "row", alignItems: "center" }}
-            key={r + index}
-          >
-            <Checkbox
-              status={room.includes(r) ? "checked" : "unchecked"}
-              onPress={() => {
-                // console.log("ROOM:", r);
-                // setRoom([...room, r]);
-                const tempRooms = [...room];
-                if (!tempRooms.includes(r)) tempRooms.push(r);
-                else {
-                  const roomIndex = tempRooms.indexOf(r);
-                  tempRooms.splice(roomIndex, 1);
-                }
-                setRoom([...tempRooms]);
-                // console.log("ROOMS:", room);
-                // console.log("TEMP_ROOMS:", tempRooms);
-              }}
-            />
-            <Text>{r}</Text>
-          </View>
-        ))}
-      </View>
+                {/* asdadadsadsadasdasd */}
+                <DropDownList
+                  listItems={deviceList}
+                  value={deviceName}
+                  setValue={setDeviceName}
+                />
+                <Text style={{ fontSize: 17, marginTop: 10 }}>
+                  Choose Rooms
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  {rooms.map((r, index) => (
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                      key={r + index}
+                    >
+                      <Checkbox
+                        status={room.includes(r) ? "checked" : "unchecked"}
+                        onPress={() => {
+                          // console.log("ROOM:", r);
+                          // setRoom([...room, r]);
+                          const tempRooms = [...room];
+                          if (!tempRooms.includes(r)) tempRooms.push(r);
+                          else {
+                            const roomIndex = tempRooms.indexOf(r);
+                            tempRooms.splice(roomIndex, 1);
+                          }
+                          setRoom([...tempRooms]);
+                          // console.log("ROOMS:", room);
+                          // console.log("TEMP_ROOMS:", tempRooms);
+                        }}
+                      />
+                      <Text>{r}</Text>
+                    </View>
+                  ))}
+                </View>
 
-      {/* <RadioButtons
+                {/* <RadioButtons
         title="Choose a Room"
         listItems={rooms}
         value={room}
         setValue={setRoom}
       /> */}
-      <RadioButtons
-        title="Choose Mode"
-        listItems={protocols}
-        value={protocol}
-        setValue={setProtocol}
-      />
-      {/* <View style={{ flexDirection: "row" }}>
+                <RadioButtons
+                  title="Choose Mode"
+                  listItems={protocols}
+                  value={protocol}
+                  setValue={setProtocol}
+                />
+                {/* <View style={{ flexDirection: "row" }}>
         <Text style={{ fontSize: 18, textAlignVertical: "center" }}>
-          Choose Mode (https & ws)
+        Choose Mode (https & ws)
         </Text>
         <Slider
           style={{ width: 100, height: 40 }}
@@ -148,42 +194,67 @@ const ButtonSceen = () => {
           }}
           minimumTrackTintColor="#FFFFFF"
           maximumTrackTintColor="#000000"
-        />
-      </View> */}
-      <View style={{ flexDirection: "row" }}>
-        <Text
-          style={{ width: "20%", fontSize: 18, textAlignVertical: "center" }}
-        >
-          {protocol}://
-        </Text>
-        <View style={{ width: "80%" }}>
-          <InputField value={cmd} placeholder="Command" setValue={setCmd} />
+          />
+        </View> */}
+                <View style={{ flexDirection: "row" }}>
+                  <Text
+                    style={{
+                      width: "20%",
+                      fontSize: 18,
+                      textAlignVertical: "center",
+                    }}
+                  >
+                    {protocol}://
+                  </Text>
+                  <View style={{ width: "80%" }}>
+                    <InputField
+                      value={cmd}
+                      placeholder="Command"
+                      setValue={setCmd}
+                    />
+                  </View>
+                </View>
+                <Button
+                  style={styles.btn}
+                  icon=""
+                  disabled={!btnName || !cmd || !deviceName}
+                  mode="contained"
+                  onPress={() => {
+                    addBtnHandler();
+                    // console.log("Button3 at BedRoomScreen");
+                  }}
+                >
+                  Add Button
+                </Button>
+                <Text style={styles.title}>Buttons:</Text>
+              </>
+            }
+            data={btnList}
+            renderItem={renderItem}
+            keyExtractor={(item, index) =>
+              item.deviceName + index + item.buttonName
+            }
+          />
         </View>
       </View>
-      <Button
-        style={styles.btn}
-        icon=""
-        disabled={!btnName || !cmd || !deviceName}
-        mode="contained"
-        onPress={() => {
-          addBtnHandler();
-          // console.log("Button3 at BedRoomScreen");
-        }}
-      >
-        Add Button
-      </Button>
-      <AllBtn />
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    minHeight: "100%",
   },
   btn: {
     marginBottom: 10,
     padding: 10,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: colors.primary,
+    marginTop: 10,
   },
 });
 

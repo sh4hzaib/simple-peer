@@ -10,13 +10,10 @@ import { useSelector } from "react-redux";
 
 const AdjustSoundSlider = ({ value, setValue }) => {
   const settings = useSelector((state) => state.settings);
-  // console.log(settings);
-  // const [value, setValue] = useState(50);
-  // useEffect(() => {
-  //   setValue(0);
-  // }, [settings.soundMode]);
+
+  const SoundMode = settings.soundMode;
+
   const calculateSoundValue = (value) => {
-    const SoundMode = settings.soundMode;
     let tempValue;
     if (SoundMode === "Dolby") {
       tempValue = ((value / 100) * 7).toFixed(1);

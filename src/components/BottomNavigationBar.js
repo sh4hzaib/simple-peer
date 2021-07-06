@@ -58,7 +58,7 @@ export default function BottomNavigationBar() {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="SettingsScreen"
         component={SettingsScreen}
         options={{
@@ -67,7 +67,7 @@ export default function BottomNavigationBar() {
             <MaterialCommunityIcons name="cog" color={color} size={26} />
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }

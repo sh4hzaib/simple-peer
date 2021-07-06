@@ -30,20 +30,7 @@ const BedRoomScreen = () => {
       })
     );
   }
-  console.log(btnList);
-  const renderItem = useCallback(({ item }) => {
-    return (
-      <Button
-        icon=""
-        mode="contained"
-        // onPress={() => console.log("Button1 at BedRoomScreen")}
-        style={styles.btn}
-        labelStyle={{ fontSize: 12 }}
-      >
-        {item.buttonName}
-      </Button>
-    );
-  });
+  // console.log(btnList);
 
   return (
     <>
