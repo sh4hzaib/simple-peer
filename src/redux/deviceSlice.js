@@ -9,7 +9,7 @@ const storeData = async (value) => {
     // const parsedDevices = JSON.parsed("DEVICES");
     const stringifyDevices = JSON.stringify(value);
     await AsyncStorage.setItem("DEVICES", stringifyDevices);
-    console.log("object");
+    // console.log("object");
   } catch (e) {
     console.log(e.message);
   }
@@ -28,7 +28,7 @@ export const deviceSlice = createSlice({
       storeData(state);
     },
     changeDeviceStatusR: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state[action.payload].status = !state[action.payload].status;
       storeData(state);
     },

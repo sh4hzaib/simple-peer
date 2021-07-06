@@ -1,12 +1,15 @@
 import React, { useCallback, useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, SafeAreaView, StyleSheet, View } from "react-native";
 import { Button } from "react-native-paper";
-import AllDevices from "../components/AllDevices";
+// import AllDevices from "../components/AllDevices";
 import InputField from "../components/InputField";
 
 import { useSelector, useDispatch } from "react-redux";
-import { addDeviceR } from "../redux/deviceSlice";
+import { addDeviceR, removeDeviceR } from "../redux/deviceSlice";
 import { IpPattern } from "../constants/RegEx";
+import { Text, FlatList } from "react-native";
+import { colors } from "../constants/theme";
+import DeviceListItem from "../components/DeviceListItem";
 
 const DeviceScreen = () => {
   const deviceList = useSelector((state) => state.device);
@@ -34,7 +37,7 @@ const DeviceScreen = () => {
         (dev) => dev.deviceIP === device.deviceIP
       );
       const validateIP = IpPattern.test(device.deviceIP);
-      console.log(notUniqueIP, validateIP, alreadyExists);
+      // console.log(notUniqueIP, validateIP, alreadyExists);
       if (alreadyExists < 0 && notUniqueIP < 0 && validateIP) {
         dispatch(addDeviceR(device));
         Alert.alert("Device has been added");
@@ -44,38 +47,83 @@ const DeviceScreen = () => {
     }
   });
 
-  return (
-    <View style={styles.container}>
-      <InputField
-        value={deviceName}
-        placeholder="Device Name"
-        setValue={setDeviceName}
-      />
-      <InputField
-        value={deviceIP}
-        placeholder="Device IP"
-        setValue={setDeviceIP}
-      />
-      <Button
-        style={styles.btn}
-        icon=""
-        disabled={!deviceName || !deviceIP}
-        mode="contained"
-        onPress={() => {
-          addDeviceHandler();
-          console.log("Button at DeviceSCreen");
+  const removeDeviceHandler = useCallback((device) => {
+    const indexOfDevice = deviceList.findIndex(
+      (dev) => dev.deviceName === device
+    );
+    // console.log("INDEX:" + indexOfDevice);
+    // console.log("DEVICE:" + device);
+    dispatch(removeDeviceR(indexOfDevice));
+  });
+
+  const renderItem = useCallback(({ item }) => {
+    return (
+      <DeviceListItem
+        name={item.deviceName}
+        IP={item.deviceIP}
+        onBtnClick={() => {
+          removeDeviceHandler(item.deviceName);
         }}
-      >
-        Add Device
-      </Button>
-      <AllDevices />
-    </View>
+      />
+    );
+  });
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {/* <AllDevices /> */}
+      <View>
+        <View>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            ListHeaderComponent={
+              <>
+                <InputField
+                  value={deviceName}
+                  placeholder="Device Name"
+                  setValue={setDeviceName}
+                />
+                <InputField
+                  value={deviceIP}
+                  placeholder="Device IP"
+                  setValue={setDeviceIP}
+                />
+                <Button
+                  style={styles.btn}
+                  icon=""
+                  disabled={!deviceName || !deviceIP}
+                  mode="contained"
+                  onPress={() => {
+                    addDeviceHandler();
+                    // console.log("Button at DeviceSCreen");
+                  }}
+                >
+                  Add Device
+                </Button>
+                <Text style={styles.title}>Devices:</Text>
+              </>
+            }
+            data={deviceList}
+            renderItem={renderItem}
+            keyExtractor={(item, index) =>
+              item.deviceName + index + item.deviceIP
+            }
+          />
+        </View>
+      </View>
+      {/*  */}
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: colors.primary,
+    marginTop: 10,
   },
   btn: {
     marginBottom: 10,

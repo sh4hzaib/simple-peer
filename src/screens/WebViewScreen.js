@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import AppHeader from "../components/AppHeader";
 
 const WebViewScreen = () => {
-  console.log("hello");
+  // console.log("hello");
   const URL = useSelector((state) => state.settings.newsUrl);
   console.log(URL);
   return (

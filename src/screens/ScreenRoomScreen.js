@@ -56,6 +56,7 @@ const ScreenRoomScreen = () => {
           ipAdress: "000.000.000.000",
           newsUrl: "www.google.com",
           soundMode: "Dolby",
+          soundValue: 0,
         });
         await AsyncStorage.setItem("SETTINGS", jsonValue);
         console.log("Settings Set");
@@ -108,20 +109,6 @@ const ScreenRoomScreen = () => {
       console.log("Devices Init");
     } else console.log("Alreeady Devices");
   }, []);
-
-  const renderItem = useCallback(({ item }) => {
-    return (
-      <Button
-        icon=""
-        mode="contained"
-        onPress={() => console.log("Button1 at ScreenRoomScreen")}
-        style={styles.btn}
-        labelStyle={{ fontSize: 12 }}
-      >
-        {item.buttonName}
-      </Button>
-    );
-  });
 
   return (
     <>

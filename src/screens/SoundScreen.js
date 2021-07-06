@@ -102,28 +102,19 @@ const LivingRoomScreen = () => {
     }
   };
 
-  useEffect(() => {
-    if (!settings.ipAdress || !settings.newsUrl) {
-      initSettings();
-      console.log("Settings Init");
-    } else console.log("Alreeady Settings");
-    if (!deviceList.length) {
-      initDevices();
-      console.log("Devices Init");
-    } else console.log("Alreeady Devices");
-  }, []);
-
   return (
     <>
       <AppHeader title="Sound" />
-      <Text style={styles.text}>Presets:</Text>
+      <View style={{ height: 300, backgroundColor: colors.bgColor }}>
+        <Text style={styles.text}>Presets:</Text>
+        <AdjustSoundSlider value={soundValue} setValue={setSoundValue} />
+      </View>
       {/* <View> */}
       {/* <CircularSlider value={value} onChange={setValue} /> */}
       {/* </View> */}
+      {/* <View style={{ height: 300, backgroundColor: "rgba(0,0,0,0)" }}> */}
+      {/* </View> */}
       <ScrollView style={styles.container}>
-        <View>
-          <AdjustSoundSlider value={soundValue} setValue={setSoundValue} />
-        </View>
         <View style={styles.btnContainer}>
           {btnList.map((button, index) => (
             // <Button

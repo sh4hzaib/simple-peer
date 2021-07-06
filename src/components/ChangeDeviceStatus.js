@@ -11,7 +11,7 @@ const ChangeDeviceStatus = ({ device, status, IP }) => {
   const dispatch = useDispatch();
   const changeStatus = useCallback(() => {
     const indexOfDevice = deviceList.findIndex((dev) => dev.deviceIP === IP);
-    console.log(indexOfDevice);
+    // console.log(indexOfDevice);
     dispatch(changeDeviceStatusR(indexOfDevice));
   });
 
@@ -20,6 +20,7 @@ const ChangeDeviceStatus = ({ device, status, IP }) => {
       style={{
         margin: 10,
         padding: 5,
+        marginHorizontal: 20,
         borderBottomWidth: 1,
         borderBottomColor: colors.primary,
         justifyContent: "space-between",
