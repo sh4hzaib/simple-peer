@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Alert, SafeAreaView, StyleSheet, View } from "react-native";
 import { Button } from "react-native-paper";
-// import AllDevices from "../components/AllDevices";
 import InputField from "../components/InputField";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -13,12 +12,10 @@ import DeviceListItem from "../components/DeviceListItem";
 
 const DeviceScreen = () => {
   const deviceList = useSelector((state) => state.device);
-  //   console.log(deviceList);
   const dispatch = useDispatch();
 
   const [deviceName, setDeviceName] = useState("");
   const [deviceIP, setDeviceIP] = useState("");
-  //   const [cmd, setCmd] = useState("");
 
   const addDeviceHandler = useCallback(() => {
     const device = {
@@ -37,7 +34,6 @@ const DeviceScreen = () => {
         (dev) => dev.deviceIP === device.deviceIP
       );
       const validateIP = IpPattern.test(device.deviceIP);
-      // console.log(notUniqueIP, validateIP, alreadyExists);
       if (alreadyExists < 0 && notUniqueIP < 0 && validateIP) {
         dispatch(addDeviceR(device));
         Alert.alert("Device has been added");
@@ -51,17 +47,16 @@ const DeviceScreen = () => {
     const indexOfDevice = deviceList.findIndex(
       (dev) => dev.deviceName === device
     );
-    // console.log("INDEX:" + indexOfDevice);
-    // console.log("DEVICE:" + device);
     dispatch(removeDeviceR(indexOfDevice));
   });
 
-  const renderItem = useCallback(({ item }) => {
+  const renderItem = useCallback(({ item, index }) => {
     return (
       <DeviceListItem
         name={item.deviceName}
         IP={item.deviceIP}
-        onBtnClick={() => {
+        index={index}
+        onRmvBtnClick={() => {
           removeDeviceHandler(item.deviceName);
         }}
       />
@@ -70,7 +65,6 @@ const DeviceScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <AllDevices /> */}
       <View>
         <View>
           <FlatList
@@ -94,7 +88,6 @@ const DeviceScreen = () => {
                   mode="contained"
                   onPress={() => {
                     addDeviceHandler();
-                    // console.log("Button at DeviceSCreen");
                   }}
                 >
                   Add Device
@@ -110,7 +103,6 @@ const DeviceScreen = () => {
           />
         </View>
       </View>
-      {/*  */}
     </SafeAreaView>
   );
 };

@@ -4,7 +4,6 @@ import { TextInput } from "react-native-paper";
 const InputField = (props) => {
   const { value, placeholder, setValue, max, type, onBlur } = props;
 
-  //   const [text, setText] = useState("");
   return (
     <TextInput
       label={placeholder}
@@ -19,14 +18,6 @@ const InputField = (props) => {
   );
 };
 const styles = StyleSheet.create({
-  // container: {
-  //   backgroundColor: colors.bgColor,
-  //   height: "100%",
-  // },
-  // btnContainer: {
-  //   padding: 20,
-  //   paddingTop: 50,
-  // },
   input: {
     marginBottom: 10,
     //   padding: 10,

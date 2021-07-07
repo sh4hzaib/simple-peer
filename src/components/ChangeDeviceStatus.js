@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useCallback } from "react";
+import { Text, View } from "react-native";
 import { Switch } from "react-native-paper";
 import { colors } from "../constants/theme";
 import { changeDeviceStatusR } from "../redux/deviceSlice";
@@ -11,7 +11,6 @@ const ChangeDeviceStatus = ({ device, status, IP }) => {
   const dispatch = useDispatch();
   const changeStatus = useCallback(() => {
     const indexOfDevice = deviceList.findIndex((dev) => dev.deviceIP === IP);
-    // console.log(indexOfDevice);
     dispatch(changeDeviceStatusR(indexOfDevice));
   });
 

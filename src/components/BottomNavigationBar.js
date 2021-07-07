@@ -2,7 +2,6 @@ import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import ScreenRoomScreen from "../screens/ScreenRoomScreen";
-import SettingsScreen from "../screens/SettingsScreen";
 import BedRoomScreen from "../screens/BedRoomScreen";
 import SoundScreen from "../screens/SoundScreen";
 import { colors } from "../constants/theme";
@@ -11,7 +10,7 @@ import WebViewScreen from "../screens/WebViewScreen";
 const Tab = createMaterialBottomTabNavigator();
 
 export default function BottomNavigationBar() {
-  const { primary, headerColor } = colors;
+  const { headerColor } = colors;
   return (
     <Tab.Navigator
       initialRouteName="ScreenRoomScreen"
@@ -58,16 +57,6 @@ export default function BottomNavigationBar() {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="SettingsScreen"
-        component={SettingsScreen}
-        options={{
-          tabBarLabel: "Settings",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="cog" color={color} size={26} />
-          ),
-        }}
-      /> */}
     </Tab.Navigator>
   );
 }

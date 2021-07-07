@@ -1,14 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useCallback, useEffect } from "react";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  FlatList,
-} from "react-native";
-import { Button } from "react-native-paper";
+import React, { useEffect } from "react";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import AppHeader from "../components/AppHeader";
 import ButtonComponent from "../components/ButtonComponent";
@@ -24,14 +16,12 @@ const ScreenRoomScreen = () => {
   const deviceList = useSelector((state) => state.device);
   const settings = useSelector((state) => state.settings);
   const enabledDevices = deviceList.filter((device) => device.status);
-  // console.log(enabledDevices);
   const dispatch = useDispatch();
   let btnList = [];
   for (let index = 0; index < enabledDevices.length; index++) {
     btnList.push(...enabledDevices[index].buttons);
   }
   for (let index = 0; index < btnList.length; index++) {
-    // if(btnList[index].rooms.includes(rooms[0]))
     btnList = btnList.filter((btn) =>
       btn.rooms.find((room) => {
         return room === "Screen";
@@ -80,12 +70,6 @@ const ScreenRoomScreen = () => {
         for (let index = 0; index < temp.length; index++)
           dispatch(addDeviceR(temp[index]));
       } else {
-        // const device = {
-        //   deviceName,
-        //   deviceIP,
-        //   status: false,
-        //   buttons: [],
-        // };
         const jsonValue = JSON.stringify([]);
         await AsyncStorage.setItem("DEVICES", jsonValue);
         console.log("DEvICES Set");
@@ -116,15 +100,6 @@ const ScreenRoomScreen = () => {
       <ScrollView style={styles.container}>
         <View style={styles.btnContainer}>
           {btnList.map((button, index) => (
-            // <Button
-            //   icon=""
-            //   mode="contained"
-            //   key={index + button.buttonName}
-            //   style={styles.btn}
-            //   labelStyle={{ fontSize: 12 }}
-            // >
-            //   {button.buttonName}
-            // </Button>
             <ButtonComponent
               key={index + button.buttonName}
               style={styles.btn}

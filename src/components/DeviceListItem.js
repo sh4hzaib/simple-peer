@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Switch, Button } from "react-native-paper";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../constants/theme";
-const DeviceListItem = ({ name, IP, onBtnClick }) => {
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
+const DeviceListItem = ({ name, IP, onRmvBtnClick, index }) => {
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -17,20 +19,38 @@ const DeviceListItem = ({ name, IP, onBtnClick }) => {
     >
       <Text>{name}</Text>
       <Text>{IP}</Text>
-      {/* <Switch
-        value={status}
-        onValueChange={changeStatus}
-        color={colors.primary}
-      /> */}
-      <Button
-        style={styles.btn}
-        icon=""
-        mode="contained"
-        onPress={onBtnClick}
-        color={colors.delete}
+
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          width: "30%",
+        }}
       >
-        Remove
-      </Button>
+        <TouchableOpacity onPress={onRmvBtnClick}>
+          <MaterialCommunityIcons
+            name="delete"
+            color={colors.delete}
+            size={26}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            const device = {
+              name,
+              IP,
+              index,
+            };
+            navigation.navigate("DeviceEditScreen", device);
+          }}
+        >
+          <MaterialCommunityIcons
+            name="pencil"
+            color={colors.buttonPrimary}
+            size={26}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

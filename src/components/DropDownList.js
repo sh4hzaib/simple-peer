@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import { View } from "react-native";
 
 const DropDownList = ({ listItems, value, setValue }) => {
-  //   const defVal = listItems[0].deviceName;
-  //   console.log(defVal);
   const [selectedVal, setSelectedVal] = useState("");
   return (
     <View style={{ borderWidth: 1, borderColor: "#808080", borderRadius: 4 }}>
@@ -15,8 +13,6 @@ const DropDownList = ({ listItems, value, setValue }) => {
           setValue(itemValue);
         }}
       >
-        {/* <Picker.Item label="Dev" value="DEv" />
-        <Picker.Item label="ABC" value="js" /> */}
         {listItems.map((item, index) => (
           <Picker.Item
             label={item.deviceName}

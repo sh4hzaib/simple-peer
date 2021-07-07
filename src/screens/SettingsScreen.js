@@ -17,8 +17,6 @@ import axios from "axios";
 import { FlatList } from "react-native";
 import ChangeDeviceStatus from "../components/ChangeDeviceStatus";
 
-// import settingsData from "../constants/settings.json";
-
 const SettingsScreen = ({ navigation }) => {
   // console.log(settingsData);
   useEffect(() => {
@@ -54,9 +52,6 @@ const SettingsScreen = ({ navigation }) => {
         device={item.deviceName}
         IP={item.deviceIP}
         status={item.status}
-        // changeStatus={() => {
-        //   // changeStatus(item);
-        // }}
       />
     );
   });
@@ -92,8 +87,6 @@ const SettingsScreen = ({ navigation }) => {
             <>
               <AppHeader title="Settings" />
 
-              {/* <ScrollView style={styles.container}> */}
-              {/* <Text>In Living Room</Text> */}
               <View style={styles.btnContainer}>
                 <View
                   style={{

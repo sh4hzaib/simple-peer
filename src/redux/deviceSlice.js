@@ -1,15 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createSlice } from "@reduxjs/toolkit";
-// import DEVICES from "../constants/devices";
 const DEVICES = [];
 
 const storeData = async (value) => {
   try {
-    // const getDevices = await AsyncStorage.getItem("DEVICES")
-    // const parsedDevices = JSON.parsed("DEVICES");
     const stringifyDevices = JSON.stringify(value);
     await AsyncStorage.setItem("DEVICES", stringifyDevices);
-    // console.log("object");
   } catch (e) {
     console.log(e.message);
   }
@@ -27,8 +23,18 @@ export const deviceSlice = createSlice({
       state.splice(action.payload, 1);
       storeData(state);
     },
+    editDeviceR: (state, action) => {
+      console.log(action.payload);
+      const btns = state[action.payload.index].buttons;
+      for (let i = 0; i < btns.length; i++) {
+        btns[i].deviceName = action.payload.device.deviceName;
+      }
+      state[action.payload.index] = action.payload.device;
+      state[action.payload.index].buttons = btns;
+      console.log(state[action.payload.index]);
+      storeData(state);
+    },
     changeDeviceStatusR: (state, action) => {
-      // console.log(action.payload);
       state[action.payload].status = !state[action.payload].status;
       storeData(state);
     },
@@ -53,6 +59,7 @@ export const {
   changeDeviceStatusR,
   addButtonToDeviceR,
   removeButtonFromDeviceR,
+  editDeviceR,
 } = deviceSlice.actions;
 
 export default deviceSlice.reducer;

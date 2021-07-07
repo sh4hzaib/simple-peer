@@ -51,14 +51,9 @@ const ButtonSceen = () => {
       const deviceDoesExist = deviceList.findIndex(
         (dev) => dev.deviceName === button.deviceName
       );
-      // console.log(deviceDoesExist);
       if (alreadyExists < 0 && deviceDoesExist >= 0) {
         dispatch(addButtonToDeviceR({ deviceIndex: deviceDoesExist, button }));
         Alert.alert("Button has been Added");
-        //   buttonName: btnName,
-        // buttonCommand: protocol + "://" + cmd,
-        // deviceName: deviceName,
-        // rooms: room,
         setBtnName("");
         setCmd("");
       } else if (alreadyExists >= 0) {
@@ -72,23 +67,18 @@ const ButtonSceen = () => {
   });
 
   const removeButtonHandler = useCallback((button) => {
-    // const tempList = [...buttonList];
     const indexOfBtn = btnList.findIndex(
       (btn) => btn.buttonName === button.buttonName
     );
     const indexOfDevice = deviceList.findIndex(
       (dev) => dev.deviceName === button.deviceName
     );
-    // console.log(indexOfBtn, indexOfDevice);
     dispatch(
       removeButtonFromDeviceR({
         deviceIndex: indexOfDevice,
         buttonIndex: indexOfBtn,
       })
     );
-    // console.log("INDEX:" + indexOfBtn);
-    // console.log("BTN:" + button);
-    // tempList.splice(indexOfBtn, 1);
   });
 
   const renderItem = useCallback(({ item }) => {
@@ -106,7 +96,6 @@ const ButtonSceen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <AllBtn /> */}
       <View>
         <View>
           <FlatList
@@ -118,12 +107,7 @@ const ButtonSceen = () => {
                   placeholder="Button Name"
                   setValue={setBtnName}
                 />
-                {/* <InputField
-        value={deviceName}
-        placeholder="Device Name"
-        setValue={setDeviceName}
-      /> */}
-                {/* asdadadsadsadasdasd */}
+
                 <DropDownList
                   listItems={deviceList}
                   value={deviceName}
@@ -147,8 +131,6 @@ const ButtonSceen = () => {
                       <Checkbox
                         status={room.includes(r) ? "checked" : "unchecked"}
                         onPress={() => {
-                          // console.log("ROOM:", r);
-                          // setRoom([...room, r]);
                           const tempRooms = [...room];
                           if (!tempRooms.includes(r)) tempRooms.push(r);
                           else {
@@ -156,8 +138,6 @@ const ButtonSceen = () => {
                             tempRooms.splice(roomIndex, 1);
                           }
                           setRoom([...tempRooms]);
-                          // console.log("ROOMS:", room);
-                          // console.log("TEMP_ROOMS:", tempRooms);
                         }}
                       />
                       <Text>{r}</Text>
@@ -165,37 +145,13 @@ const ButtonSceen = () => {
                   ))}
                 </View>
 
-                {/* <RadioButtons
-        title="Choose a Room"
-        listItems={rooms}
-        value={room}
-        setValue={setRoom}
-      /> */}
                 <RadioButtons
                   title="Choose Mode"
                   listItems={protocols}
                   value={protocol}
                   setValue={setProtocol}
                 />
-                {/* <View style={{ flexDirection: "row" }}>
-        <Text style={{ fontSize: 18, textAlignVertical: "center" }}>
-        Choose Mode (https & ws)
-        </Text>
-        <Slider
-          style={{ width: 100, height: 40 }}
-          minimumValue={0}
-          maximumTrackTintColor="#000000"
-          maximumValue={1}
-          // value={protocol}
-          onValueChange={(value) => {
-            const absoluteValue = Math.round(value);
-            // console.log(absoluteValue);
-            setProtocol(protocols[absoluteValue]);
-          }}
-          minimumTrackTintColor="#FFFFFF"
-          maximumTrackTintColor="#000000"
-          />
-        </View> */}
+
                 <View style={{ flexDirection: "row" }}>
                   <Text
                     style={{
@@ -221,7 +177,6 @@ const ButtonSceen = () => {
                   mode="contained"
                   onPress={() => {
                     addBtnHandler();
-                    // console.log("Button3 at BedRoomScreen");
                   }}
                 >
                   Add Button

@@ -1,11 +1,10 @@
 import React from "react";
 import { Button } from "react-native-paper";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { useSelector } from "react-redux";
 import { colors } from "../constants/theme";
 const ButtonComponent = ({ style, button }) => {
   const deviceList = useSelector((state) => state.device);
-  const { buttonPrimary, primary } = colors;
+  const { buttonPrimary } = colors;
 
   function runMacro(ip, port, macro) {
     console.log(ip, port, macro);
@@ -23,7 +22,7 @@ const ButtonComponent = ({ style, button }) => {
     <Button
       icon=""
       mode="contained"
-      color= {buttonPrimary}
+      color={buttonPrimary}
       onPress={() => {
         console.log(
           `Button:${button.buttonName} ${button.buttonCommand} ${button.deviceName}`

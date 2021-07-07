@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Switch, Button } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { colors } from "../constants/theme";
 const ButtonListItem = ({ name, device, onBtnClick }) => {
   return (
@@ -17,11 +17,7 @@ const ButtonListItem = ({ name, device, onBtnClick }) => {
     >
       <Text>{name}</Text>
       <Text>{device}</Text>
-      {/* <Switch
-        value={status}
-        onValueChange={changeStatus}
-        color={colors.primary}
-      /> */}
+
       <Button
         style={styles.btn}
         icon=""

@@ -22,7 +22,6 @@ const RadioButtons = ({ title, listItems, value, setValue }) => {
           style={{
             flexDirection: "row",
             alignSelf: "flex-end",
-            // width: "50%",
             flexWrap: "wrap",
             justifyContent: "space-between",
           }}

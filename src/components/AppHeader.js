@@ -12,12 +12,9 @@ const AppHeader = (props) => {
     <Appbar.Header
       style={{
         height: 60,
-        // width: "100%",
         backgroundColor: headerColor,
-        // paddingTop: 20,
       }}
     >
-      {/* <SettingsButton /> */}
       <Appbar.Content
         title={title}
         style={{ alignSelf: "center" }}
