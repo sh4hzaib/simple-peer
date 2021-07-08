@@ -32,9 +32,9 @@ function Comm() {
     this.auth = 0;
 
     // get current URI for the connection
-    this.wsUri = "ws://" + "192.168.68.102";
+    this.wsUri = "ws://" + "81.167.56.241";
     if (window.location.protocol == "https:")
-        this.wsUri = "wss://" + "192.168.68.102";
+        this.wsUri = "wss://" + "81.167.56.241";
 
     this.connect = function() {
         // TRUE once we are open and receiving Monitor packets
