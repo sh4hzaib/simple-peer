@@ -2,6 +2,9 @@ import React from "react";
 import { Button } from "react-native-paper";
 import { useSelector } from "react-redux";
 import { colors } from "../constants/theme";
+import Comm from "../../wsdemo/comm"
+import W3CWebSocket from "websocket"
+
 const ButtonComponent = ({ style, button }) => {
   const deviceList = useSelector((state) => state.device);
   const { buttonPrimary } = colors;
@@ -18,6 +21,50 @@ const ButtonComponent = ({ style, button }) => {
     httpRequest.send();
   }
 
+  function ws(ip) {
+    var W3CWebSocket = require('websocket').w3cwebsocket;
+
+    var client = new W3CWebSocket('ws:/' + ip + '/', 'echo-protocol');
+    console.log('Inserted IP to WS was: ' + ip);
+    
+    client.onerror = function() {
+        console.log('Connection Error');
+    };
+
+    client.onopen = function() {
+        console.log('WebSocket Client Connected');
+        var registryWriteJson = {
+          "Message":"Control",
+          "Command":"Toggle",
+          "Channel":5
+      };
+
+        function sendNumber() {
+            if (client.readyState === client.OPEN) {
+
+                client.send(JSON.stringify(registryWriteJson));
+                console.log(registryWriteJson);
+                // setTimeout(sendNumber, 5000);
+                
+            }
+        }
+        sendNumber();
+        client.close();
+    };
+
+    client.onclose = function() {
+        console.log('echo-protocol Client Closed');
+    };
+
+    client.onmessage = function(e) {
+        if (typeof e.data === 'string') {
+            // console.log("Received: '" + e.data + "'");
+        }
+    };
+  }
+
+  
+
   return (
     <Button
       icon=""
@@ -28,7 +75,11 @@ const ButtonComponent = ({ style, button }) => {
         const device = deviceList.find(
           (dev) => dev.deviceName === button.deviceName
         );
-        runMacro(device.deviceIP, 5500, button.buttonCommand.Command);
+        if (button.buttonProtocol === 'ws') {
+          ws(device.deviceIP);
+        } else {
+          runMacro(device.deviceIP, 5500, button.buttonCommand.Command);
+        }
       }}
       style={style}
       labelStyle={{ fontSize: 12 }}
