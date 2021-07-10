@@ -37,10 +37,10 @@ const ButtonComponent = ({ style, button }) => {
     client.onopen = function() {
         console.log('WebSocket Client Connected');
         var registryWriteJson = {
-          "Message":message,
-          "Command":"Toggle",
+          "Message":'Control',
+          "Command":message,
           "Channel":channel,
-          "Duration": duration
+          "Duration":duration
       };
 
         function sendNumber() {

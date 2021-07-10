@@ -192,7 +192,7 @@ const ButtonSceen = () => {
                   {protocol == "http" ? (
                     <InputField
                       value={cmd}
-                      placeholder="Command"
+                      placeholder="Command / CinemaApp Macro"
                       setValue={setCmd}
                     />
                     ) : null}
@@ -224,7 +224,7 @@ const ButtonSceen = () => {
                 <Button
                   style={styles.btn}
                   icon=""
-                  disabled={!btnName || !cmd || !deviceName}
+                  disabled={!btnName || !deviceName}
                   mode="contained"
                   onPress={() => {
                     addBtnHandler();
