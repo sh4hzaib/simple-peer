@@ -33,15 +33,32 @@ const ButtonSceen = () => {
   const [cmd, setCmd] = useState("");
   const [room, setRoom] = useState([]);
   const [protocol, setProtocol] = useState(protocols[0]);
+  const [message, setMessage] = useState("");
+  const [channel, setChannel] = useState("");
+  const [duration, setDuration] = useState("");
 
   const addBtnHandler = useCallback(() => {
     const button = {
       buttonName: btnName,
-      buttonCommand: protocol + "://" + cmd,
+      buttonProtocol: protocol,
+
+      // buttonCommand: protocol + "://" + cmd,
+
+      buttonCommand:
+        protocol == "ws"
+          ? {
+              Message: message,
+              Command: cmd,
+              Channel: parseInt(channel),
+              Duration: parseInt(duration),
+            }
+          : {
+              Command: cmd,
+            },
       deviceName: deviceName,
       rooms: room,
     };
-    // console.log(button);
+    console.log(button);
     try {
       const alreadyExists = btnList.findIndex(
         (btn) =>
@@ -52,10 +69,19 @@ const ButtonSceen = () => {
         (dev) => dev.deviceName === button.deviceName
       );
       if (alreadyExists < 0 && deviceDoesExist >= 0) {
-        dispatch(addButtonToDeviceR({ deviceIndex: deviceDoesExist, button }));
-        Alert.alert("Button has been Added");
-        setBtnName("");
-        setCmd("");
+        if (protocol == "ws" && (!message || !channel || !duration))
+          throw new Error("Please fill all Input Fields");
+        else {
+          dispatch(
+            addButtonToDeviceR({ deviceIndex: deviceDoesExist, button })
+          );
+          Alert.alert("Button has been Added");
+          setBtnName("");
+          setCmd("");
+          setChannel("");
+          setMessage("");
+          setDuration("");
+        }
       } else if (alreadyExists >= 0) {
         throw new Error("Button with this Name and Device already exists");
       } else {
@@ -153,7 +179,7 @@ const ButtonSceen = () => {
                 />
 
                 <View style={{ flexDirection: "row" }}>
-                  <Text
+                  {/* <Text
                     style={{
                       width: "20%",
                       fontSize: 18,
@@ -161,13 +187,36 @@ const ButtonSceen = () => {
                     }}
                   >
                     {protocol}://
-                  </Text>
-                  <View style={{ width: "80%" }}>
+                  </Text> */}
+                  <View style={{ width: "100%" }}>
                     <InputField
                       value={cmd}
                       placeholder="Command"
                       setValue={setCmd}
                     />
+                    {protocol == "ws" ? (
+                      <InputField
+                        value={message}
+                        placeholder="Set Message"
+                        setValue={setMessage}
+                      />
+                    ) : null}
+                    {protocol == "ws" ? (
+                      <InputField
+                        value={channel}
+                        placeholder="Set Channel"
+                        type={"numeric"}
+                        setValue={setChannel}
+                      />
+                    ) : null}
+                    {protocol == "ws" ? (
+                      <InputField
+                        value={duration}
+                        type={"numeric"}
+                        placeholder="Set Duration"
+                        setValue={setDuration}
+                      />
+                    ) : null}
                   </View>
                 </View>
                 <Button

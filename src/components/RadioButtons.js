@@ -6,7 +6,10 @@ import { RadioButton, Text } from "react-native-paper";
 const RadioButtons = ({ title, listItems, value, setValue }) => {
   return (
     <RadioButton.Group
-      onValueChange={(newValue) => setValue(newValue)}
+      onValueChange={(newValue) => {
+        console.log(newValue);
+        setValue(newValue);
+      }}
       value={value}
     >
       <View

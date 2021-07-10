@@ -72,11 +72,10 @@ const SettingsScreen = ({ navigation }) => {
         }
       })
       .catch((error) => {
-        
         if (error.response.status === 401) {
           console.log("success");
           setServerStatus("Online");
-         } else {
+        } else {
           setServerStatus("Offline");
           console.log("in Error");
           console.log("network error: " + error);

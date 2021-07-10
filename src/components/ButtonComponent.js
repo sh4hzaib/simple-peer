@@ -14,7 +14,7 @@ const ButtonComponent = ({ style, button }) => {
     const ma = macro; // STRING BASED ON DATA FROM BUTTON CONTAINGING COMMAND
     const url = `http://${ad}:${pn}/macro?name=${ma}`; // STRING BASED ON DATA FROM DEVICE + BUTTON
     httpRequest.open("GET", url);
-    console.log(httpRequest);
+    // console.log(httpRequest);
     httpRequest.send();
   }
 
@@ -24,13 +24,11 @@ const ButtonComponent = ({ style, button }) => {
       mode="contained"
       color={buttonPrimary}
       onPress={() => {
-        console.log(
-          `Button:${button.buttonName} ${button.buttonCommand} ${button.deviceName}`
-        );
+        console.log(button);
         const device = deviceList.find(
           (dev) => dev.deviceName === button.deviceName
         );
-        runMacro(device.deviceIP, 5500, button.buttonCommand);
+        runMacro(device.deviceIP, 5500, button.buttonCommand.Command);
       }}
       style={style}
       labelStyle={{ fontSize: 12 }}
