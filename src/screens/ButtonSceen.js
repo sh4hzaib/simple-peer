@@ -189,22 +189,24 @@ const ButtonSceen = () => {
                     {protocol}://
                   </Text> */}
                   <View style={{ width: "100%" }}>
+                  {protocol == "http" ? (
                     <InputField
                       value={cmd}
                       placeholder="Command"
                       setValue={setCmd}
                     />
+                    ) : null}
                     {protocol == "ws" ? (
                       <InputField
                         value={message}
-                        placeholder="Set Message"
+                        placeholder="Set Message: Toggle, Open, Close"
                         setValue={setMessage}
                       />
                     ) : null}
                     {protocol == "ws" ? (
                       <InputField
                         value={channel}
-                        placeholder="Set Channel"
+                        placeholder="Set Channel: 1 - 12"
                         type={"numeric"}
                         setValue={setChannel}
                       />
@@ -213,7 +215,7 @@ const ButtonSceen = () => {
                       <InputField
                         value={duration}
                         type={"numeric"}
-                        placeholder="Set Duration"
+                        placeholder="Set Duration: 1000 for 1sec 0 for null."
                         setValue={setDuration}
                       />
                     ) : null}

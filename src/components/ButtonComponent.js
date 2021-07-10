@@ -21,12 +21,15 @@ const ButtonComponent = ({ style, button }) => {
     httpRequest.send();
   }
 
-  function ws(ip) {
+  function ws(ip, channel, message, duration) {
     var W3CWebSocket = require('websocket').w3cwebsocket;
 
     var client = new W3CWebSocket('ws:/' + ip + '/', 'echo-protocol');
     console.log('Inserted IP to WS was: ' + ip);
-    
+    console.log('Inserted Message to WS was: ' + message);
+    console.log('Inserted Chanel to WS was: ' + channel);
+    console.log('Inserted Duration to WS was: ' + duration);
+
     client.onerror = function() {
         console.log('Connection Error');
     };
@@ -34,9 +37,10 @@ const ButtonComponent = ({ style, button }) => {
     client.onopen = function() {
         console.log('WebSocket Client Connected');
         var registryWriteJson = {
-          "Message":"Control",
+          "Message":message,
           "Command":"Toggle",
-          "Channel":5
+          "Channel":channel,
+          "Duration": duration
       };
 
         function sendNumber() {
@@ -76,7 +80,7 @@ const ButtonComponent = ({ style, button }) => {
           (dev) => dev.deviceName === button.deviceName
         );
         if (button.buttonProtocol === 'ws') {
-          ws(device.deviceIP);
+          ws(device.deviceIP, button.buttonCommand.Channel, button.buttonCommand.Message, button.buttonCommand.Duration);
         } else {
           runMacro(device.deviceIP, 5500, button.buttonCommand.Command);
         }
