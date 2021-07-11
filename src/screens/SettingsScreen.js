@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import {Restart} from 'fiction-expo-restart';
 import { View, Text, SafeAreaView, StyleSheet, Alert } from "react-native";
 import { Button, Title } from "react-native-paper";
 import AppHeader from "../components/AppHeader";
@@ -15,7 +16,10 @@ import { IpPattern, UrlPattern } from "../constants/RegEx";
 import soundModes from "../constants/soundModes";
 import axios from "axios";
 import { FlatList } from "react-native";
+import rebootJniorWs from "../components/RebootAutomation";
 import ChangeDeviceStatus from "../components/ChangeDeviceStatus";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+import { ScrollView } from "react-native-gesture-handler";
 
 const SettingsScreen = ({ navigation }) => {
   // console.log(settingsData);
@@ -72,6 +76,7 @@ const SettingsScreen = ({ navigation }) => {
         }
       })
       .catch((error) => {
+        console.log("network error: " + error);
         if (error.response.status === 401) {
           console.log("success");
           setServerStatus("Online");
@@ -83,7 +88,7 @@ const SettingsScreen = ({ navigation }) => {
       });
   };
 
-  return (
+  return (   
     <SafeAreaView>
       <View>
         <FlatList
@@ -167,6 +172,7 @@ const SettingsScreen = ({ navigation }) => {
                   >
                     Edit Devices
                   </Button>
+                  
                 </View>
                 <Button
                   style={[styles.btn, { width: "100%" }]}
@@ -177,7 +183,67 @@ const SettingsScreen = ({ navigation }) => {
                 >
                   Save Settings
                 </Button>
+                
               </View>
+              <View style={styles.btnContainerDangerZone}>
+              <Text style={styles.titleDanger}>Danger Zone:</Text>
+              <View 
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}>
+                    
+                <Button
+                    style={styles.btnDanger}
+                    icon="power"
+                    mode="contained"
+                    color="#bd0023"
+                    onPress={() => {
+                      Alert.alert(
+                        "Restart Application",
+                        `This will restart the Application running on this screen.\n\nThis may take 1 minute`,
+                        [
+                          {
+                            text: "Cancel",
+                            onPress: () => console.log("Cancel Pressed"),
+                            style: "cancel"
+                          },
+                          { text: "OK", onPress: () => Restart() }
+                        ],
+                        { cancelable: false }
+                      );
+                      console.log("Rebooting App");
+                    }}
+                  >
+                    Restart App
+                  </Button>
+                  <Button
+                    style={styles.btn}
+                    icon="power"
+                    mode="contained"
+                    color="#bd0023"
+                    onPress={() => {
+                      console.log("Rebooting Server");
+                      Alert.alert(
+                        "Rebooting Server",
+                        `A message will been sent to the Automation at: ${IpAdress} for Reboot.\n\nThis may take up to 3 minutes.`,
+                        [
+                          {
+                            text: "Cancel",
+                            onPress: () => console.log("Cancel Pressed"),
+                            style: "cancel"
+                          },
+                          { text: "OK", onPress: () => rebootJniorWs(IpAdress) }
+                        ],
+                        { cancelable: false }
+                      );                      
+                    }}
+                  >
+                    Restart Server
+                  </Button>
+                  </View>
+                </View>
               <Text style={styles.title}>Devices:</Text>
             </>
           }
@@ -189,6 +255,7 @@ const SettingsScreen = ({ navigation }) => {
         />
       </View>
     </SafeAreaView>
+    
   );
 };
 
@@ -201,18 +268,37 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 50,
   },
+  btnContainerDangerZone: {
+    padding: 20,
+    paddingTop: 10,
+  },
   title: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: "bold",
     color: colors.primary,
     marginTop: 10,
     paddingHorizontal: 20,
+  },
+  titleDanger: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: colors.primary,
+    marginTop: 10,
+    marginBottom: 10,
+    alignContent: "flex-start"
   },
   btn: {
     marginBottom: 10,
     padding: 10,
     width: "48%",
     color: colors.buttonPrimary,
+    // height: 60,
+  },
+  btnDanger: {
+    marginBottom: 10,
+    padding: 10,
+    width: "48%",
+    color: colors.buttonDanger,
     // height: 60,
   },
 });

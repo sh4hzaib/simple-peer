@@ -8,4 +8,5 @@ export const colors = {
   delete: "#b8352c",
   buttonMute: "#bd0023",
   buttonUnmute: "#098f45",
+  buttonDanger: "#bd0023",
 };
