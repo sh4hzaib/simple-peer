@@ -37,6 +37,8 @@
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.0.0",
     "react-native-svg": "^12.1.1",
+    "react-native-tcp-socket": "^5.2.1",
+    "react-native-tcp-socket-mroads": "^1.0.14",
     "react-native-unimodules": "~0.13.3",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",

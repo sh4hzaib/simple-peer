@@ -21,6 +21,12 @@ import ChangeDeviceStatus from "../components/ChangeDeviceStatus";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { ScrollView } from "react-native-gesture-handler";
 
+///////////////////////////////////
+
+
+
+///////////////////////////////////
+
 const SettingsScreen = ({ navigation }) => {
   // console.log(settingsData);
   useEffect(() => {
@@ -59,6 +65,7 @@ const SettingsScreen = ({ navigation }) => {
       />
     );
   });
+
 
   const isServerOnline = () => {
     console.log("Sending Request to ip " + IpAdress);
@@ -243,6 +250,12 @@ const SettingsScreen = ({ navigation }) => {
                     Restart Server
                   </Button>
                   </View>
+                  <Button 
+                    style={styles.button}
+                    onPress={() => {}}
+                    >
+                      TCP
+                  </Button>
                 </View>
               <Text style={styles.title}>Devices:</Text>
             </>

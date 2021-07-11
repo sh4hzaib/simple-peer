@@ -14,6 +14,7 @@ import AdjustSoundSlider from "../components/AdjustSoundSlider";
 import ButtonComponent from "../components/ButtonComponent";
 import { colors } from "../constants/theme";
 
+
 const LivingRoomScreen = () => {
   const [soundValue, setSoundValue] = useState(0);
 
