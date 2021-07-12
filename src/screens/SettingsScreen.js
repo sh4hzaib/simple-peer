@@ -22,9 +22,10 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 import { ScrollView } from "react-native-gesture-handler";
 
 ///////////////////////////////////
-
-
-
+//
+//
+//
+//
 ///////////////////////////////////
 
 const SettingsScreen = ({ navigation }) => {

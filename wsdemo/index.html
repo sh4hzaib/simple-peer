@@ -1,7 +1,7 @@
 <html lang="en">
 
 <head>
-    <title>WebSocket Demo</title>
+    <title>WebSocket Testing</title>
 
     <script type="text/javascript" src="base64.js"></script>
     <script type="text/javascript" src="md5.js"></script>
@@ -78,16 +78,28 @@
             // registryWriteJson.Keys["IO/Inputs/din" + channelNumber + "/Inversion"] = checkbox.checked.toString();
             _comm.sendJson(registryWriteJson);
         }
+
+        function outputTasker(checkbox, channelNumber) {
+            var registryWriteJson = {
+                    "Message":"Post Message",
+                    "Number":2010,
+                    "Content":"{\"Message\":\"task.execute\",\"TaskName\":\"Lamp_on\"}"
+                };
+
+            // registryWriteJson.Keys["IO/Inputs/din" + channelNumber + "/Inversion"] = checkbox.checked.toString();
+            _comm.sendJson(registryWriteJson);
+        }
     </script>
     
 </head>
 
 <body>
-    <p>Here we will invert input 1 to simulate the input changing. This will demonstrate writing to the registry.</p>
+    <h2>Function testing for Jnior</h2>
+    <p>Try firealarm on input 1 simulate trigger. This will demonstrate writing to the registry.</p>
     <label>
-        <input type="checkbox" onclick="invert(this, 1)" />Invert Input 1
+        <input type="checkbox" onclick="invert(this, 1)" />Firealarm Invert Input 1
     </label>
-    <p>Close / Open R1</p>
+    <p>Close / Open Relays. Test TCP connection to projector using <b>Tasker</b></p>
     <label>
         <input type="checkbox" onclick="output(this, 1)" />Rout 1 toggle
     </label>
@@ -96,6 +108,9 @@
     </label>
     <label>
         <input type="checkbox" onclick="output(this, 3)" />Rout 3 toggle
+    </label>
+    <label>
+        <button type="button"  onclick="outputTasker(this, 3)">Tasker</button>
     </label>
 
     <p id="messages"></p>
