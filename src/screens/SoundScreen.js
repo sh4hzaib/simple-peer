@@ -38,10 +38,11 @@ const LivingRoomScreen = () => {
     <>
       <AppHeader title="Sound" />
       <View style={{ height: 300, backgroundColor: colors.bgColor }}>
-        <Text style={styles.text}>Presets:</Text>
+        
         <AdjustSoundSlider value={soundValue} setValue={setSoundValue} />
       </View>
       <ScrollView style={styles.container}>
+      <Text style={styles.text}>Presets:</Text>
         <View style={styles.btnContainer}>
           {btnList.map((button, index) => (
             <ButtonComponent
@@ -52,6 +53,7 @@ const LivingRoomScreen = () => {
           ))}
         </View>
       </ScrollView>
+      
       <View style={styles.muteContainer}>
         <Button
           style={styles.btnMute}
@@ -126,6 +128,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     backgroundColor: colors.bgColor,
     color: "#fff",
+    padding: 10,
   },
 });
 export default LivingRoomScreen;
