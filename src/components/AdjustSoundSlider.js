@@ -9,6 +9,7 @@ const AdjustSoundSlider = ({ value, setValue }) => {
   const settings = useSelector((state) => state.settings);
 
   const SoundMode = settings.soundMode;
+  const serverIp = settings.ipAdress;
 
   const calculateSoundValue = (value) => {
     let tempValue;
@@ -74,7 +75,7 @@ const AdjustSoundSlider = ({ value, setValue }) => {
 
   const emptyFunction = (value) => {
     console.log("EMPTY:" + value);
-    wsSound("192.168.68.102", value)
+    wsSound(serverIp, value)
   };
 
   return (
