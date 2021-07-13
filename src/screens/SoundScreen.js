@@ -13,10 +13,16 @@ import AppHeader from "../components/AppHeader";
 import AdjustSoundSlider from "../components/AdjustSoundSlider";
 import ButtonComponent from "../components/ButtonComponent";
 import { colors } from "../constants/theme";
+import wsMute from "../components/CpMute";
 
 
 const LivingRoomScreen = () => {
   const [soundValue, setSoundValue] = useState(0);
+  const settings = useSelector((state) => state.settings);
+  console.log(settings.ipAdress);
+
+  const serverIp = settings.ipAdress;
+  const SoundMode = settings.soundMode;
 
   const deviceList = useSelector((state) => state.device);
   const enabledDevices = deviceList.filter((device) => device.status);
@@ -39,7 +45,7 @@ const LivingRoomScreen = () => {
       <AppHeader title="Sound" />
       <View style={{ height: 300, backgroundColor: colors.bgColor }}>
         
-        <AdjustSoundSlider value={soundValue} setValue={setSoundValue} />
+        <AdjustSoundSlider value={soundValue} setValue={setSoundValue}/>
       </View>
       <ScrollView style={styles.container}>
       <Text style={styles.text}>Presets:</Text>
@@ -53,15 +59,17 @@ const LivingRoomScreen = () => {
           ))}
         </View>
       </ScrollView>
-      
-      <View style={styles.muteContainer}>
+
+      <ScrollView style={styles.container}>
+        <View style={styles.btnContainer}>
         <Button
           style={styles.btnMute}
           icon=""
           mode="contained"
           color={colors.buttonMute}
           onPress={() => {
-            console.log(`Mute`);
+            // console.log(`Mute`);
+            wsMute(serverIp, SoundMode, 1)
           }}
           labelStyle={{ fontSize: 12 }}
         >
@@ -73,13 +81,15 @@ const LivingRoomScreen = () => {
           mode="contained"
           color={colors.buttonUnmute}
           onPress={() => {
-            console.log(`UnMute`);
+            // console.log(`UnMute`);
+            wsMute(serverIp, SoundMode, 0)
           }}
           labelStyle={{ fontSize: 12 }}
         >
           Unmute
         </Button>
-      </View>
+        </View>
+      </ScrollView>
     </>
   );
 };
@@ -108,6 +118,7 @@ const styles = StyleSheet.create({
     padding: 5,
     // minWidth: 120,
     width: "32%",
+    
     // height: 60,
   },
   btnMute: {

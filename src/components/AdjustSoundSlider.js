@@ -95,19 +95,19 @@ const AdjustSoundSlider = ({ value, setValue }) => {
           emptyFunction(soundValue);
         }}
         contentContainerStyle={styles.contentContainerStyle}
-        strokeWidth={10}
-        buttonBorderColor={colors.buttonPrimary}
-        buttonFillColor={colors.buttonPrimary}
-        buttonStrokeWidth={0}
+        strokeWidth={30}
+        buttonBorderColor={colors.buttonDanger}
+        buttonFillColor={colors.buttonDanger}
+        buttonStrokeWidth={10}
         openingRadian={Math.PI / 4}
-        buttonRadius={15}
+        buttonRadius={20}
         // linearGradient={[{ stop: "100%", color: colors.buttonUnmute }]}
-        linearGradient={[{ stop: '0%', color: '#3FE3EB' }, { stop: '100%', color: '#7E84ED' }]}
+        linearGradient={[{ stop: '0%', color: '#2ca81e' }, { stop: '100%', color: '#a81e1e' }]}
 
       >
         <Text style={styles.value}>{value}</Text>
       </CircularSlider>
-      <Text style={{ color: "white" }}>{settings.soundMode}</Text>
+      <Text style={{ color: "white", paddingTop: 5, fontSize: 15, fontWeight: "bold" }}>{settings.soundMode}</Text>
     </View>
   );
 };

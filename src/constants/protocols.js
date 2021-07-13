@@ -1,1 +1,1 @@
-export default ["http", "ws"];
+export default ["http", "ws", "Tasker"];
