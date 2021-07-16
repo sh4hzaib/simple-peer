@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { colors } from "../constants/theme";
 import Comm from "../../wsdemo/comm"
 import W3CWebSocket from "websocket"
+import wsTasker from "./TaskerCommands";
 
 const ButtonComponent = ({ style, button }) => {
   const deviceList = useSelector((state) => state.device);
@@ -81,7 +82,11 @@ const ButtonComponent = ({ style, button }) => {
         );
         if (button.buttonProtocol === 'ws') {
           ws(device.deviceIP, button.buttonCommand.Channel, button.buttonCommand.Message, button.buttonCommand.Duration);
-        } else {
+        } 
+        else if (button.buttonProtocol === 'tasker') {
+          runTasker(device.deviceIP, 5500, button.buttonCommand.Command);
+        }
+        else {
           runMacro(device.deviceIP, 5500, button.buttonCommand.Command);
         }
       }}

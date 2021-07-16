@@ -218,8 +218,32 @@ const ButtonSceen = () => {
                         placeholder="Set Duration: 1000 for 1sec 0 for null."
                         setValue={setDuration}
                       />
+                      /////////////////////////////////////
+                    ) : null}
+                    {protocol == "tasker" ? (
+                    <InputField
+                      value={cmd}
+                      placeholder="Task Name"
+                      setValue={setCmd}
+                    />
+                    ) : null}
+                    {protocol == "tasker" ? (
+                      <InputField
+                        value={message}
+                        placeholder="VariableName"
+                        setValue={setMessage}
+                      />
+                    ) : null}
+                    {protocol == "tasker" ? (
+                      <InputField
+                        value={channel}
+                        placeholder="Value"
+                        type={"numeric"}
+                        setValue={setChannel}
+                      />
                     ) : null}
                   </View>
+                  
                 </View>
                 <Button
                   style={styles.btn}
