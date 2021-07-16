@@ -75,7 +75,7 @@ const SettingsScreen = ({ navigation }) => {
       .then((response) => {
         console.log("inREsponse");
         console.log(response.status);
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 401) {
           console.log("success");
           setServerStatus("Online");
         } else {
@@ -85,14 +85,10 @@ const SettingsScreen = ({ navigation }) => {
       })
       .catch((error) => {
         console.log("network error: " + error);
-        if (error.response.status === 401) {
-          console.log("success");
-          setServerStatus("Online");
-        } else {
-          setServerStatus("Offline");
-          console.log("in Error");
-          console.log("network error: " + error);
-        }
+
+        setServerStatus("Offline");
+        console.log("in Error");
+        console.log("network error: " + error);
       });
   };
 

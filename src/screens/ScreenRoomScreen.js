@@ -43,7 +43,7 @@ const ScreenRoomScreen = () => {
         dispatch(setSoundModeR(temp.soundMode));
       } else {
         const jsonValue = JSON.stringify({
-          ipAdress: "000.000.000.000",
+          ipAdress: "10.0.0.102",
           newsUrl: "www.google.com",
           soundMode: "Dolby",
           soundValue: 0,
