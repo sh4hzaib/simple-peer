@@ -1,30 +1,25 @@
-function wsTasker(ip, cpType, value) {
+function wsTasker(ip, channel, message, command) {
 
     var W3CWebSocket = require('websocket').w3cwebsocket;
 
     var client = new W3CWebSocket('ws:/' + ip + '/', 'echo-protocol');
     console.log('Inserted IP to WS was: ' + ip);
-    console.log('DeviceType WS was: ' + cpType);
-    console.log('Inserted Value to WS was: ' + value);
+    console.log('Task Name WS was: ' + command);
+    console.log('Inserted VariableName WS was: ' + message);
+    console.log('Inserted Value to WS was: ' + channel);
+    
 
     client.onerror = function() {
         console.log('Connection Error');
     };
-
-    const soundSystem = cpType;
-
+    
     client.onopen = function() {
         var selectedCP = soundSystem;
         console.log('WebSocket Client Connected');
-        if (soundSystem === "Dolby") {
-          selectedCP = "DolbyMute";
-        } else {
-          selectedCP = "DCP300Mute";
-        }
         var registryWriteJson = {
           "Message":"Post Message",
           "Number":2010,
-          "Content":"{\"Message\":\"task.execute\",\"TaskName\":\""+ selectedCP +"\",\"Variables\":{\"mute\":"+ value + "}}"
+          "Content":"{\"Message\":\"task.execute\",\"TaskName\":\""+ command +"\",\"Variables\":{\"" + message + "\":"+ channel + "}}"
       };
 
         function sendNumber() {

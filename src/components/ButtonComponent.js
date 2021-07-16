@@ -84,7 +84,8 @@ const ButtonComponent = ({ style, button }) => {
           ws(device.deviceIP, button.buttonCommand.Channel, button.buttonCommand.Message, button.buttonCommand.Duration);
         } 
         else if (button.buttonProtocol === 'tasker') {
-          runTasker(device.deviceIP, 5500, button.buttonCommand.Command);
+          console.log(button);
+          wsTasker(device.deviceIP);
         }
         else {
           runMacro(device.deviceIP, 5500, button.buttonCommand.Command);
