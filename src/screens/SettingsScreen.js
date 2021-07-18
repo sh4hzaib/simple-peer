@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {Restart} from 'fiction-expo-restart';
+import { Restart } from "fiction-expo-restart";
 import { View, Text, SafeAreaView, StyleSheet, Alert } from "react-native";
 import { Button, Title } from "react-native-paper";
 import AppHeader from "../components/AppHeader";
@@ -67,7 +67,6 @@ const SettingsScreen = ({ navigation }) => {
     );
   });
 
-
   const isServerOnline = () => {
     console.log("Sending Request to ip " + IpAdress);
     axios
@@ -92,7 +91,7 @@ const SettingsScreen = ({ navigation }) => {
       });
   };
 
-  return (   
+  return (
     <SafeAreaView>
       <View>
         <FlatList
@@ -176,7 +175,6 @@ const SettingsScreen = ({ navigation }) => {
                   >
                     Edit Devices
                   </Button>
-                  
                 </View>
                 <Button
                   style={[styles.btn, { width: "100%" }]}
@@ -187,18 +185,17 @@ const SettingsScreen = ({ navigation }) => {
                 >
                   Save Settings
                 </Button>
-                
               </View>
               <View style={styles.btnContainerDangerZone}>
-              <Text style={styles.titleDanger}>Danger Zone:</Text>
-              <View 
+                <Text style={styles.titleDanger}>Danger Zone:</Text>
+                <View
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                  }}>
-                    
-                <Button
+                  }}
+                >
+                  <Button
                     style={styles.btnDanger}
                     icon="power"
                     mode="contained"
@@ -211,9 +208,9 @@ const SettingsScreen = ({ navigation }) => {
                           {
                             text: "Cancel",
                             onPress: () => console.log("Cancel Pressed"),
-                            style: "cancel"
+                            style: "cancel",
                           },
-                          { text: "OK", onPress: () => Restart() }
+                          { text: "OK", onPress: () => Restart() },
                         ],
                         { cancelable: false }
                       );
@@ -236,24 +233,24 @@ const SettingsScreen = ({ navigation }) => {
                           {
                             text: "Cancel",
                             onPress: () => console.log("Cancel Pressed"),
-                            style: "cancel"
+                            style: "cancel",
                           },
-                          { text: "OK", onPress: () => rebootJniorWs(IpAdress) }
+                          {
+                            text: "OK",
+                            onPress: () => rebootJniorWs(IpAdress),
+                          },
                         ],
                         { cancelable: false }
-                      );                      
+                      );
                     }}
                   >
                     Restart Server
                   </Button>
-                  </View>
-                  <Button 
-                    style={styles.button}
-                    onPress={() => {}}
-                    >
-                      TCP
-                  </Button>
                 </View>
+                <Button style={styles.button} onPress={() => {}}>
+                  TCP
+                </Button>
+              </View>
               <Text style={styles.title}>Devices:</Text>
             </>
           }
@@ -265,7 +262,6 @@ const SettingsScreen = ({ navigation }) => {
         />
       </View>
     </SafeAreaView>
-    
   );
 };
 
@@ -295,7 +291,7 @@ const styles = StyleSheet.create({
     color: colors.primary,
     marginTop: 10,
     marginBottom: 10,
-    alignContent: "flex-start"
+    alignContent: "flex-start",
   },
   btn: {
     marginBottom: 10,

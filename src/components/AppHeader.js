@@ -15,6 +15,7 @@ const AppHeader = (props) => {
         backgroundColor: headerColor,
       }}
     >
+      {/* <SettingsButton /> */}
       <Appbar.Content
         title={title}
         style={{ alignSelf: "center" }}

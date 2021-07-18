@@ -58,7 +58,7 @@ const ButtonSceen = () => {
       deviceName: deviceName,
       rooms: room,
     };
-    console.log(button);
+    // console.log(button);
     try {
       const alreadyExists = btnList.findIndex(
         (btn) =>
@@ -179,22 +179,13 @@ const ButtonSceen = () => {
                 />
 
                 <View style={{ flexDirection: "row" }}>
-                  {/* <Text
-                    style={{
-                      width: "20%",
-                      fontSize: 18,
-                      textAlignVertical: "center",
-                    }}
-                  >
-                    {protocol}://
-                  </Text> */}
                   <View style={{ width: "100%" }}>
-                  {protocol == "http" ? (
-                    <InputField
-                      value={cmd}
-                      placeholder="Command / CinemaApp Macro"
-                      setValue={setCmd}
-                    />
+                    {protocol == "http" ? (
+                      <InputField
+                        value={cmd}
+                        placeholder="Command / CinemaApp Macro"
+                        setValue={setCmd}
+                      />
                     ) : null}
                     {protocol == "ws" ? (
                       <InputField
@@ -220,7 +211,6 @@ const ButtonSceen = () => {
                       />
                     ) : null}
                   </View>
-                  
                 </View>
                 <Button
                   style={styles.btn}

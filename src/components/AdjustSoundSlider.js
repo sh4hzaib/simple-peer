@@ -23,59 +23,62 @@ const AdjustSoundSlider = ({ value, setValue }) => {
   };
 
   function wsSound(ip, value) {
-    var W3CWebSocket = require('websocket').w3cwebsocket;
+    var W3CWebSocket = require("websocket").w3cwebsocket;
 
-    var client = new W3CWebSocket('ws:/' + ip + '/', 'echo-protocol');
-    console.log('Inserted IP to WS was: ' + ip);
-    console.log('Inserted Value to WS was: ' + value);
+    var client = new W3CWebSocket("ws:/" + ip + "/", "echo-protocol");
+    console.log("Inserted IP to WS was: " + ip);
+    console.log("Inserted Value to WS was: " + value);
 
-    client.onerror = function() {
-        console.log('Connection Error');
+    client.onerror = function () {
+      console.log("Connection Error");
     };
 
-    const soundSystem = settings.soundMode
+    const soundSystem = settings.soundMode;
 
-    client.onopen = function() {
-        var selectedCP = "";
-        console.log('WebSocket Client Connected');
-        if (soundSystem === "Dolby") {
-          selectedCP = "DolbyVolumeXX";
-        } else {
-          selectedCP = "DCP300VolumeXX";
-        }
-        var registryWriteJson = {
-          "Message":"Post Message",
-          "Number":2010,
-          "Content":"{\"Message\":\"task.execute\",\"TaskName\":\""+ selectedCP +"\",\"Variables\":{\"volume\":"+ value + "}}"
+    client.onopen = function () {
+      var selectedCP = "";
+      console.log("WebSocket Client Connected");
+      if (soundSystem === "Dolby") {
+        selectedCP = "DolbyVolumeXX";
+      } else {
+        selectedCP = "DCP300VolumeXX";
+      }
+      var registryWriteJson = {
+        Message: "Post Message",
+        Number: 2010,
+        Content:
+          '{"Message":"task.execute","TaskName":"' +
+          selectedCP +
+          '","Variables":{"volume":' +
+          value +
+          "}}",
       };
 
-        function sendNumber() {
-            if (client.readyState === client.OPEN) {
-
-                client.send(JSON.stringify(registryWriteJson));
-                console.log(registryWriteJson);
-                // setTimeout(sendNumber, 5000);
-                
-            }
+      function sendNumber() {
+        if (client.readyState === client.OPEN) {
+          client.send(JSON.stringify(registryWriteJson));
+          console.log(registryWriteJson);
+          // setTimeout(sendNumber, 5000);
         }
-        sendNumber();
-        client.close();
+      }
+      sendNumber();
+      client.close();
     };
 
-    client.onclose = function() {
-        console.log('echo-protocol Client Closed');
+    client.onclose = function () {
+      console.log("echo-protocol Client Closed");
     };
 
-    client.onmessage = function(e) {
-        if (typeof e.data === 'string') {
-            // console.log("Received: '" + e.data + "'");
-        }
+    client.onmessage = function (e) {
+      if (typeof e.data === "string") {
+        // console.log("Received: '" + e.data + "'");
+      }
     };
   }
 
   const emptyFunction = (value) => {
     console.log("EMPTY:" + value);
-    wsSound(serverIp, value)
+    wsSound(serverIp, value);
   };
 
   return (
@@ -103,12 +106,23 @@ const AdjustSoundSlider = ({ value, setValue }) => {
         openingRadian={Math.PI / 4}
         buttonRadius={20}
         // linearGradient={[{ stop: "100%", color: colors.buttonUnmute }]}
-        linearGradient={[{ stop: '0%', color: '#2ca81e' }, { stop: '100%', color: '#a81e1e' }]}
-
+        linearGradient={[
+          { stop: "0%", color: "#2ca81e" },
+          { stop: "100%", color: "#a81e1e" },
+        ]}
       >
         <Text style={styles.value}>{value}</Text>
       </CircularSlider>
-      <Text style={{ color: "white", paddingTop: 5, fontSize: 15, fontWeight: "bold" }}>{settings.soundMode}</Text>
+      <Text
+        style={{
+          color: "white",
+          paddingTop: 5,
+          fontSize: 15,
+          fontWeight: "bold",
+        }}
+      >
+        {settings.soundMode}
+      </Text>
     </View>
   );
 };

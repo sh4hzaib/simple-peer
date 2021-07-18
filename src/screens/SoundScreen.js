@@ -15,7 +15,6 @@ import ButtonComponent from "../components/ButtonComponent";
 import { colors } from "../constants/theme";
 import wsMute from "../components/CpMute";
 
-
 const LivingRoomScreen = () => {
   const [soundValue, setSoundValue] = useState(0);
   const settings = useSelector((state) => state.settings);
@@ -44,11 +43,10 @@ const LivingRoomScreen = () => {
     <>
       <AppHeader title="Sound" />
       <View style={{ height: 300, backgroundColor: colors.bgColor }}>
-        
-        <AdjustSoundSlider value={soundValue} setValue={setSoundValue}/>
+        <AdjustSoundSlider value={soundValue} setValue={setSoundValue} />
       </View>
       <ScrollView style={styles.container}>
-      <Text style={styles.text}>Presets:</Text>
+        <Text style={styles.text}>Presets:</Text>
         <View style={styles.btnContainer}>
           {btnList.map((button, index) => (
             <ButtonComponent
@@ -62,32 +60,32 @@ const LivingRoomScreen = () => {
 
       <ScrollView style={styles.container}>
         <View style={styles.btnContainer}>
-        <Button
-          style={styles.btnMute}
-          icon=""
-          mode="contained"
-          color={colors.buttonMute}
-          onPress={() => {
-            // console.log(`Mute`);
-            wsMute(serverIp, SoundMode, 1)
-          }}
-          labelStyle={{ fontSize: 12 }}
-        >
-          Mute
-        </Button>
-        <Button
-          style={styles.btnMute}
-          icon=""
-          mode="contained"
-          color={colors.buttonUnmute}
-          onPress={() => {
-            // console.log(`UnMute`);
-            wsMute(serverIp, SoundMode, 0)
-          }}
-          labelStyle={{ fontSize: 12 }}
-        >
-          Unmute
-        </Button>
+          <Button
+            style={styles.btnMute}
+            icon=""
+            mode="contained"
+            color={colors.buttonMute}
+            onPress={() => {
+              // console.log(`Mute`);
+              wsMute(serverIp, SoundMode, 1);
+            }}
+            labelStyle={{ fontSize: 12 }}
+          >
+            Mute
+          </Button>
+          <Button
+            style={styles.btnMute}
+            icon=""
+            mode="contained"
+            color={colors.buttonUnmute}
+            onPress={() => {
+              // console.log(`UnMute`);
+              wsMute(serverIp, SoundMode, 0);
+            }}
+            labelStyle={{ fontSize: 12 }}
+          >
+            Unmute
+          </Button>
         </View>
       </ScrollView>
     </>
@@ -118,7 +116,7 @@ const styles = StyleSheet.create({
     padding: 5,
     // minWidth: 120,
     width: "32%",
-    
+
     // height: 60,
   },
   btnMute: {
