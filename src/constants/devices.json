@@ -55,7 +55,7 @@
           "Channel": 12,
           "Duration": 5000
         },
-        "deviceName": "DeviceOne",
+        "deviceName": "DeviceTwo",
         "rooms": ["Screen", "Projector", "Sound"]
       }
     ]
