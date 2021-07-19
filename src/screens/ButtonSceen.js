@@ -9,7 +9,7 @@ import RadioButtons from "../components/RadioButtons";
 import rooms from "../constants/rooms";
 import protocols from "../constants/protocols";
 import { colors } from "../constants/theme";
-
+import DropDownPicker from 'react-native-dropdown-picker'
 import ButtonListItem from "../components/ButtonListItem";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -205,10 +205,10 @@ const ButtonSceen = () => {
                         setValue={setCmd}
                       />
                     ) : null}
-                    {protocol == "ws" || protocol == "tasker" ? (
+                    {protocol == "ws" ? (
                       <InputField
                         value={message}
-                        placeholder="Set Message: Toggle, Open, Close"
+                        placeholder="Message: Toggle, Open, Close, task.execute"
                         setValue={setMessage}
                       />
                     ) : null}
@@ -226,6 +226,13 @@ const ButtonSceen = () => {
                         type={"numeric"}
                         placeholder="Set Duration: 1000 for 1sec 0 for null."
                         setValue={setDuration}
+                      />
+                    ) : null}
+                    {protocol == "tasker" ? (
+                      <InputField
+                        value={message}
+                        placeholder="Set message: task.execute"
+                        setValue={setMessage}
                       />
                     ) : null}
                     {protocol == "tasker" ? (

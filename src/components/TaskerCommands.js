@@ -1,12 +1,13 @@
-function wsTasker(ip, channel, message, command) {
+function wsTasker(ip, message, taskName, variableName, value) {
 
     var W3CWebSocket = require('websocket').w3cwebsocket;
 
     var client = new W3CWebSocket('ws:/' + ip + '/', 'echo-protocol');
     console.log('Inserted IP to WS was: ' + ip);
-    console.log('Task Name WS was: ' + command);
-    console.log('Inserted VariableName WS was: ' + message);
-    console.log('Inserted Value to WS was: ' + channel);
+    console.log('Inserted Message WS was: ' + message);
+    console.log('Inserted TaskName WS was: ' + taskName);
+    console.log('Inserted VariableName to WS was: ' + variableName);
+    console.log('Inserted Value to WS was: ' + value);
     
 
     client.onerror = function() {
@@ -14,12 +15,11 @@ function wsTasker(ip, channel, message, command) {
     };
     
     client.onopen = function() {
-        var selectedCP = soundSystem;
         console.log('WebSocket Client Connected');
         var registryWriteJson = {
           "Message":"Post Message",
           "Number":2010,
-          "Content":"{\"Message\":\"task.execute\",\"TaskName\":\""+ command +"\",\"Variables\":{\"" + message + "\":"+ channel + "}}"
+          "Content":"{\"Message\":\""+ message +"\",\"TaskName\":\""+ taskName +"\",\"Variables\":{\"" + variableName + "\":"+ value + "}}"
       };
 
         function sendNumber() {
