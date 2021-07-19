@@ -11,7 +11,7 @@ const AppHeader = (props) => {
   return (
     <Appbar.Header
       style={{
-        height: 60,
+        height: 50,
         backgroundColor: headerColor,
       }}
     >
@@ -30,7 +30,10 @@ const AppHeader = (props) => {
         style={{ position: "absolute", right: 0 }}
         size={32}
         icon={"cog"}
-        onPress={() => {}}
+        onPress={() => {
+          navigation.navigate("ScreenRoomScreen");
+          // navigation.navigate("LoginScreen");
+        }}
         onLongPress={() => {
           navigation.navigate("SettingsScreen");
           // navigation.navigate("LoginScreen");
