@@ -45,7 +45,7 @@ const SettingsScreen = ({ navigation }) => {
 
   const settingsHandler = useCallback(() => {
     const validIP = IpPattern.test(IpAdress);
-    const validURL = UrlPattern.test(URL);
+    const validURL = IpPattern.test(URL);
     // console.log(validIP, validURL);
     if (validIP && validURL) {
       dispatch(setIPAdressR(IpAdress));
@@ -245,8 +245,21 @@ const SettingsScreen = ({ navigation }) => {
                     Restart Server
                   </Button>
                 </View>
-                <Button style={styles.button} onPress={() => {}}>
+                {/* <Button style={styles.button} onPress={() => {}}>
                   TCP
+                </Button> */}
+                <Button
+                  style={[styles.btn, { width: "100%" }]}
+                  icon="content-save"
+                  mode="contained"
+                  color="#bd0023"
+                  onPress={() => {
+                    navigation.navigate("WebViewTaskerScreen");
+                    // console.log("Button3 at LivingRoomScreen");
+                  }}
+                  disabled={!IpAdress || !URL}
+                >
+                  Start Tasker
                 </Button>
               </View>
               <Text style={styles.title}>Devices:</Text>
