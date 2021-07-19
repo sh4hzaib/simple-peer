@@ -15,7 +15,7 @@ export default function BottomNavigationBar() {
     <Tab.Navigator
       initialRouteName="ScreenRoomScreen"
       activeColor="#fff"
-      barStyle={{ backgroundColor: headerColor }}
+      barStyle={{ backgroundColor: headerColor, justifyContent: "space-around" }}
     >
       <Tab.Screen
         name="ScreenRoomScreen"
