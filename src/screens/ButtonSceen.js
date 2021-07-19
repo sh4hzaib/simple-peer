@@ -36,6 +36,9 @@ const ButtonSceen = () => {
   const [message, setMessage] = useState("");
   const [channel, setChannel] = useState("");
   const [duration, setDuration] = useState("");
+  const [taskName, setTaskName] = useState("");
+  const [variableName, setVariableName] = useState("");
+  const [value, setValue] = useState("");
 
   const addBtnHandler = useCallback(() => {
     const button = {
@@ -52,13 +55,20 @@ const ButtonSceen = () => {
               Channel: parseInt(channel),
               Duration: parseInt(duration),
             }
+          : protocol == "tasker"
+          ? {
+              Message: message,
+              TaskName: taskName,
+              VariableName: variableName,
+              Value: value,
+            }
           : {
               Command: cmd,
             },
       deviceName: deviceName,
       rooms: room,
     };
-    // console.log(button);
+    console.log("-------------------", button);
     try {
       const alreadyExists = btnList.findIndex(
         (btn) =>
@@ -71,6 +81,11 @@ const ButtonSceen = () => {
       if (alreadyExists < 0 && deviceDoesExist >= 0) {
         if (protocol == "ws" && (!message || !channel || !duration))
           throw new Error("Please fill all Input Fields");
+        else if (
+          protocol == "tasker" &&
+          (!message || !taskName || !variableName || !value)
+        )
+          throw new Error("Please fill all Input Fields");
         else {
           dispatch(
             addButtonToDeviceR({ deviceIndex: deviceDoesExist, button })
@@ -81,6 +96,9 @@ const ButtonSceen = () => {
           setChannel("");
           setMessage("");
           setDuration("");
+          setTaskName("");
+          setVariableName("");
+          setValue("");
         }
       } else if (alreadyExists >= 0) {
         throw new Error("Button with this Name and Device already exists");
@@ -187,7 +205,7 @@ const ButtonSceen = () => {
                         setValue={setCmd}
                       />
                     ) : null}
-                    {protocol == "ws" ? (
+                    {protocol == "ws" || protocol == "tasker" ? (
                       <InputField
                         value={message}
                         placeholder="Set Message: Toggle, Open, Close"
@@ -208,6 +226,27 @@ const ButtonSceen = () => {
                         type={"numeric"}
                         placeholder="Set Duration: 1000 for 1sec 0 for null."
                         setValue={setDuration}
+                      />
+                    ) : null}
+                    {protocol == "tasker" ? (
+                      <InputField
+                        value={taskName}
+                        placeholder="Set Task Name."
+                        setValue={setTaskName}
+                      />
+                    ) : null}
+                    {protocol == "tasker" ? (
+                      <InputField
+                        value={variableName}
+                        placeholder="Set Variable Name."
+                        setValue={setVariableName}
+                      />
+                    ) : null}
+                    {protocol == "tasker" ? (
+                      <InputField
+                        value={value}
+                        placeholder="Set Value."
+                        setValue={setValue}
                       />
                     ) : null}
                   </View>

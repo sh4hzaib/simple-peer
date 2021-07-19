@@ -6,11 +6,13 @@ import AppHeader from "../components/AppHeader";
 import ButtonComponent from "../components/ButtonComponent";
 import { colors } from "../constants/theme";
 import { addDeviceR } from "../redux/deviceSlice";
+import defaultSettings from "../constants/settings.json";
 import {
   setIPAdressR,
   setNewsUrlR,
   setSoundModeR,
 } from "../redux/settingsSlice";
+import defaultDevices from "../constants/devices.json";
 
 const ScreenRoomScreen = () => {
   const deviceList = useSelector((state) => state.device);
@@ -22,6 +24,7 @@ const ScreenRoomScreen = () => {
     btnList.push(...enabledDevices[index].buttons);
   }
   for (let index = 0; index < btnList.length; index++) {
+    console.log(btnList);
     btnList = btnList.filter((btn) =>
       btn.rooms.find((room) => {
         return room === "Screen";
@@ -43,11 +46,10 @@ const ScreenRoomScreen = () => {
         dispatch(setSoundModeR(temp.soundMode));
       } else {
         const jsonValue = JSON.stringify({
-          ipAdress: "10.0.0.102",
-          newsUrl: "www.google.com",
-          soundMode: "Dolby",
+          ...defaultSettings,
           soundValue: 0,
         });
+        console.log("..........", jsonValue);
         await AsyncStorage.setItem("SETTINGS", jsonValue);
         console.log("Settings Set");
         const getSettings = await AsyncStorage.getItem("SETTINGS");
@@ -69,8 +71,10 @@ const ScreenRoomScreen = () => {
         temp = await JSON.parse(getDevices);
         for (let index = 0; index < temp.length; index++)
           dispatch(addDeviceR(temp[index]));
+        console.log(temp);
       } else {
-        const jsonValue = JSON.stringify([]);
+        const jsonValue = JSON.stringify(defaultDevices);
+        console.log(jsonValue);
         await AsyncStorage.setItem("DEVICES", jsonValue);
         console.log("DEvICES Set");
         const getDEVICES = await AsyncStorage.getItem("DEVICES");

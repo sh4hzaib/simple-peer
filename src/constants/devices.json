@@ -2,52 +2,69 @@
   {
     "deviceName": "DeviceOne",
     "deviceIP": "192.168.1.1",
-    "deviceID": "1",
+
     "status": true,
     "buttons": [
       {
-        "buttonName": "BtnOne",
-        "buttonCommand": "./HELLO WORLD",
-        "deviceName": "DeviceOne"
+        "buttonName": "BtnScreen",
+        "buttonProtocol": "ws",
+        "buttonCommand": {
+          "Message": "Hello",
+          "Command": "cmd",
+          "Channel": 12,
+          "Duration": 5000
+        },
+        "deviceName": "DeviceOne",
+        "rooms": ["Screen"]
       },
       {
-        "buttonName": "BtnTwo",
-        "buttonCommand": "./HELLO WORLD",
-        "deviceName": "DeviceOne"
+        "buttonName": "BtnProjector",
+        "buttonProtocol": "http",
+        "buttonCommand": {
+          "Command": "cmd"
+        },
+        "deviceName": "DeviceOne",
+        "rooms": ["Projector"]
       },
       {
-        "buttonName": "BtnThree",
-        "buttonCommand": "./HELLO WORLD",
-        "deviceName": "DeviceOne"
+        "buttonName": "BtnSound",
+        "buttonProtocol": "ws",
+        "buttonCommand": {
+          "Message": "Hello",
+          "Command": "cmd",
+          "Channel": 12,
+          "Duration": 5000
+        },
+        "deviceName": "DeviceOne",
+        "rooms": ["Sound"]
       }
     ]
   },
   {
     "deviceName": "DeviceTwo",
     "deviceIP": "192.168.1.2",
-    "status": false,
-    "deviceID": "2",
-    "buttons": []
+    "status": true,
+
+    "buttons": [
+      {
+        "buttonName": "BtnAll",
+        "buttonProtocol": "ws",
+        "buttonCommand": {
+          "Message": "Hello",
+          "Command": "cmd",
+          "Channel": 12,
+          "Duration": 5000
+        },
+        "deviceName": "DeviceOne",
+        "rooms": ["Screen", "Projector", "Sound"]
+      }
+    ]
   },
   {
     "deviceName": "DeviceThree",
     "deviceIP": "192.168.1.3",
     "status": true,
-    "deviceID": "3",
-    "buttons": []
-  },
-  {
-    "deviceName": "DeviceFour",
-    "deviceIP": "192.168.1.4",
-    "status": true,
-    "deviceID": "4",
-    "buttons": []
-  },
-  {
-    "deviceName": "DeviceFive",
-    "deviceIP": "192.168.1.5",
-    "status": false,
-    "deviceID": "5",
+
     "buttons": []
   }
 ]
