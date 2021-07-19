@@ -14,7 +14,6 @@ const WebViewTaskerScreen = () => {
       <WebView 
         javaScriptEnabled={true}
         domStorageEnabled={true}
-        startInLoadingState={true}
         source={{ uri: "http://" + URL + "/tasker"}} />
     </>
   );
