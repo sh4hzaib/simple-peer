@@ -8,13 +8,15 @@ const WebViewTaskerScreen = () => {
   // console.log("hello");
   const URL = useSelector((state) => state.settings.newsUrl);
   console.log(URL);
+  // If it works it works
   return (
     <>
       <AppHeader title="Tasker" />
       <WebView 
         javaScriptEnabled={true}
         domStorageEnabled={true}
-        source={{ uri: "http://" + URL + "/tasker"}} />
+        source={{ uri: "http:///jnior:jnior@" + URL + "/tasker"}} />
+        
     </>
   );
 };

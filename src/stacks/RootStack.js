@@ -8,6 +8,7 @@ import DeviceScreen from "../screens/DeviceScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import DeviceEditScreen from "../screens/DeviceEditScreen";
 import WebViewTaskerScreen from "../screens/WebViewTaskerScreen";
+// import LoginScreen from "../screens/LoginScreen";
 
 const Root = createStackNavigator();
 
@@ -57,6 +58,13 @@ const RootStack = () => {
             headerShown: false,
           }}
         />
+        {/* <Root.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{
+            headerShown: false,
+          }}
+        /> */}
       </Root.Navigator>
     </NavigationContainer>
   );

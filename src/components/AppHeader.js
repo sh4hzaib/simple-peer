@@ -33,6 +33,7 @@ const AppHeader = (props) => {
         onPress={() => {}}
         onLongPress={() => {
           navigation.navigate("SettingsScreen");
+          // navigation.navigate("LoginScreen");
         }}
       />
     </Appbar.Header>
