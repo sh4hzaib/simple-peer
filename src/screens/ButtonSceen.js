@@ -19,7 +19,7 @@ import {
   removeButtonFromDeviceR,
 } from "../redux/deviceSlice";
 
-const ButtonSceen = () => {
+const ButtonSceen = ({ navigation }) => {
   const deviceList = useSelector((state) => state.device);
   const dispatch = useDispatch();
   const btnList = [];
@@ -264,6 +264,7 @@ const ButtonSceen = () => {
                 <Button
                   style={styles.btn}
                   icon=""
+                  color="#098f45"
                   disabled={!btnName || !deviceName}
                   mode="contained"
                   onPress={() => {
@@ -271,6 +272,18 @@ const ButtonSceen = () => {
                   }}
                 >
                   Add Button
+                </Button>
+                <Button
+                  style={styles.btn}
+                  icon="arrow-left"
+                  mode="contained"
+                  color="#bd0023"
+                  onPress={() => {
+                    navigation.navigate("SettingsScreen");
+                    // console.log("Button3 at LivingRoomScreen");
+                  }}
+                >
+                   Settings
                 </Button>
                 <Text style={styles.title}>Buttons:</Text>
               </>

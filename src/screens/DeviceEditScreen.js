@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { editDeviceR } from "../redux/deviceSlice";
 import { colors } from "../constants/theme";
 
-const DeviceEditScreen = ({ route }) => {
+const DeviceEditScreen = ({ route, navigation }) => {
   const device = route.params;
   console.log(device);
   const deviceList = useSelector((state) => state.device);
@@ -63,6 +63,20 @@ const DeviceEditScreen = ({ route }) => {
         >
           Edit Device
         </Button>
+      </View>
+      <View>
+      <Button
+                  style={styles.btn}
+                  icon="arrow-left"
+                  mode="contained"
+                  color="#bd0023"
+                  onPress={() => {
+                    navigation.navigate("SettingsScreen");
+                    // console.log("Button3 at LivingRoomScreen");
+                  }}
+                >
+                   Settings
+                </Button>
       </View>
     </SafeAreaView>
   );

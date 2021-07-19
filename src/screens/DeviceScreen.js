@@ -10,7 +10,7 @@ import { Text, FlatList } from "react-native";
 import { colors } from "../constants/theme";
 import DeviceListItem from "../components/DeviceListItem";
 
-const DeviceScreen = () => {
+const DeviceScreen = ({ navigation }) => {
   const deviceList = useSelector((state) => state.device);
   const dispatch = useDispatch();
 
@@ -91,6 +91,18 @@ const DeviceScreen = () => {
                   }}
                 >
                   Add Device
+                </Button>
+                <Button
+                  style={styles.btn}
+                  icon="arrow-left"
+                  mode="contained"
+                  color="#bd0023"
+                  onPress={() => {
+                    navigation.navigate("SettingsScreen");
+                    // console.log("Button3 at LivingRoomScreen");
+                  }}
+                >
+                   Settings
                 </Button>
                 <Text style={styles.title}>Devices:</Text>
               </>
