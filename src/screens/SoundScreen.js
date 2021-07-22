@@ -63,26 +63,28 @@ const LivingRoomScreen = () => {
           <Button
             style={styles.btnMute}
             icon=""
+            contentStyle={{width: '100%'}}
             mode="contained"
             color={colors.buttonMute}
             onPress={() => {
               // console.log(`Mute`);
               wsMute(serverIp, SoundMode, 1);
             }}
-            labelStyle={{ fontSize: 12 }}
+            labelStyle={{ fontSize: 20, fontWeight: "bold" }}
           >
             Mute
           </Button>
           <Button
             style={styles.btnMute}
             icon=""
+            contentStyle={{width: '100%'}}
             mode="contained"
             color={colors.buttonUnmute}
             onPress={() => {
               // console.log(`UnMute`);
               wsMute(serverIp, SoundMode, 0);
             }}
-            labelStyle={{ fontSize: 12 }}
+            labelStyle={{ fontSize: 20}}
           >
             Unmute
           </Button>
@@ -121,12 +123,11 @@ const styles = StyleSheet.create({
   },
   btnMute: {
     marginBottom: 15,
-    padding: 5,
     // minWidth: 120,
     width: "32%",
     fontWeight: "bold",
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "center",fontWeight: "bold",  padding: 20,
+    borderRadius: 5, 
     // height: 60,
   },
   header: {

@@ -83,6 +83,7 @@ const DeviceScreen = ({ navigation }) => {
                 />
                 <Button
                   style={styles.btn}
+                  contentStyle={{width: '100%'}}
                   icon=""
                   disabled={!deviceName || !deviceIP}
                   mode="contained"
@@ -94,6 +95,7 @@ const DeviceScreen = ({ navigation }) => {
                 </Button>
                 <Button
                   style={styles.btn}
+                  contentStyle={{width: '100%'}}
                   icon="arrow-left"
                   mode="contained"
                   color="#bd0023"

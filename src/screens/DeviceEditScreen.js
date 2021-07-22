@@ -66,17 +66,17 @@ const DeviceEditScreen = ({ route, navigation }) => {
       </View>
       <View>
       <Button
-                  style={styles.btn}
-                  icon="arrow-left"
-                  mode="contained"
-                  color="#bd0023"
-                  onPress={() => {
-                    navigation.navigate("SettingsScreen");
-                    // console.log("Button3 at LivingRoomScreen");
-                  }}
-                >
-                   Settings
-                </Button>
+          style={styles.btn}
+          icon="arrow-left"
+          mode="contained"
+          color="#bd0023"
+          onPress={() => {
+            navigation.navigate("SettingsScreen");
+            // console.log("Button3 at LivingRoomScreen");
+          }}
+        >
+            Settings
+      </Button>
       </View>
     </SafeAreaView>
   );

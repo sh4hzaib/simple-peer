@@ -47,7 +47,7 @@ const SettingsScreen = ({ navigation }) => {
     const validIP = IpPattern.test(IpAdress);
     const validURL = IpPattern.test(URL);
     // console.log(validIP, validURL);
-    if (validIP && validURL) {
+    if (validIP) {
       dispatch(setIPAdressR(IpAdress));
       dispatch(setSoundModeR(soundMode));
       dispatch(setNewsUrlR(URL));
@@ -153,6 +153,7 @@ const SettingsScreen = ({ navigation }) => {
                 >
                   <Button
                     style={styles.btn}
+                    contentStyle={{width: '100%'}}
                     icon=""
                     mode="contained"
                     onPress={() => {
@@ -164,6 +165,7 @@ const SettingsScreen = ({ navigation }) => {
                   </Button>
                   <Button
                     style={styles.btn}
+                    contentStyle={{width: '100%'}}
                     icon=""
                     mode="contained"
                     onPress={() => {
@@ -176,6 +178,7 @@ const SettingsScreen = ({ navigation }) => {
                 </View>
                 <Button
                   style={[styles.btn, { width: "100%" }]}
+                  contentStyle={{width: '100%'}}
                   icon="content-save"
                   mode="contained"
                   onPress={settingsHandler}
@@ -196,6 +199,7 @@ const SettingsScreen = ({ navigation }) => {
                   <Button
                     style={styles.btnDanger}
                     icon="power"
+                    contentStyle={{width: '100%'}}
                     mode="contained"
                     color="#bd0023"
                     onPress={() => {
@@ -220,6 +224,7 @@ const SettingsScreen = ({ navigation }) => {
                   <Button
                     style={styles.btn}
                     icon="power"
+                    contentStyle={{width: '100%'}}
                     mode="contained"
                     color="#bd0023"
                     onPress={() => {
@@ -250,6 +255,7 @@ const SettingsScreen = ({ navigation }) => {
                 </Button> */}
                 <Button
                   style={[styles.btn, { width: "100%" }]}
+                  contentStyle={{width: '100%'}}
                   icon="content-save"
                   mode="contained"
                   color="#bd0023"

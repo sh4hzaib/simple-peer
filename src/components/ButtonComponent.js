@@ -92,7 +92,7 @@ const ButtonComponent = ({ style, button }) => {
         }
       }}
       style={style}
-      labelStyle={{ fontSize: 12 }}
+      labelStyle={{ fontSize: 20, fontWeight: "bold" }}
     >
       {button.buttonName}
     </Button>

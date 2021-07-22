@@ -27,7 +27,7 @@ const AppHeader = (props) => {
       />
 
       <Appbar.Action
-        style={{ position: "absolute", right: 0, marginRight:10 }}
+        style={{ position: "absolute", right: 0 }}
         size={32}
         // icon={"cog"}
         icon={require('../../assets/ico.png')}
