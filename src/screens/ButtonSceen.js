@@ -177,6 +177,7 @@ const ButtonSceen = ({ navigation }) => {
                     >
                       <Checkbox
                         status={room.includes(r) ? "checked" : "unchecked"}
+                        color="#bd0023"
                         onPress={() => {
                           const tempRooms = [...room];
                           if (!tempRooms.includes(r)) tempRooms.push(r);
@@ -193,7 +194,7 @@ const ButtonSceen = ({ navigation }) => {
                 </View>
 
                 <RadioButtons
-                  title="Choose Mode"
+                  title="Choose Mode -->"
                   listItems={protocols}
                   value={protocol}
                   setValue={setProtocol}

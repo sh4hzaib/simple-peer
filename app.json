@@ -25,7 +25,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.meldre.IOTController"
+      "package": "com.meldre.IOTController",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

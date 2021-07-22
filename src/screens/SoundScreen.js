@@ -43,7 +43,7 @@ const LivingRoomScreen = () => {
     <>
       <AppHeader title="Sound" />
       <View style={{ height: 300, backgroundColor: colors.bgColor }}>
-        <AdjustSoundSlider value={soundValue} setValue={setSoundValue} />
+        <AdjustSoundSlider value={soundValue} setValue={setSoundValue} style={{ transform: [{ scaleX: 10 }, { scaleY: 10 }] }} />
       </View>
       <ScrollView style={styles.container}>
         <Text style={styles.text}>Presets:</Text>
