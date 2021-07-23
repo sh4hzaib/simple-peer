@@ -16,6 +16,7 @@ export default function BottomNavigationBar() {
       initialRouteName="ScreenRoomScreen"
       activeColor="#fff"
       barStyle={{ backgroundColor: headerColor, justifyContent: "space-around" }}
+      
     >
       <Tab.Screen
         name="ScreenRoomScreen"
@@ -23,7 +24,7 @@ export default function BottomNavigationBar() {
         options={{
           tabBarLabel: "Screen",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="theater" color={color} size={26} />
+            <MaterialCommunityIcons name="theater" color={color} size={26}/>
           ),
         }}
       />
