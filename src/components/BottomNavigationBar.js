@@ -6,17 +6,25 @@ import BedRoomScreen from "../screens/BedRoomScreen";
 import SoundScreen from "../screens/SoundScreen";
 import { colors } from "../constants/theme";
 import WebViewScreen from "../screens/WebViewScreen";
-
+import { useMediaQuery } from "react-responsive";
+import { Dimensions } from "react-native";
 const Tab = createMaterialBottomTabNavigator();
 
 export default function BottomNavigationBar() {
+  const isTablet = useMediaQuery({ minDeviceWidth: 600 });
+  console.log(Dimensions.get("window").width);
+  console.log("-------------------", isTablet);
   const { headerColor } = colors;
+  // const iconSize = isTablet ? 48 : 26;
+  const iconSize = 26;
   return (
     <Tab.Navigator
       initialRouteName="ScreenRoomScreen"
       activeColor="#fff"
-      barStyle={{ backgroundColor: headerColor, justifyContent: "space-around" }}
-      
+      barStyle={{
+        backgroundColor: headerColor,
+        justifyContent: "space-around",
+      }}
     >
       <Tab.Screen
         name="ScreenRoomScreen"
@@ -24,7 +32,11 @@ export default function BottomNavigationBar() {
         options={{
           tabBarLabel: "Screen",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="theater" color={color} size={26}/>
+            <MaterialCommunityIcons
+              name="theater"
+              color={color}
+              size={iconSize}
+            />
           ),
         }}
       />
@@ -34,7 +46,11 @@ export default function BottomNavigationBar() {
         options={{
           tabBarLabel: "Projector",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="projector" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="projector"
+              color={color}
+              size={iconSize}
+            />
           ),
         }}
       />
@@ -44,7 +60,11 @@ export default function BottomNavigationBar() {
         options={{
           tabBarLabel: "Sound",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="music" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="music"
+              color={color}
+              size={iconSize}
+            />
           ),
         }}
       />
@@ -54,7 +74,11 @@ export default function BottomNavigationBar() {
         options={{
           tabBarLabel: "IMB",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="movie-open" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="movie-open"
+              color={color}
+              size={iconSize}
+            />
           ),
         }}
       />

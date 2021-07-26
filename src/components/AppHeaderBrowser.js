@@ -3,15 +3,18 @@ import { Appbar } from "react-native-paper";
 import { colors } from "../constants/theme";
 
 import { useNavigation } from "@react-navigation/native";
+import { useMediaQuery } from "react-responsive";
 
 const AppHeader = (props) => {
+  const isTablet = useMediaQuery({ minDeviceWidth: 600 });
+  const iconSize = isTablet ? 48 : 32;
   const { title } = props;
   const { headerColor } = colors;
   const navigation = useNavigation();
   return (
     <Appbar.Header
       style={{
-        height: 50,
+        height: isTablet ? 80 : 50,
         backgroundColor: headerColor,
       }}
     >
@@ -28,9 +31,9 @@ const AppHeader = (props) => {
 
       <Appbar.Action
         style={{ position: "absolute", right: 0 }}
-        size={32}
+        size={iconSize}
         // icon={"cog"}
-        icon={require('../../assets/ico.png')}
+        icon={require("../../assets/ico.png")}
         onPress={() => {
           navigation.navigate("ScreenRoomScreen");
           // navigation.navigate("LoginScreen");

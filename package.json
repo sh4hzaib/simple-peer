@@ -7,6 +7,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo/match-media": "^0.1.0",
     "@react-native-async-storage/async-storage": "^1.13.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-community/slider": "^3.0.3",
@@ -45,6 +46,7 @@
     "react-native-web": "~0.13.12",
     "react-native-webview": "^11.6.4",
     "react-redux": "^7.2.4",
+    "react-responsive": "^9.0.0-beta.2",
     "rn-circular-slider": "^1.1.0",
     "websocket": "^1.0.34"
   },
