@@ -13,6 +13,7 @@ const Tab = createMaterialBottomTabNavigator();
 export default function BottomNavigationBar() {
   const isTablet = useMediaQuery({ minDeviceWidth: 600 });
   console.log(Dimensions.get("window").width);
+  console.log(Dimensions.get("window").height);
   console.log("-------------------", isTablet);
   const { headerColor } = colors;
   // const iconSize = isTablet ? 48 : 26;

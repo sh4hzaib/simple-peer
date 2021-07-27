@@ -10,6 +10,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import RootStack from "./src/stacks/RootStack";
 import { useEffect } from "react";
 import SETTINGS from "./src/constants/settings.json";
+import SystemNavigationBar from "react-native-system-navigation-bar";
+
+
+
 export default function App() {
   return (
     <ReduxProvider store={store}>
