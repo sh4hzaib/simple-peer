@@ -140,7 +140,7 @@ const SettingsScreen = ({ navigation }) => {
                   setValue={setURL}
                 />
                 <RadioButtons
-                  title="Choose Mode"
+                  title="Choose Sound Processor Mode -->"
                   listItems={soundModes}
                   value={soundMode}
                   setValue={setSoundMode}
