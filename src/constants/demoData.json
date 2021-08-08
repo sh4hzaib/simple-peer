@@ -1,0 +1,32 @@
+{
+    "deviceName": "Jnior",
+    "deviceIP": "10.0.0.102",
+    "status": true,
+
+    "buttons": [
+      {
+        "buttonName": "Al1",
+        "buttonProtocol": "ws",
+        "buttonCommand": {
+          "Message": "Hello",
+          "Command": "cmd",
+          "Channel": 12,
+          "Duration": 5000
+        },
+        "deviceName": "DeviceTwo",
+        "rooms": ["Screen", "Projector", "Sound"]
+      },
+      {
+        "buttonName": "Al22",
+        "buttonProtocol": "ws",
+        "buttonCommand": {
+          "Message": "Hello",
+          "Command": "cmd",
+          "Channel": 12,
+          "Duration": 5000
+        },
+        "deviceName": "DeviceTwo",
+        "rooms": ["Screen", "Projector", "Sound"]
+      }
+    ]
+  }
