@@ -136,7 +136,7 @@ const SettingsScreen = ({ navigation }) => {
                 <Title>Set IMB IP</Title>
                 <InputField
                   value={URL}
-                  placeholder="Set News URL"
+                  placeholder="Set Mediablock Ip"
                   setValue={setURL}
                 />
                 <RadioButtons

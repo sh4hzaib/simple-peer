@@ -6,9 +6,10 @@ import AppHeader from "../components/AppHeader";
 
 const WebViewTaskerScreen = () => {
   console.log("hello");
-  const settings = useSelector((state) => state.settings);
-  const [IpAdress, setIpAdress] = useState(settings.ipAdress);
-  // const ip = useSelector((state) => state.settings.IpAdress);
+  // const settings = useSelector((state) => state.settings);
+  // const [IpAdress, setIpAdress] = useState(settings.ipAdress);
+  const IpAdress = useSelector((state) => state.settings.ipAdress);
+
   console.log(IpAdress);
   // If it works it works
   return (
