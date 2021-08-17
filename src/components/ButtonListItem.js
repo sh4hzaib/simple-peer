@@ -1,8 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Button } from "react-native-paper";
 import { colors } from "../constants/theme";
-const ButtonListItem = ({ name, device, onBtnClick }) => {
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
+const ButtonListItem = ({
+  name,
+  device,
+  onBtnClick,
+  onBtnEditClick,
+  button,
+}) => {
+  const navigation = useNavigation();
+
   return (
     <View
       style={{
@@ -27,6 +37,28 @@ const ButtonListItem = ({ name, device, onBtnClick }) => {
       >
         Remove
       </Button>
+      <TouchableOpacity onPress={onBtnClick}>
+        <MaterialCommunityIcons name="delete" color={colors.delete} size={26} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          // const device = {
+          //   name,
+          //   IP,
+          //   index,
+          // };
+          // onBtnEditClick();
+          // console.log(name, device);
+          console.log(button);
+          navigation.navigate("ButtonEditScreen", button);
+        }}
+      >
+        <MaterialCommunityIcons
+          name="pencil"
+          color={colors.buttonPrimary}
+          size={26}
+        />
+      </TouchableOpacity>
     </View>
   );
 };

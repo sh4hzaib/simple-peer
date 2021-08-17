@@ -9,10 +9,10 @@ import RadioButtons from "../components/RadioButtons";
 import rooms from "../constants/rooms";
 import protocols from "../constants/protocols";
 import { colors } from "../constants/theme";
-import DropDownPicker from 'react-native-dropdown-picker'
+import DropDownPicker from "react-native-dropdown-picker";
 import ButtonListItem from "../components/ButtonListItem";
 import { useSelector, useDispatch } from "react-redux";
-import { Appbar } from 'react-native-paper';
+import { Appbar } from "react-native-paper";
 
 import {
   addButtonToDeviceR,
@@ -132,6 +132,7 @@ const ButtonSceen = ({ navigation }) => {
         name={item.buttonName}
         command={item.buttonCommand}
         device={item.deviceName}
+        button={item}
         onBtnClick={() => {
           removeButtonHandler(item);
         }}
@@ -141,14 +142,12 @@ const ButtonSceen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      
       <View>
         <View>
           <FlatList
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={
               <>
-              
                 <InputField
                   value={btnName}
                   placeholder="Button Name"
@@ -284,7 +283,7 @@ const ButtonSceen = ({ navigation }) => {
                     // console.log("Button3 at LivingRoomScreen");
                   }}
                 >
-                   Settings
+                  Settings
                 </Button>
                 <Text style={styles.title}>Buttons:</Text>
               </>

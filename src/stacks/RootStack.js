@@ -8,6 +8,7 @@ import DeviceScreen from "../screens/DeviceScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import DeviceEditScreen from "../screens/DeviceEditScreen";
 import WebViewTaskerScreen from "../screens/WebViewTaskerScreen";
+import ButtonEditScreen from "../screens/ButtonEditScreen";
 // import LoginScreen from "../screens/LoginScreen";
 
 const Root = createStackNavigator();
@@ -47,6 +48,13 @@ const RootStack = () => {
         <Root.Screen
           name="DeviceEditScreen"
           component={DeviceEditScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Root.Screen
+          name="ButtonEditScreen"
+          component={ButtonEditScreen}
           options={{
             headerShown: false,
           }}

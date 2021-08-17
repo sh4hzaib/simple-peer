@@ -20,6 +20,7 @@ import rebootJniorWs from "../components/RebootAutomation";
 import ChangeDeviceStatus from "../components/ChangeDeviceStatus";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { ScrollView } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 
 ///////////////////////////////////
 //
@@ -153,7 +154,7 @@ const SettingsScreen = ({ navigation }) => {
                 >
                   <Button
                     style={styles.btn}
-                    contentStyle={{width: '100%'}}
+                    contentStyle={{ width: "100%" }}
                     icon=""
                     mode="contained"
                     onPress={() => {
@@ -165,7 +166,7 @@ const SettingsScreen = ({ navigation }) => {
                   </Button>
                   <Button
                     style={styles.btn}
-                    contentStyle={{width: '100%'}}
+                    contentStyle={{ width: "100%" }}
                     icon=""
                     mode="contained"
                     onPress={() => {
@@ -178,7 +179,7 @@ const SettingsScreen = ({ navigation }) => {
                 </View>
                 <Button
                   style={[styles.btn, { width: "100%" }]}
-                  contentStyle={{width: '100%'}}
+                  contentStyle={{ width: "100%" }}
                   icon="content-save"
                   mode="contained"
                   onPress={settingsHandler}
@@ -199,7 +200,7 @@ const SettingsScreen = ({ navigation }) => {
                   <Button
                     style={styles.btnDanger}
                     icon="power"
-                    contentStyle={{width: '100%'}}
+                    contentStyle={{ width: "100%" }}
                     mode="contained"
                     color="#bd0023"
                     onPress={() => {
@@ -224,7 +225,7 @@ const SettingsScreen = ({ navigation }) => {
                   <Button
                     style={styles.btn}
                     icon="power"
-                    contentStyle={{width: '100%'}}
+                    contentStyle={{ width: "100%" }}
                     mode="contained"
                     color="#bd0023"
                     onPress={() => {
@@ -255,7 +256,7 @@ const SettingsScreen = ({ navigation }) => {
                 </Button> */}
                 <Button
                   style={[styles.btn, { width: "100%" }]}
-                  contentStyle={{width: '100%'}}
+                  contentStyle={{ width: "100%" }}
                   icon="content-save"
                   mode="contained"
                   color="#bd0023"
@@ -268,7 +269,28 @@ const SettingsScreen = ({ navigation }) => {
                   Start Tasker
                 </Button>
               </View>
-              <Text style={styles.title}>Devices:</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingRight: 20,
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={styles.title}>Devices:</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    console.log("Fetching Devices");
+                    axios
+                      .get(`http://meldre.tplinkdns.com:8090/getTaskDevices`)
+                      .then((response) => {
+                        console.log(response.data);
+                      });
+                  }}
+                >
+                  <Text>Fetch Devices</Text>
+                </TouchableOpacity>
+              </View>
             </>
           }
           data={deviceList}
