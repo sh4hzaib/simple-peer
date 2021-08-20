@@ -28,15 +28,6 @@ const ButtonListItem = ({
       <Text>{name}</Text>
       <Text>{device}</Text>
 
-      <Button
-        style={styles.btn}
-        icon=""
-        mode="contained"
-        onPress={onBtnClick}
-        color={colors.delete}
-      >
-        Remove
-      </Button>
       <TouchableOpacity onPress={onBtnClick}>
         <MaterialCommunityIcons name="delete" color={colors.delete} size={26} />
       </TouchableOpacity>

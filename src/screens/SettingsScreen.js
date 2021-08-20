@@ -21,6 +21,7 @@ import ChangeDeviceStatus from "../components/ChangeDeviceStatus";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { ScrollView } from "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native";
+import { addDeviceR, addDevicesR } from "../redux/deviceSlice";
 
 ///////////////////////////////////
 //
@@ -268,6 +269,19 @@ const SettingsScreen = ({ navigation }) => {
                 >
                   Start Tasker
                 </Button>
+                <Button
+                  style={[styles.btn, { width: "100%" }]}
+                  contentStyle={{ width: "100%" }}
+                  icon="reload"
+                  mode="contained"
+                  color="#bd0023"
+                  onPress={() => {
+                    navigation.navigate("QueryScreen");
+                    // console.log("Button3 at LivingRoomScreen");
+                  }}
+                >
+                  Query Page
+                </Button>
               </View>
               <View
                 style={{
@@ -284,7 +298,71 @@ const SettingsScreen = ({ navigation }) => {
                     axios
                       .get(`http://meldre.tplinkdns.com:8090/getTaskDevices`)
                       .then((response) => {
-                        console.log(response.data);
+                        // console.log();
+                        const fetchedButtons =
+                          response.data.workspaces[0].tasks;
+                        const fetchedDevices =
+                          response.data.workspaces[0].devices;
+
+                        const btns = fetchedButtons.map((btn) => {
+                          return {
+                            buttonName: btn.name,
+                            deviceName: btn.devicesReferenced.length
+                              ? btn.devicesReferenced[0].name
+                              : "",
+                            buttonType: btn.devicesReferenced.length
+                              ? btn.devicesReferenced[0].type
+                              : "",
+                            buttonProtocol: btn.devicesReferenced.length
+                              ? btn.devicesReferenced[0].type
+                              : "",
+                            rooms: [],
+                            buttonCommand: {
+                              Message: btn.devicesReferenced.length
+                                ? btn.devicesReferenced[0].message
+                                : "",
+                              Channel: btn.devicesReferenced.length
+                                ? btn.devicesReferenced[0].channel
+                                : "",
+                              Duration: btn.devicesReferenced.length
+                                ? btn.devicesReferenced[0].duration
+                                : "",
+                              Command: btn.devicesReferenced.length
+                                ? btn.devicesReferenced[0].command
+                                : "",
+                            },
+                          };
+                        });
+
+                        const devices = fetchedDevices.map((device) => {
+                          return {
+                            deviceIP: device.ipAddress,
+                            deviceName: device.name,
+                            port: device.port,
+                            status: true,
+                            buttons: [],
+                          };
+                        });
+
+                        const devicesWithButtonsAdded = devices.map((dev) => {
+                          return {
+                            ...dev,
+                            buttons: btns.filter(
+                              (b) => b.deviceName == dev.deviceName
+                            ),
+                          };
+                        });
+
+                        console.log(devicesWithButtonsAdded);
+                        //Adding devices to Device State
+                        dispatch(addDevicesR(devicesWithButtonsAdded));
+                        // devices.forEach((device) => {
+                        //   dispatch(addDeviceR(device));
+                        //   console.log("Device Added:", device.deviceName);
+                        // });
+                      })
+                      .catch((err) => {
+                        Alert.alert(err.message);
                       });
                   }}
                 >
