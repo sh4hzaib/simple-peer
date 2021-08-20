@@ -1,4 +1,4 @@
-import { useIsFocused } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
@@ -11,27 +11,64 @@ import { SafeAreaView } from "react-native";
 const QueryScreen = () => {
   const focused = useIsFocused();
   const [data, setData] = useState([]);
-  useEffect(() => {
-    console.log("Focused:", focused);
-    if (focused == true) {
-      var interval = setInterval(() => {
-        axios.get("http://meldre.tplinkdns.com:8080/getdevice").then((r) => {
-          //   console.log(r.data);
-          const tempD = [];
-          for (const key in r.data) {
-            // console.log(key, data[key]);
-            tempD.push({ name: key, status: r.data[key] });
-          }
-          console.log(tempD);
-          setData([...tempD]);
-          console.log("Refreshing");
-        });
+
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("Focused:", focused);
+      const queryEverySec = () => {
+        if (focused == true) {
+          axios.get("http://meldre.tplinkdns.com:8080/getdevice").then((r) => {
+            //   console.log(r.data);
+            const tempD = [];
+            for (const key in r.data) {
+              // console.log(key, data[key]);
+              tempD.push({ name: key, status: r.data[key] });
+            }
+            //   console.log(tempD);
+            setData([...tempD]);
+            console.log("Refreshing");
+          });
+        }
+      };
+      var interval = setTimeout(() => {
+        queryEverySec();
+        if (focused == false) clearTimeout(interval);
       }, 1000);
-    } else {
-      console.log("Stopped");
-      clearInterval(interval);
-    }
-  }, [focused]);
+      //cleanup func
+      return () => {
+        clearTimeout(interval);
+      };
+    }, [data, setData])
+  );
+
+  //   useFocusEffect(
+  //     React.useCallback(() => {
+  //       console.log("Focused:", focused);
+  //       const queryEverySec = () => {
+  //         if (focused == true) {
+  //           axios.get("http://meldre.tplinkdns.com:8080/getdevice").then((r) => {
+  //             //   console.log(r.data);
+  //             const tempD = [];
+  //             for (const key in r.data) {
+  //               // console.log(key, data[key]);
+  //               tempD.push({ name: key, status: r.data[key] });
+  //             }
+  //             //   console.log(tempD);
+  //             setData([...tempD]);
+  //             console.log("Refreshing");
+  //           });
+  //         } else {
+  //           clearInterval(interval);
+  //         }
+  //       };
+  //       var interval = setInterval(() => {
+  //         queryEverySec();
+  //         if (focused == false) clearInterval(interval);
+  //       }, 1000);
+  //     }, [])
+  //   );
+
+  //   useEffect();
   return (
     <SafeAreaView>
       <FlatList
@@ -44,7 +81,6 @@ const QueryScreen = () => {
                 paddingVertical: 40,
                 paddingBottom: 20,
                 alignItems: "center",
-                maxWidth: 300,
               }}
             >
               <Text style={{ fontSize: 36, fontWeight: "bold" }}>
