@@ -274,7 +274,6 @@ const SettingsScreen = ({ navigation }) => {
                   contentStyle={{ width: "100%" }}
                   icon="reload"
                   mode="contained"
-                  color="#bd0023"
                   onPress={() => {
                     navigation.navigate("QueryScreen");
                     // console.log("Button3 at LivingRoomScreen");

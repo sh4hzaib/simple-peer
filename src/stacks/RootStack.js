@@ -10,6 +10,7 @@ import DeviceEditScreen from "../screens/DeviceEditScreen";
 import WebViewTaskerScreen from "../screens/WebViewTaskerScreen";
 import ButtonEditScreen from "../screens/ButtonEditScreen";
 import QueryScreen from "../screens/QueryScreen";
+import LockScreen from "../screens/LockScreen";
 // import LoginScreen from "../screens/LoginScreen";
 
 const Root = createStackNavigator();
@@ -18,6 +19,13 @@ const RootStack = () => {
   return (
     <NavigationContainer>
       <Root.Navigator>
+        <Root.Screen
+          name="LockScreen"
+          component={LockScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Root.Screen
           name="BottomNavigationBar"
           component={BottomNavigationBar}
