@@ -43,6 +43,7 @@
     "react-native-tcp-socket": "^5.2.1",
     "react-native-tcp-socket-mroads": "^1.0.14",
     "react-native-unimodules": "~0.13.3",
+    "react-native-user-inactivity": "^1.2.0",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
     "react-native-webview": "^11.6.4",

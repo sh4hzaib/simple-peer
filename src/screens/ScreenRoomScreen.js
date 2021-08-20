@@ -35,7 +35,6 @@ const ScreenRoomScreen = () => {
 
   const initSettings = async () => {
     try {
-      // let temp;
       const keys = await AsyncStorage.getAllKeys();
       const findSettings = keys.find((key) => key === "SETTINGS");
       if (findSettings) {
@@ -131,9 +130,7 @@ const styles = StyleSheet.create({
   btn: {
     marginBottom: 15,
     padding: 5,
-    // minWidth: 120,
     width: "32%",
-    // height: 60,
   },
   header: {
     fontSize: 32,

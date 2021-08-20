@@ -1,6 +1,5 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import ScreenRoomScreen from "../screens/ScreenRoomScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import BottomNavigationBar from "../components/BottomNavigationBar";
 import ButtonSceen from "../screens/ButtonSceen";
@@ -10,8 +9,6 @@ import DeviceEditScreen from "../screens/DeviceEditScreen";
 import WebViewTaskerScreen from "../screens/WebViewTaskerScreen";
 import ButtonEditScreen from "../screens/ButtonEditScreen";
 import QueryScreen from "../screens/QueryScreen";
-import LockScreen from "../screens/LockScreen";
-// import LoginScreen from "../screens/LoginScreen";
 
 const Root = createStackNavigator();
 
@@ -19,13 +16,6 @@ const RootStack = () => {
   return (
     <NavigationContainer>
       <Root.Navigator>
-        <Root.Screen
-          name="LockScreen"
-          component={LockScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
         <Root.Screen
           name="BottomNavigationBar"
           component={BottomNavigationBar}

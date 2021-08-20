@@ -8,8 +8,10 @@ import AppHeader from "../components/AppHeader";
 import InputField from "../components/InputField";
 import { colors } from "../constants/theme";
 
-const LockScreen = ({ navigation }) => {
+const LockScreen = ({ setActive }) => {
   const [PIN, setPIN] = useState("");
+  //Set PIN here...
+  const _PIN = 1234;
   return (
     <>
       {/* <AppHeader title="Lock Screen" /> */}
@@ -41,7 +43,7 @@ const LockScreen = ({ navigation }) => {
             icon="check-outline"
             mode="contained"
             onPress={() => {
-              if (PIN.length == 4) navigation.navigate("ScreenRoomScreen");
+              if (PIN.length == 4 && PIN == _PIN) setActive(true);
               else {
                 Alert.alert("Invalid PIN");
               }

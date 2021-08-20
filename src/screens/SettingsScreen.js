@@ -12,32 +12,23 @@ import {
   setNewsUrlR,
   setSoundModeR,
 } from "../redux/settingsSlice";
-import { IpPattern, UrlPattern } from "../constants/RegEx";
+import { IpPattern } from "../constants/RegEx";
 import soundModes from "../constants/soundModes";
 import axios from "axios";
 import { FlatList } from "react-native";
 import rebootJniorWs from "../components/RebootAutomation";
 import ChangeDeviceStatus from "../components/ChangeDeviceStatus";
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import { ScrollView } from "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native";
-import { addDeviceR, addDevicesR } from "../redux/deviceSlice";
+import { addDevicesR } from "../redux/deviceSlice";
 
-///////////////////////////////////
-//
-//
-//
-//
-///////////////////////////////////
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const SettingsScreen = ({ navigation }) => {
-  // console.log(settingsData);
   useEffect(() => {
     isServerOnline();
   }, []);
   const settings = useSelector((state) => state.settings);
   const dispatch = useDispatch();
-  // console.log(settings);
   const [IpAdress, setIpAdress] = useState(settings.ipAdress);
   const [URL, setURL] = useState(settings.newsUrl);
   const deviceList = useSelector((state) => state.device);
@@ -160,7 +151,6 @@ const SettingsScreen = ({ navigation }) => {
                     mode="contained"
                     onPress={() => {
                       navigation.navigate("ButtonSceen");
-                      // console.log("Button2 at LivingRoomScreen");
                     }}
                   >
                     Edit Buttons
@@ -172,7 +162,6 @@ const SettingsScreen = ({ navigation }) => {
                     mode="contained"
                     onPress={() => {
                       navigation.navigate("DeviceScreen");
-                      // console.log("Button3 at LivingRoomScreen");
                     }}
                   >
                     Edit Devices
@@ -252,9 +241,7 @@ const SettingsScreen = ({ navigation }) => {
                     Restart Server
                   </Button>
                 </View>
-                {/* <Button style={styles.button} onPress={() => {}}>
-                  TCP
-                </Button> */}
+
                 <Button
                   style={[styles.btn, { width: "100%" }]}
                   contentStyle={{ width: "100%" }}
@@ -263,7 +250,6 @@ const SettingsScreen = ({ navigation }) => {
                   color="#bd0023"
                   onPress={() => {
                     navigation.navigate("WebViewTaskerScreen");
-                    // console.log("Button3 at LivingRoomScreen");
                   }}
                   disabled={!IpAdress || !URL}
                 >
@@ -276,7 +262,6 @@ const SettingsScreen = ({ navigation }) => {
                   mode="contained"
                   onPress={() => {
                     navigation.navigate("QueryScreen");
-                    // console.log("Button3 at LivingRoomScreen");
                   }}
                 >
                   Query Page
@@ -353,19 +338,18 @@ const SettingsScreen = ({ navigation }) => {
                         });
 
                         console.log(devicesWithButtonsAdded);
-                        //Adding devices to Device State
                         dispatch(addDevicesR(devicesWithButtonsAdded));
-                        // devices.forEach((device) => {
-                        //   dispatch(addDeviceR(device));
-                        //   console.log("Device Added:", device.deviceName);
-                        // });
                       })
                       .catch((err) => {
                         Alert.alert(err.message);
                       });
                   }}
                 >
-                  <Text>Fetch Devices</Text>
+                  <MaterialCommunityIcons
+                    name="reload"
+                    color={colors.buttonPrimary}
+                    size={32}
+                  />
                 </TouchableOpacity>
               </View>
             </>

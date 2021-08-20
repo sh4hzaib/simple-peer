@@ -1,26 +1,34 @@
 import "@expo/match-media";
-import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Provider as PaperProvider } from "react-native-paper";
-import { Provider as ReduxProvider } from "react-redux";
-import store from "./src/redux/store";
-import { NavigationContainer } from "@react-navigation/native";
-import RootStack from "./src/stacks/RootStack";
-import { useEffect } from "react";
-import SETTINGS from "./src/constants/settings.json";
-import SystemNavigationBar from "react-native-system-navigation-bar";
-
-
+import StackContainer from "./src/stacks/StackContainer";
+import UserInactivity from "react-native-user-inactivity";
+import LockScreen from "./src/screens/LockScreen";
 
 export default function App() {
+  const [active, setActive] = useState(true);
+  //Set timer for inactivity here...
+  const [timer, setTimer] = useState(20000);
   return (
-    <ReduxProvider store={store}>
-      <PaperProvider>
-        <RootStack />
-      </PaperProvider>
-    </ReduxProvider>
+    <>
+      {active ? (
+        <UserInactivity
+          style={{ height: "100%", padding: 0, margin: 0 }}
+          isActive={active}
+          timeForInactivity={timer}
+          skipKeyboard={true}
+          onAction={(isActive) => {
+            setActive(isActive);
+            console.log(isActive);
+          }}
+          style={{ flex: 1, paddingTop: "10%" }}
+        >
+          {active ? <StackContainer /> : null}
+        </UserInactivity>
+      ) : (
+        <LockScreen active={active} setActive={setActive} />
+      )}
+    </>
   );
 }
 

@@ -1,11 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import { WebView } from "react-native-webview";
 import { useSelector } from "react-redux";
 import AppHeader from "../components/AppHeaderBrowser";
 
 const WebViewScreen = () => {
-  // console.log("hello");
   const URL = useSelector((state) => state.settings.newsUrl);
   console.log(URL);
   return (
