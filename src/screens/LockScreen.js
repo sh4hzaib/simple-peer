@@ -2,10 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { Alert } from "react-native";
 import { Text } from "react-native";
-import { View, StyleSheet } from "react-native";
-import { Button, TextInput } from "react-native-paper";
-import AppHeader from "../components/AppHeader";
-import InputField from "../components/InputField";
+import { View, StyleSheet, TextInput } from "react-native";
+import { Button } from "react-native-paper";
 import { colors } from "../constants/theme";
 
 const LockScreen = ({ setActive }) => {
@@ -32,6 +30,7 @@ const LockScreen = ({ setActive }) => {
             autoFocus={true}
             mode="outlined"
             value={PIN}
+            secureTextEntry={true}
             maxLength={4}
             style={styles.input}
             onChangeText={(text) => setPIN(text)}
@@ -85,8 +84,12 @@ const styles = StyleSheet.create({
   },
   input: {
     color: "#fff",
+    padding: 18,
+    borderRadius: 8,
+    fontSize: 24,
+    textAlign: "center",
     marginBottom: 10,
-    backgroundColor: "#ccc",
+    backgroundColor: "#222",
     //   padding: 10,
     // height: 60,
   },

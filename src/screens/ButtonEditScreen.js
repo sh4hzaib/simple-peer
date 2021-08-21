@@ -120,15 +120,10 @@ const ButtonEditScreen = ({ route, navigation }) => {
     };
     console.log("-------------------", button);
     try {
-      const alreadyExists = btnList.findIndex(
-        (btn) =>
-          btn.buttonName === button.buttonName &&
-          btn.deviceName === button.deviceName
-      );
       const deviceDoesExist = deviceList.findIndex(
         (dev) => dev.deviceName === button.deviceName
       );
-      if (alreadyExists < 0 && deviceDoesExist >= 0) {
+      if (deviceDoesExist >= 0) {
         if (protocol == "ws" && (!message || !channel || !duration))
           throw new Error("Please fill all Input Fields");
         else if (
