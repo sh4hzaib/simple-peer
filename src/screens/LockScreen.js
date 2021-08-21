@@ -12,7 +12,6 @@ const LockScreen = ({ setActive }) => {
   const _PIN = 1234;
   return (
     <>
-      {/* <AppHeader title="Lock Screen" /> */}
       <View style={styles.container}>
         <Text
           style={{
@@ -44,9 +43,16 @@ const LockScreen = ({ setActive }) => {
             onPress={() => {
               if (PIN.length == 4 && PIN == _PIN) setActive(true);
               else {
-                Alert.alert("Invalid PIN");
+                Alert.alert("Invalid PIN", "Please Enter Correct PIN", [
+                  {
+                    text: "OK",
+                    onPress: () => {
+                      setPIN("");
+                    },
+                    style: "cancel",
+                  },
+                ]);
               }
-              // console.log("Button3 at LivingRoomScreen");
             }}
           >
             Submit
