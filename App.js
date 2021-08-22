@@ -13,7 +13,6 @@ export default function App() {
     <>
       {active ? (
         <UserInactivity
-          style={{ height: "100%", padding: 0, margin: 0 }}
           isActive={active}
           timeForInactivity={timer}
           skipKeyboard={true}
@@ -21,9 +20,8 @@ export default function App() {
             setActive(isActive);
             console.log(isActive);
           }}
-          style={{ flex: 1, paddingTop: "10%" }}
         >
-          {active ? <StackContainer /> : null}
+          <StackContainer />
         </UserInactivity>
       ) : (
         <LockScreen active={active} setActive={setActive} />
