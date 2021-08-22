@@ -1,40 +1,17 @@
 import "@expo/match-media";
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import StackContainer from "./src/stacks/StackContainer";
-import UserInactivity from "react-native-user-inactivity";
-import LockScreen from "./src/screens/LockScreen";
-
+import React from "react";
+import store from "./src/redux/store";
+import { Provider as PaperProvider } from "react-native-paper";
+import { Provider as ReduxProvider } from "react-redux";
+import AppContainer from "./src/stacks/AppContainer";
 export default function App() {
-  const [active, setActive] = useState(true);
-  //Set timer for inactivity here...
-  const [timer, setTimer] = useState(20000);
   return (
     <>
-      {active ? (
-        <UserInactivity
-          isActive={active}
-          timeForInactivity={timer}
-          skipKeyboard={true}
-          onAction={(isActive) => {
-            setActive(isActive);
-            console.log(isActive);
-          }}
-        >
-          <StackContainer />
-        </UserInactivity>
-      ) : (
-        <LockScreen active={active} setActive={setActive} />
-      )}
+      <ReduxProvider store={store}>
+        <PaperProvider>
+          <AppContainer />
+        </PaperProvider>
+      </ReduxProvider>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

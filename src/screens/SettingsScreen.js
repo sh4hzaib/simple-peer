@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setIPAdressR,
   setNewsUrlR,
+  setPinR,
   setSoundModeR,
 } from "../redux/settingsSlice";
 import { IpPattern } from "../constants/RegEx";
@@ -22,11 +23,16 @@ import { TouchableOpacity } from "react-native";
 import { addDevicesR } from "../redux/deviceSlice";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { Modal } from "react-native";
+import { Touchable } from "react-native";
 
 const SettingsScreen = ({ navigation }) => {
   useEffect(() => {
     isServerOnline();
   }, []);
+  const pinR = useSelector((state) => state.settings.pin);
+  const [pin, setPin] = useState(pinR);
+  const [pinModal, setPinModal] = useState(false);
   const settings = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   const [IpAdress, setIpAdress] = useState(settings.ipAdress);
@@ -84,6 +90,84 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={pinModal}
+        onRequestClose={() => {
+          setPinModal(!pinModal);
+        }}
+      >
+        <View
+          style={{
+            width: "100%",
+            height: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#000",
+            opacity: 0.9,
+          }}
+        >
+          <View
+            style={{
+              width: "60%",
+              padding: 40,
+              minWidth: 300,
+              backgroundColor: "#fff",
+            }}
+          >
+            <TouchableOpacity
+              style={{ position: "absolute", right: 0 }}
+              onPress={() => {
+                setPinModal(false);
+              }}
+            >
+              <View
+                style={{
+                  width: 40,
+                  height: 30,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "red",
+                }}
+              >
+                <MaterialCommunityIcons name="close" color={"#fff"} size={20} />
+              </View>
+            </TouchableOpacity>
+            <InputField
+              value={pin}
+              placeholder="Change PIN"
+              setValue={setPin}
+              max={4}
+              type="numeric"
+            />
+            <Button
+              style={[styles.btn, { width: "100%" }]}
+              contentStyle={{ width: "100%" }}
+              icon=""
+              mode="contained"
+              disabled={pin.length < 4}
+              onPress={() => {
+                dispatch(setPinR(pin));
+                Alert.alert(
+                  "PIN has been changed",
+                  `PIN has been changed to ${pin}`,
+                  [
+                    {
+                      text: "OK",
+                      onPress: () => {
+                        setPinModal(false);
+                      },
+                    },
+                  ]
+                );
+              }}
+            >
+              Change PIN
+            </Button>
+          </View>
+        </View>
+      </Modal>
       <View>
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -138,6 +222,17 @@ const SettingsScreen = ({ navigation }) => {
                   value={soundMode}
                   setValue={setSoundMode}
                 />
+                <Button
+                  style={[styles.btn, { width: "100%" }]}
+                  contentStyle={{ width: "100%" }}
+                  icon=""
+                  mode="contained"
+                  onPress={() => {
+                    setPinModal(true);
+                  }}
+                >
+                  Change PIN
+                </Button>
                 <View
                   style={{
                     flexDirection: "row",

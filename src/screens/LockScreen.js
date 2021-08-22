@@ -4,12 +4,16 @@ import { Alert } from "react-native";
 import { Text } from "react-native";
 import { View, StyleSheet, TextInput } from "react-native";
 import { Button } from "react-native-paper";
+import { useSelector } from "react-redux";
 import { colors } from "../constants/theme";
 
 const LockScreen = ({ setActive }) => {
   const [PIN, setPIN] = useState("");
   //Set PIN here...
-  const _PIN = 1234;
+  // const _PIN = 1234;
+  const _PIN = useSelector((state) => state.settings.pin);
+  console.log("PIN", _PIN);
+
   return (
     <>
       <View style={styles.container}>
