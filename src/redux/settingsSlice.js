@@ -4,6 +4,7 @@ const SETTINGS = {
   ipAdress: "",
   newsUrl: "",
   soundMode: "Dolby",
+  pin: "1234",
 };
 
 const storeData = async (value) => {
@@ -14,6 +15,16 @@ const storeData = async (value) => {
     console.log(e.message);
   }
 };
+
+const setPIN = async (value) => {
+  try {
+    await AsyncStorage.setItem("_pin", value);
+    console.log("PIN SET");
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
 export const settingsSlice = createSlice({
   name: "settings",
   initialState: SETTINGS,
@@ -34,6 +45,10 @@ export const settingsSlice = createSlice({
         soundMode: state.soundMode,
       });
     },
+    setPinR: (state, action) => {
+      state.pin = action.payload;
+      setPIN(action.payload);
+    },
     setSoundModeR: (state, action) => {
       state.soundMode = action.payload;
       storeData({
@@ -46,7 +61,7 @@ export const settingsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setIPAdressR, setNewsUrlR, setSoundModeR } =
+export const { setIPAdressR, setPinR, setNewsUrlR, setSoundModeR } =
   settingsSlice.actions;
 
 export default settingsSlice.reducer;

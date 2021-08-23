@@ -19,6 +19,16 @@ export const deviceSlice = createSlice({
       state.push(action.payload);
       storeData(state);
     },
+    addDevicesR: (state, action) => {
+      // state = [...action.payload];
+      console.log("Removing All els frm arr");
+      state.splice(0, state.length);
+      console.log("Adding Device");
+      action.payload.forEach((device) => {
+        state.push(device);
+      });
+      storeData(state);
+    },
     removeDeviceR: (state, action) => {
       state.splice(action.payload, 1);
       storeData(state);
@@ -60,6 +70,7 @@ export const {
   addButtonToDeviceR,
   removeButtonFromDeviceR,
   editDeviceR,
+  addDevicesR,
 } = deviceSlice.actions;
 
 export default deviceSlice.reducer;

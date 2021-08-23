@@ -25,13 +25,11 @@ const LivingRoomScreen = () => {
 
   const deviceList = useSelector((state) => state.device);
   const enabledDevices = deviceList.filter((device) => device.status);
-  // console.log(enabledDevices);
   let btnList = [];
   for (let index = 0; index < enabledDevices.length; index++) {
     btnList.push(...enabledDevices[index].buttons);
   }
   for (let index = 0; index < btnList.length; index++) {
-    // if(btnList[index].rooms.includes(rooms[0]))
     btnList = btnList.filter((btn) =>
       btn.rooms.find((room) => {
         return room === "Sound";
@@ -43,7 +41,7 @@ const LivingRoomScreen = () => {
     <>
       <AppHeader title="Sound" />
       <View style={{ height: 300, backgroundColor: colors.bgColor }}>
-        <AdjustSoundSlider value={soundValue} setValue={setSoundValue}/>
+        <AdjustSoundSlider value={soundValue} setValue={setSoundValue} />
       </View>
       <ScrollView style={styles.container}>
         <Text style={styles.text}>Presets:</Text>
@@ -63,7 +61,7 @@ const LivingRoomScreen = () => {
           <Button
             style={styles.btnMute}
             icon=""
-            contentStyle={{width: '100%'}}
+            contentStyle={{ width: "100%" }}
             mode="contained"
             color={colors.buttonMute}
             onPress={() => {
@@ -77,14 +75,14 @@ const LivingRoomScreen = () => {
           <Button
             style={styles.btnMute}
             icon=""
-            contentStyle={{width: '100%'}}
+            contentStyle={{ width: "100%" }}
             mode="contained"
             color={colors.buttonUnmute}
             onPress={() => {
               // console.log(`UnMute`);
               wsMute(serverIp, SoundMode, 0);
             }}
-            labelStyle={{ fontSize: 20}}
+            labelStyle={{ fontSize: 20 }}
           >
             Unmute
           </Button>
@@ -126,8 +124,10 @@ const styles = StyleSheet.create({
     // minWidth: 120,
     width: "32%",
     fontWeight: "bold",
-    justifyContent: "center",fontWeight: "bold",  padding: 20,
-    borderRadius: 5, 
+    justifyContent: "center",
+    fontWeight: "bold",
+    padding: 20,
+    borderRadius: 5,
     // height: 60,
   },
   header: {

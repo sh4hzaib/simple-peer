@@ -134,3 +134,5 @@ buck-out/
 web-build/
 
 # @end expo-cli
+
+java_pid17176.hprof

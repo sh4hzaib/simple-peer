@@ -10,32 +10,31 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setIPAdressR,
   setNewsUrlR,
+  setPinR,
   setSoundModeR,
 } from "../redux/settingsSlice";
-import { IpPattern, UrlPattern } from "../constants/RegEx";
+import { IpPattern } from "../constants/RegEx";
 import soundModes from "../constants/soundModes";
 import axios from "axios";
 import { FlatList } from "react-native";
 import rebootJniorWs from "../components/RebootAutomation";
 import ChangeDeviceStatus from "../components/ChangeDeviceStatus";
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import { ScrollView } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
+import { addDevicesR } from "../redux/deviceSlice";
 
-///////////////////////////////////
-//
-//
-//
-//
-///////////////////////////////////
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { Modal } from "react-native";
+import { Touchable } from "react-native";
 
 const SettingsScreen = ({ navigation }) => {
-  // console.log(settingsData);
   useEffect(() => {
     isServerOnline();
   }, []);
+  const pinR = useSelector((state) => state.settings.pin);
+  const [pin, setPin] = useState(pinR);
+  const [pinModal, setPinModal] = useState(false);
   const settings = useSelector((state) => state.settings);
   const dispatch = useDispatch();
-  // console.log(settings);
   const [IpAdress, setIpAdress] = useState(settings.ipAdress);
   const [URL, setURL] = useState(settings.newsUrl);
   const deviceList = useSelector((state) => state.device);
@@ -91,6 +90,84 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={pinModal}
+        onRequestClose={() => {
+          setPinModal(!pinModal);
+        }}
+      >
+        <View
+          style={{
+            width: "100%",
+            height: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#000",
+            opacity: 0.9,
+          }}
+        >
+          <View
+            style={{
+              width: "60%",
+              padding: 40,
+              minWidth: 300,
+              backgroundColor: "#fff",
+            }}
+          >
+            <TouchableOpacity
+              style={{ position: "absolute", right: 0 }}
+              onPress={() => {
+                setPinModal(false);
+              }}
+            >
+              <View
+                style={{
+                  width: 40,
+                  height: 30,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "red",
+                }}
+              >
+                <MaterialCommunityIcons name="close" color={"#fff"} size={20} />
+              </View>
+            </TouchableOpacity>
+            <InputField
+              value={pin}
+              placeholder="Change PIN"
+              setValue={setPin}
+              max={4}
+              type="numeric"
+            />
+            <Button
+              style={[styles.btn, { width: "100%" }]}
+              contentStyle={{ width: "100%" }}
+              icon=""
+              mode="contained"
+              disabled={pin.length < 4}
+              onPress={() => {
+                dispatch(setPinR(pin));
+                Alert.alert(
+                  "PIN has been changed",
+                  `PIN has been changed to ${pin}`,
+                  [
+                    {
+                      text: "OK",
+                      onPress: () => {
+                        setPinModal(false);
+                      },
+                    },
+                  ]
+                );
+              }}
+            >
+              Change PIN
+            </Button>
+          </View>
+        </View>
+      </Modal>
       <View>
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -145,6 +222,17 @@ const SettingsScreen = ({ navigation }) => {
                   value={soundMode}
                   setValue={setSoundMode}
                 />
+                <Button
+                  style={[styles.btn, { width: "100%" }]}
+                  contentStyle={{ width: "100%" }}
+                  icon=""
+                  mode="contained"
+                  onPress={() => {
+                    setPinModal(true);
+                  }}
+                >
+                  Change PIN
+                </Button>
                 <View
                   style={{
                     flexDirection: "row",
@@ -153,24 +241,22 @@ const SettingsScreen = ({ navigation }) => {
                 >
                   <Button
                     style={styles.btn}
-                    contentStyle={{width: '100%'}}
+                    contentStyle={{ width: "100%" }}
                     icon=""
                     mode="contained"
                     onPress={() => {
                       navigation.navigate("ButtonSceen");
-                      // console.log("Button2 at LivingRoomScreen");
                     }}
                   >
                     Edit Buttons
                   </Button>
                   <Button
                     style={styles.btn}
-                    contentStyle={{width: '100%'}}
+                    contentStyle={{ width: "100%" }}
                     icon=""
                     mode="contained"
                     onPress={() => {
                       navigation.navigate("DeviceScreen");
-                      // console.log("Button3 at LivingRoomScreen");
                     }}
                   >
                     Edit Devices
@@ -178,7 +264,7 @@ const SettingsScreen = ({ navigation }) => {
                 </View>
                 <Button
                   style={[styles.btn, { width: "100%" }]}
-                  contentStyle={{width: '100%'}}
+                  contentStyle={{ width: "100%" }}
                   icon="content-save"
                   mode="contained"
                   onPress={settingsHandler}
@@ -199,7 +285,7 @@ const SettingsScreen = ({ navigation }) => {
                   <Button
                     style={styles.btnDanger}
                     icon="power"
-                    contentStyle={{width: '100%'}}
+                    contentStyle={{ width: "100%" }}
                     mode="contained"
                     color="#bd0023"
                     onPress={() => {
@@ -224,7 +310,7 @@ const SettingsScreen = ({ navigation }) => {
                   <Button
                     style={styles.btn}
                     icon="power"
-                    contentStyle={{width: '100%'}}
+                    contentStyle={{ width: "100%" }}
                     mode="contained"
                     color="#bd0023"
                     onPress={() => {
@@ -250,25 +336,117 @@ const SettingsScreen = ({ navigation }) => {
                     Restart Server
                   </Button>
                 </View>
-                {/* <Button style={styles.button} onPress={() => {}}>
-                  TCP
-                </Button> */}
+
                 <Button
                   style={[styles.btn, { width: "100%" }]}
-                  contentStyle={{width: '100%'}}
+                  contentStyle={{ width: "100%" }}
                   icon="content-save"
                   mode="contained"
                   color="#bd0023"
                   onPress={() => {
                     navigation.navigate("WebViewTaskerScreen");
-                    // console.log("Button3 at LivingRoomScreen");
                   }}
                   disabled={!IpAdress || !URL}
                 >
                   Start Tasker
                 </Button>
+                <Button
+                  style={[styles.btn, { width: "100%" }]}
+                  contentStyle={{ width: "100%" }}
+                  icon="reload"
+                  mode="contained"
+                  onPress={() => {
+                    navigation.navigate("QueryScreen");
+                  }}
+                >
+                  Query Page
+                </Button>
               </View>
-              <Text style={styles.title}>Devices:</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingRight: 20,
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={styles.title}>Devices:</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    console.log("Fetching Devices");
+                    axios
+                      .get(`http://meldre.tplinkdns.com:8090/getTaskDevices`)
+                      .then((response) => {
+                        // console.log();
+                        const fetchedButtons =
+                          response.data.workspaces[0].tasks;
+                        const fetchedDevices =
+                          response.data.workspaces[0].devices;
+
+                        const btns = fetchedButtons.map((btn) => {
+                          return {
+                            buttonName: btn.name,
+                            deviceName: btn.devicesReferenced.length
+                              ? btn.devicesReferenced[0].name
+                              : "",
+                            buttonType: btn.devicesReferenced.length
+                              ? btn.devicesReferenced[0].type
+                              : "",
+                            buttonProtocol: btn.devicesReferenced.length
+                              ? btn.devicesReferenced[0].type
+                              : "",
+                            rooms: [],
+                            buttonCommand: {
+                              Message: btn.devicesReferenced.length
+                                ? btn.devicesReferenced[0].message
+                                : "",
+                              Channel: btn.devicesReferenced.length
+                                ? btn.devicesReferenced[0].channel
+                                : "",
+                              Duration: btn.devicesReferenced.length
+                                ? btn.devicesReferenced[0].duration
+                                : "",
+                              Command: btn.devicesReferenced.length
+                                ? btn.devicesReferenced[0].command
+                                : "",
+                            },
+                          };
+                        });
+
+                        const devices = fetchedDevices.map((device) => {
+                          return {
+                            deviceIP: device.ipAddress,
+                            deviceName: device.name,
+                            port: device.port,
+                            status: true,
+                            buttons: [],
+                          };
+                        });
+
+                        const devicesWithButtonsAdded = devices.map((dev) => {
+                          return {
+                            ...dev,
+                            buttons: btns.filter(
+                              (b) => b.deviceName == dev.deviceName
+                            ),
+                          };
+                        });
+
+                        console.log(devicesWithButtonsAdded);
+                        dispatch(addDevicesR(devicesWithButtonsAdded));
+                      })
+                      .catch((err) => {
+                        Alert.alert(err.message);
+                      });
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="reload"
+                    color={colors.buttonPrimary}
+                    size={32}
+                  />
+                </TouchableOpacity>
+              </View>
             </>
           }
           data={deviceList}
