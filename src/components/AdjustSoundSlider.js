@@ -58,7 +58,6 @@ const AdjustSoundSlider = ({ value, setValue }) => {
         if (client.readyState === client.OPEN) {
           client.send(JSON.stringify(registryWriteJson));
           console.log(registryWriteJson);
-          // setTimeout(sendNumber, 5000);
         }
       }
       sendNumber();
@@ -71,7 +70,6 @@ const AdjustSoundSlider = ({ value, setValue }) => {
 
     client.onmessage = function (e) {
       if (typeof e.data === "string") {
-        // console.log("Received: '" + e.data + "'");
       }
     };
   }
@@ -91,7 +89,6 @@ const AdjustSoundSlider = ({ value, setValue }) => {
         onChange={(value) => {
           const soundValue = calculateSoundValue(value);
           setValue(soundValue);
-          // emptyFunction(soundValue);
         }}
         onComplete={(value) => {
           const soundValue = calculateSoundValue(value);
@@ -105,7 +102,6 @@ const AdjustSoundSlider = ({ value, setValue }) => {
         buttonStrokeWidth={10}
         openingRadian={Math.PI / 4}
         buttonRadius={20}
-        // linearGradient={[{ stop: "100%", color: colors.buttonUnmute }]}
         linearGradient={[
           { stop: "0%", color: "#2ca81e" },
           { stop: "100%", color: "#a81e1e" },

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import BottomNavigationBar from "../components/BottomNavigationBar";
@@ -12,7 +12,7 @@ import QueryScreen from "../screens/QueryScreen";
 
 const Root = createStackNavigator();
 
-const RootStack = () => {
+const RootStack = ({ queryData, setQueryData }) => {
   return (
     <NavigationContainer>
       <Root.Navigator>
@@ -65,20 +65,11 @@ const RootStack = () => {
             headerShown: false,
           }}
         />
-        <Root.Screen
-          name="QueryScreen"
-          component={QueryScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        {/* <Root.Screen
-          name="LoginScreen"
-          component={LoginScreen}
-          options={{
-            headerShown: false,
-          }}
-        /> */}
+        <Root.Screen name="QueryScreen" options={{ headerShown: false }}>
+          {(props) => (
+            <QueryScreen {...props} data={queryData} setData={setQueryData} />
+          )}
+        </Root.Screen>
       </Root.Navigator>
     </NavigationContainer>
   );

@@ -8,23 +8,18 @@ import { View } from "react-native";
 import { FlatList } from "react-native";
 import { SafeAreaView } from "react-native";
 
-const QueryScreen = () => {
+const QueryScreen = ({ data, setData }) => {
   const focused = useIsFocused();
-  const [data, setData] = useState([]);
-
   useFocusEffect(
     React.useCallback(() => {
       console.log("Focused:", focused);
       const queryEverySec = () => {
         if (focused == true) {
           axios.get("http://meldre.tplinkdns.com:8080/getdevice").then((r) => {
-            //   console.log(r.data);
             const tempD = [];
             for (const key in r.data) {
-              // console.log(key, data[key]);
               tempD.push({ name: key, status: r.data[key] });
             }
-            //   console.log(tempD);
             setData([...tempD]);
             console.log("Refreshing");
           });
@@ -32,43 +27,13 @@ const QueryScreen = () => {
       };
       var interval = setTimeout(() => {
         queryEverySec();
-        if (focused == false) clearTimeout(interval);
       }, 1000);
       //cleanup func
       return () => {
         clearTimeout(interval);
       };
-    }, [data, setData])
+    }, [data])
   );
-
-  //   useFocusEffect(
-  //     React.useCallback(() => {
-  //       console.log("Focused:", focused);
-  //       const queryEverySec = () => {
-  //         if (focused == true) {
-  //           axios.get("http://meldre.tplinkdns.com:8080/getdevice").then((r) => {
-  //             //   console.log(r.data);
-  //             const tempD = [];
-  //             for (const key in r.data) {
-  //               // console.log(key, data[key]);
-  //               tempD.push({ name: key, status: r.data[key] });
-  //             }
-  //             //   console.log(tempD);
-  //             setData([...tempD]);
-  //             console.log("Refreshing");
-  //           });
-  //         } else {
-  //           clearInterval(interval);
-  //         }
-  //       };
-  //       var interval = setInterval(() => {
-  //         queryEverySec();
-  //         if (focused == false) clearInterval(interval);
-  //       }, 1000);
-  //     }, [])
-  //   );
-
-  //   useEffect();
   return (
     <SafeAreaView>
       <FlatList
