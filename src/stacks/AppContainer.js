@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 const AppContainer = () => {
   const [active, setActive] = useState(true);
   //Set timer for inactivity here...
-  const [timer, setTimer] = useState(10000);
+  const [timer, setTimer] = useState(30000);
   const dispatch = useDispatch();
   const initPIN = async () => {
     try {

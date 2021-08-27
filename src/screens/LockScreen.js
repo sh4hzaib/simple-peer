@@ -1,11 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { Alert } from "react-native";
-import { Text } from "react-native";
+import { Text, Image } from "react-native";
 import { View, StyleSheet, TextInput } from "react-native";
 import { Button } from "react-native-paper";
 import { useSelector } from "react-redux";
 import { colors } from "../constants/theme";
+import ico from "../../assets/ico.png"
+
+// icon={require("../../assets/ico.png")}
 
 const LockScreen = ({ setActive }) => {
   const [PIN, setPIN] = useState("");
@@ -17,16 +20,19 @@ const LockScreen = ({ setActive }) => {
   return (
     <>
       <View style={styles.container}>
+      <Image source={ico} style={{ width: 100, height: 100, alignSelf: "center" }} />
         <Text
           style={{
-            fontSize: 32,
+            fontSize: 30,
             fontWeight: "bold",
             color: "#fff",
             alignSelf: "center",
+            paddingTop: 60,
           }}
         >
-          Lock Screen
+           Locked
         </Text>
+        
         <View style={{ top: "20%" }}>
           <TextInput
             label={"Enterr PIN"}
