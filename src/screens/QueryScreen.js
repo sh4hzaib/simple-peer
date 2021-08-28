@@ -4,27 +4,24 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Text } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { View } from "react-native";
 import { FlatList } from "react-native";
 import { SafeAreaView } from "react-native";
-
-const QueryScreen = () => {
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+const QueryScreen = ({ navigation, data, setData }) => {
   const focused = useIsFocused();
-  const [data, setData] = useState([]);
-
+  const [loadData, setLoadData] = useState(true);
   useFocusEffect(
     React.useCallback(() => {
       console.log("Focused:", focused);
       const queryEverySec = () => {
-        if (focused == true) {
+        if (focused == true && loadData == true) {
           axios.get("http://meldre.tplinkdns.com:8080/getdevice").then((r) => {
-            //   console.log(r.data);
             const tempD = [];
             for (const key in r.data) {
-              // console.log(key, data[key]);
               tempD.push({ name: key, status: r.data[key] });
             }
-            //   console.log(tempD);
             setData([...tempD]);
             console.log("Refreshing");
           });
@@ -32,43 +29,13 @@ const QueryScreen = () => {
       };
       var interval = setTimeout(() => {
         queryEverySec();
-        if (focused == false) clearTimeout(interval);
       }, 1000);
       //cleanup func
       return () => {
         clearTimeout(interval);
       };
-    }, [data, setData])
+    }, [data])
   );
-
-  //   useFocusEffect(
-  //     React.useCallback(() => {
-  //       console.log("Focused:", focused);
-  //       const queryEverySec = () => {
-  //         if (focused == true) {
-  //           axios.get("http://meldre.tplinkdns.com:8080/getdevice").then((r) => {
-  //             //   console.log(r.data);
-  //             const tempD = [];
-  //             for (const key in r.data) {
-  //               // console.log(key, data[key]);
-  //               tempD.push({ name: key, status: r.data[key] });
-  //             }
-  //             //   console.log(tempD);
-  //             setData([...tempD]);
-  //             console.log("Refreshing");
-  //           });
-  //         } else {
-  //           clearInterval(interval);
-  //         }
-  //       };
-  //       var interval = setInterval(() => {
-  //         queryEverySec();
-  //         if (focused == false) clearInterval(interval);
-  //       }, 1000);
-  //     }, [])
-  //   );
-
-  //   useEffect();
   return (
     <SafeAreaView>
       <FlatList
@@ -79,11 +46,38 @@ const QueryScreen = () => {
               style={{
                 width: "100%",
                 paddingVertical: 40,
-                paddingBottom: 20,
                 alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              <Text style={{ fontSize: 36, fontWeight: "bold" }}>
+              <TouchableOpacity
+                style={{ position: "absolute", left: "5%" }}
+                onPress={() => {
+                  setLoadData(false);
+                  setData([]);
+                  navigation.navigate("SettingsScreen");
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    padding: 6,
+                    paddingVertical: 8,
+                    backgroundColor: "#eee",
+                    borderWidth: 4,
+                    borderColor: "#ccc",
+                    borderRadius: 12,
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="chevron-left"
+                    color={"#000"}
+                    size={20}
+                  />
+                  <Text>Back</Text>
+                </View>
+              </TouchableOpacity>
+              <Text style={{ fontSize: 24, fontWeight: "bold" }}>
                 Querying Data
               </Text>
             </View>

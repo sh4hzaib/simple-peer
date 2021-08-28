@@ -10,9 +10,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 
 const AppContainer = () => {
+  const [queryData, setQueryData] = useState([]);
   const [active, setActive] = useState(true);
   //Set timer for inactivity here...
-  const [timer, setTimer] = useState(30000);
+  const [timer, setTimer] = useState(40000);
   const dispatch = useDispatch();
   const initPIN = async () => {
     try {
@@ -48,7 +49,7 @@ const AppContainer = () => {
             console.log(isActive);
           }}
         >
-          <StackContainer />
+          <StackContainer queryData={queryData} setQueryData={setQueryData} />
         </UserInactivity>
       ) : (
         <LockScreen active={active} setActive={setActive} />
