@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Alert } from "react-native";
 import { Text, Image } from "react-native";
-import { View, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet, TextInput, BackHandler } from "react-native";
 import { Button } from "react-native-paper";
 import { useSelector } from "react-redux";
 import { colors } from "../constants/theme";
-import ico from "../../assets/ico.png"
+import ico from "../../assets/ico.png";
 
 // icon={require("../../assets/ico.png")}
 
 const LockScreen = ({ setActive }) => {
+  useEffect(() => {
+    const backAction = () => {
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   const [PIN, setPIN] = useState("");
   //Set PIN here...
   // const _PIN = 1234;
@@ -20,7 +33,10 @@ const LockScreen = ({ setActive }) => {
   return (
     <>
       <View style={styles.container}>
-      <Image source={ico} style={{ width: 100, height: 100, alignSelf: "center" }} />
+        <Image
+          source={ico}
+          style={{ width: 100, height: 100, alignSelf: "center" }}
+        />
         <Text
           style={{
             fontSize: 30,
@@ -30,9 +46,9 @@ const LockScreen = ({ setActive }) => {
             paddingTop: 60,
           }}
         >
-           Locked
+          Locked
         </Text>
-        
+
         <View style={{ top: "20%" }}>
           <TextInput
             label={"Enterr PIN"}
