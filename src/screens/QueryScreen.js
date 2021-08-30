@@ -8,22 +8,24 @@ import { TouchableOpacity } from "react-native";
 import { View } from "react-native";
 import { FlatList } from "react-native";
 import { SafeAreaView } from "react-native";
+import { useSelector } from "react-redux";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 const QueryScreen = ({ navigation, data, setData }) => {
   const focused = useIsFocused();
+  const IpAdress = useSelector((state) => state.settings.ipAdress);
   const [loadData, setLoadData] = useState(true);
   useFocusEffect(
     React.useCallback(() => {
       console.log("Focused:", focused);
       const queryEverySec = () => {
         if (focused == true && loadData == true) {
-          axios.get("http://meldre.tplinkdns.com:8080/getdevice").then((r) => {
+          axios.get("http://" + IpAdress + ":8080/getdevice").then((r) => {
             const tempD = [];
             for (const key in r.data) {
               tempD.push({ name: key, status: r.data[key] });
             }
             setData([...tempD]);
-            console.log("Refreshing");
+            console.log("Refreshing data from: " + IpAdress);
           });
         }
       };
