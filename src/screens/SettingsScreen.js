@@ -350,10 +350,16 @@ const SettingsScreen = ({ navigation }) => {
                 >
                   Start Tasker
                 </Button>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
                 <Button
-                  style={[styles.btn, { width: "100%" }]}
-                  contentStyle={{ width: "100%" }}
-                  icon="content-save"
+                  style={styles.btn}
+                  icon="brightness-5"
                   mode="contained"
                   color="#bd0023"
                   onPress={() => {
@@ -364,7 +370,7 @@ const SettingsScreen = ({ navigation }) => {
                   Enable Brightness
                 </Button>
                 <Button
-                  style={[styles.btn, { width: "100%" }]}
+                  style={styles.btn}
                   contentStyle={{ width: "100%" }}
                   icon="reload"
                   mode="contained"
@@ -374,6 +380,7 @@ const SettingsScreen = ({ navigation }) => {
                 >
                   Query Page
                 </Button>
+                </View>
               </View>
               <View
                 style={{

@@ -13,7 +13,7 @@ const AppContainer = () => {
   const [queryData, setQueryData] = useState([]);
   const [active, setActive] = useState(true);
   //Set timer for inactivity here...
-  const [timer, setTimer] = useState(15000);
+  const [timer, setTimer] = useState(60000);
   const dispatch = useDispatch();
   const initPIN = async () => {
     try {
