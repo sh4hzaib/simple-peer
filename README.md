@@ -2,7 +2,7 @@
 
 ## Main
 - Merged v1.3 to main.
-- Added Backlight Control. 0.0 on lock, 0.5 on unlock.
+- Added Backlight Control and Enable Backlight in settings. PowerSetting 0.0 on lock, 0.5 on unlock.
 
 ## v1.1
 
