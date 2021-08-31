@@ -1,5 +1,9 @@
 # Change Log
 
+## v1.1 - Main
+- Merged v1.3 to main.
+- 
+
 ## v1.1
 
 - Edit Button Screen.
