@@ -9,6 +9,7 @@ import DeviceEditScreen from "../screens/DeviceEditScreen";
 import WebViewTaskerScreen from "../screens/WebViewTaskerScreen";
 import ButtonEditScreen from "../screens/ButtonEditScreen";
 import QueryScreen from "../screens/QueryScreen";
+import BrightnessScreen  from "../screens/BrightnessScreen";
 
 const Root = createStackNavigator();
 
@@ -61,6 +62,13 @@ const RootStack = ({ queryData, setQueryData }) => {
         <Root.Screen
           name="WebViewTaskerScreen"
           component={WebViewTaskerScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Root.Screen
+          name="BrightnessScreen"
+          component={BrightnessScreen}
           options={{
             headerShown: false,
           }}

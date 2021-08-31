@@ -21,7 +21,7 @@
       "supportsTablet": true
     },
     "androidNavigationBar": {
-      "visible": "immersive"
+      "visible": "sticky-immersive"
    },
     "android": {
       "adaptiveIcon": {

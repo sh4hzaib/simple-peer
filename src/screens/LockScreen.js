@@ -4,6 +4,7 @@ import { Alert } from "react-native";
 import { Text, Image } from "react-native";
 import { View, StyleSheet, TextInput, BackHandler } from "react-native";
 import { Button } from "react-native-paper";
+import * as Brightness from 'expo-brightness';
 import { useSelector } from "react-redux";
 import { colors } from "../constants/theme";
 import ico from "../../assets/ico.png";
@@ -12,6 +13,7 @@ import ico from "../../assets/ico.png";
 
 const LockScreen = ({ setActive }) => {
   useEffect(() => {
+    
     const backAction = () => {
       return true;
     };
@@ -21,6 +23,8 @@ const LockScreen = ({ setActive }) => {
       backAction
     );
 
+    
+
     return () => backHandler.remove();
   }, []);
 
@@ -29,7 +33,7 @@ const LockScreen = ({ setActive }) => {
   // const _PIN = 1234;
   const _PIN = useSelector((state) => state.settings.pin);
   console.log("PIN", _PIN);
-
+  Brightness.setSystemBrightnessAsync(0.0);
   return (
     <>
       <View style={styles.container}>
@@ -67,7 +71,7 @@ const LockScreen = ({ setActive }) => {
             icon="check-outline"
             mode="contained"
             onPress={() => {
-              if (PIN.length == 4 && PIN == _PIN) setActive(true);
+              if (PIN.length == 4 && PIN == _PIN) setActive(true), Brightness.setSystemBrightnessAsync(0.5);
               else {
                 Alert.alert("Invalid PIN", "Please Enter Correct PIN", [
                   {

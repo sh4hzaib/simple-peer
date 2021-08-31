@@ -353,6 +353,19 @@ const SettingsScreen = ({ navigation }) => {
                 <Button
                   style={[styles.btn, { width: "100%" }]}
                   contentStyle={{ width: "100%" }}
+                  icon="content-save"
+                  mode="contained"
+                  color="#bd0023"
+                  onPress={() => {
+                    navigation.navigate("BrightnessScreen");
+                  }}
+                  disabled={!IpAdress || !URL}
+                >
+                  Enable Brightness
+                </Button>
+                <Button
+                  style={[styles.btn, { width: "100%" }]}
+                  contentStyle={{ width: "100%" }}
                   icon="reload"
                   mode="contained"
                   onPress={() => {
