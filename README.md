@@ -1,8 +1,8 @@
 # Change Log
 
-## v1.1 - Main
+## Main
 - Merged v1.3 to main.
-- 
+- Added Backlight Control. 0.0 on lock, 0.5 on unlock.
 
 ## v1.1
 
