@@ -79,48 +79,62 @@ const AdjustSoundSlider = ({ value, setValue }) => {
     wsSound(serverIp, value);
   };
 
-  return (
-    <View style={styles.container}>
-      <CircularSlider
-        step={2}
-        min={0}
-        max={100}
-        value={value}
-        onChange={(value) => {
-          const soundValue = calculateSoundValue(value);
-          setValue(soundValue);
-        }}
-        onComplete={(value) => {
-          const soundValue = calculateSoundValue(value);
-          setValue(soundValue);
-          emptyFunction(soundValue);
-        }}
-        contentContainerStyle={styles.contentContainerStyle}
-        strokeWidth={30}
-        buttonBorderColor={colors.buttonDanger}
-        buttonFillColor={colors.buttonDanger}
-        buttonStrokeWidth={10}
-        openingRadian={Math.PI / 4}
-        buttonRadius={20}
-        linearGradient={[
-          { stop: "0%", color: "#2ca81e" },
-          { stop: "100%", color: "#a81e1e" },
-        ]}
-      >
-        <Text style={styles.value}>{value}</Text>
-      </CircularSlider>
-      <Text
-        style={{
-          color: "white",
-          paddingTop: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-        }}
-      >
-        {settings.soundMode}
-      </Text>
-    </View>
-  );
+  if (settings.soundMode === "None") {
+    return (
+      <View style={styles.container}>
+        <Text style={{
+              color: "white",
+              paddingTop: 0,
+              fontSize: 20,
+              fontWeight: "bold",
+            }}>This Screen has no supported Sound Processor. Use Presets.
+          </Text>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <CircularSlider
+          step={2}
+          min={0}
+          max={100}
+          value={value}
+          onChange={(value) => {
+            const soundValue = calculateSoundValue(value);
+            setValue(soundValue);
+          }}
+          onComplete={(value) => {
+            const soundValue = calculateSoundValue(value);
+            setValue(soundValue);
+            emptyFunction(soundValue);
+          }}
+          contentContainerStyle={styles.contentContainerStyle}
+          strokeWidth={30}
+          buttonBorderColor={colors.buttonDanger}
+          buttonFillColor={colors.buttonDanger}
+          buttonStrokeWidth={10}
+          openingRadian={Math.PI / 4}
+          buttonRadius={20}
+          linearGradient={[
+            { stop: "0%", color: "#2ca81e" },
+            { stop: "100%", color: "#a81e1e" },
+          ]}
+        >
+          <Text style={styles.value}>{value}</Text>
+        </CircularSlider>
+        <Text
+          style={{
+            color: "white",
+            paddingTop: 5,
+            fontSize: 15,
+            fontWeight: "bold",
+          }}
+        >
+          {settings.soundMode}
+        </Text>
+      </View>
+    );
+  }
 };
 
 export default AdjustSoundSlider;
