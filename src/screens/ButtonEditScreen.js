@@ -269,6 +269,7 @@ const ButtonEditScreen = ({ route, navigation }) => {
                 <InputField
                   value={message}
                   placeholder="Set message: task.execute"
+                  defaultValue="task.execute"
                   setValue={setMessage}
                 />
               ) : null}

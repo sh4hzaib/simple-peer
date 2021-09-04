@@ -392,10 +392,11 @@ const SettingsScreen = ({ navigation }) => {
               >
                 <Text style={styles.title}>Devices:</Text>
                 <TouchableOpacity
+                disabled
                   onPress={() => {
                     console.log("Fetching Devices");
                     axios
-                      .get(`http://meldre.tplinkdns.com:8090/getTaskDevices`)
+                      .get(`http://${IpAdress}:8090/getTaskDevices`)
                       .then((response) => {
                         // console.log();
                         const fetchedButtons =
