@@ -40,19 +40,31 @@ const AdjustSoundSlider = ({ value, setValue }) => {
       console.log("WebSocket Client Connected");
       if (soundSystem === "Dolby") {
         selectedCP = "DolbyVolumeXX";
+        var registryWriteJson = {
+          Message: "Post Message",
+          Number: 2010,
+          Content:
+            '{"Message":"task.execute","TaskName":"' +
+            selectedCP +
+            '","Variables":{"volume":' +
+            value.replace('.', '') +
+            "}}",
+        };
+        
       } else {
         selectedCP = "DCP300VolumeXX";
+        var registryWriteJson = {
+          Message: "Post Message",
+          Number: 2010,
+          Content:
+            '{"Message":"task.execute","TaskName":"' +
+            selectedCP +
+            '","Variables":{"volume":' +
+            value +
+            "}}",
+        };
       }
-      var registryWriteJson = {
-        Message: "Post Message",
-        Number: 2010,
-        Content:
-          '{"Message":"task.execute","TaskName":"' +
-          selectedCP +
-          '","Variables":{"volume":' +
-          value +
-          "}}",
-      };
+      
 
       function sendNumber() {
         if (client.readyState === client.OPEN) {
