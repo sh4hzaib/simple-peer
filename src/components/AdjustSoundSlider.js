@@ -99,7 +99,7 @@ const AdjustSoundSlider = ({ value, setValue }) => {
               paddingTop: 0,
               fontSize: 20,
               fontWeight: "bold",
-            }}>This Screen has no supported Sound Processor. Use Presets.
+            }}>This Screen has no supported Sound Processor or Remote Fader is present. Use Presets.
           </Text>
       </View>
     );
