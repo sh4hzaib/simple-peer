@@ -34,12 +34,12 @@ const ButtonSceen = ({ navigation }) => {
   const [cmd, setCmd] = useState("");
   const [room, setRoom] = useState([]);
   const [protocol, setProtocol] = useState(protocols[0]);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("task.execute");
   const [channel, setChannel] = useState("");
   const [duration, setDuration] = useState("");
   const [taskName, setTaskName] = useState("");
-  const [variableName, setVariableName] = useState("");
-  const [value, setValue] = useState("");
+  const [variableName, setVariableName] = useState("0");
+  const [value, setValue] = useState("0");
 
   const addBtnHandler = useCallback(() => {
     const button = {

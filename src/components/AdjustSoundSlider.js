@@ -17,7 +17,7 @@ const AdjustSoundSlider = ({ value, setValue }) => {
       tempValue = ((value / 100) * 7).toFixed(1);
       return tempValue;
     } else {
-      tempValue = ((value / 100) * 10).toFixed(1);
+      tempValue = ((value / 100) * 20).toFixed(1);
       return tempValue;
     }
   };
