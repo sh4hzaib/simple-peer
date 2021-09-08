@@ -36,60 +36,87 @@ const LivingRoomScreen = () => {
       })
     );
   }
-
-  return (
-    <>
-      <AppHeader title="Sound" />
-      <View style={{ height: 300, backgroundColor: colors.bgColor }}>
-        <AdjustSoundSlider value={soundValue} setValue={setSoundValue} />
-      </View>
-      <ScrollView style={styles.container}>
-        <Text style={styles.text}>Presets:</Text>
-        <View style={styles.btnContainer}>
-          {btnList.map((button, index) => (
-            <ButtonComponent
-              key={index + button.buttonName}
-              style={styles.btn}
-              button={button}
-            />
-          ))}
+  if (settings.soundMode === "None") {
+    return (
+    
+      <>
+        <AppHeader title="Sound" />
+        <View style={{ height: 300, backgroundColor: colors.bgColor }}>
+          <AdjustSoundSlider value={soundValue} setValue={setSoundValue} />
         </View>
-      </ScrollView>
-
-      <ScrollView style={styles.container}>
-        <View style={styles.btnContainer}>
-          <Button
-            style={styles.btnMute}
-            icon=""
-            contentStyle={{ width: "100%" }}
-            mode="contained"
-            color={colors.buttonMute}
-            onPress={() => {
-              // console.log(`Mute`);
-              wsMute(serverIp, SoundMode, 1);
-            }}
-            labelStyle={{ fontSize: 20, fontWeight: "bold" }}
-          >
-            Mute
-          </Button>
-          <Button
-            style={styles.btnMute}
-            icon=""
-            contentStyle={{ width: "100%" }}
-            mode="contained"
-            color={colors.buttonUnmute}
-            onPress={() => {
-              // console.log(`UnMute`);
-              wsMute(serverIp, SoundMode, 0);
-            }}
-            labelStyle={{ fontSize: 20 }}
-          >
-            Unmute
-          </Button>
+        <ScrollView style={styles.container}>
+          <Text style={styles.text}>Presets:</Text>
+          <View style={styles.btnContainer}>
+            {btnList.map((button, index) => (
+              <ButtonComponent
+                key={index + button.buttonName}
+                style={styles.btn}
+                button={button}
+              />
+            ))}
+          </View>
+        </ScrollView>
+      </>
+    );
+  } else {
+    return (
+    
+      <>
+        <AppHeader title="Sound" />
+        <View style={{ height: 300, backgroundColor: colors.bgColor }}>
+          <AdjustSoundSlider value={soundValue} setValue={setSoundValue} />
         </View>
-      </ScrollView>
-    </>
-  );
+        <ScrollView style={styles.container}>
+          <Text style={styles.text}>Presets:</Text>
+          <View style={styles.btnContainer}>
+            {btnList.map((button, index) => (
+              <ButtonComponent
+                key={index + button.buttonName}
+                style={styles.btn}
+                button={button}
+              />
+            ))}
+          </View>
+        </ScrollView>
+  
+        <ScrollView style={styles.container}>
+          <View style={styles.btnContainer}>
+  
+            
+            <Button
+              style={styles.btnMute}
+              icon=""
+              contentStyle={{ width: "100%" }}
+              mode="contained"
+              color={colors.buttonMute}
+              onPress={() => {
+                // console.log(`Mute`);
+                wsMute(serverIp, SoundMode, 1);
+              }}
+              labelStyle={{ fontSize: 20, fontWeight: "bold" }}
+            >
+              Mute
+            </Button>
+            <Button
+              style={styles.btnMute}
+              icon=""
+              contentStyle={{ width: "100%" }}
+              mode="contained"
+              color={colors.buttonUnmute}
+              onPress={() => {
+                // console.log(`UnMute`);
+                wsMute(serverIp, SoundMode, 0);
+              }}
+              labelStyle={{ fontSize: 20 }}
+            >
+              Unmute
+            </Button>
+          </View>
+        </ScrollView>
+      </>
+    );
+  }
+  
 };
 
 const styles = StyleSheet.create({
