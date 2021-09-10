@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { colors } from "../constants/theme";
 import ico from "../../assets/ico.png";
 
+
 // icon={require("../../assets/ico.png")}
 
 const LockScreen = ({ setActive }) => {
@@ -53,10 +54,11 @@ const LockScreen = ({ setActive }) => {
           Locked
         </Text>
 
-        <View style={{ top: "20%" }}>
+        <View style={{ top: "20%" }} keyboardShouldPersistTaps='handled' >
+          
           <TextInput
             label={"Enterr PIN"}
-            autoFocus={true}
+            autoFocus={false}
             mode="outlined"
             value={PIN}
             secureTextEntry={true}
@@ -121,11 +123,17 @@ const styles = StyleSheet.create({
   input: {
     color: "#fff",
     padding: 18,
-    borderRadius: 8,
+    borderRadius: 10,
     fontSize: 24,
     textAlign: "center",
     marginBottom: 10,
     backgroundColor: "#222",
+    borderColor: '#ffffff',
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    height: 70
     //   padding: 10,
     // height: 60,
   },
