@@ -10,6 +10,7 @@ const ButtonComponent = ({ style, button }) => {
   const deviceList = useSelector((state) => state.device);
   const { buttonPrimary } = colors;
 
+
   function runMacro(ip, port, macro) {
     console.log(ip, port, macro);
     const httpRequest = new XMLHttpRequest();
