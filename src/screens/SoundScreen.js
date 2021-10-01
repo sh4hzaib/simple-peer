@@ -15,6 +15,8 @@ import ButtonComponent from "../components/ButtonComponent";
 import { colors } from "../constants/theme";
 import wsMute from "../components/CpMute";
 
+
+
 const LivingRoomScreen = () => {
   const [soundValue, setSoundValue] = useState(0);
   const settings = useSelector((state) => state.settings);
