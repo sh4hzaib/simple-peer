@@ -19,3 +19,9 @@
 - Fixed White Space in UI above header.
 - Added Change PIN button in Settings Screen. (Default PIN is 1234, timer can be changed in /src/stacks/AppContainer.js)
 - Merged to Main.
+
+## v1.4
+
+- Added Rosetta Field in settings. (rnAdress in redux).
+- Visual boarder in login pin field.
+- Minor bug fixes.
