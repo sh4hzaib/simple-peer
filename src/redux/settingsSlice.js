@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const SETTINGS = {
   ipAdress: "",
   newsUrl: "",
+  rnAdress: "",
   soundMode: "Dolby",
   pin: "1234",
 };
@@ -11,6 +12,7 @@ const storeData = async (value) => {
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem("SETTINGS", jsonValue);
+    console.log(jsonValue)
   } catch (e) {
     console.log(e.message);
   }
@@ -35,6 +37,7 @@ export const settingsSlice = createSlice({
         ipAdress: action.payload,
         newsUrl: state.newsUrl,
         soundMode: state.soundMode,
+        rnAdress: state.rnAdress
       });
     },
     setNewsUrlR: (state, action) => {
@@ -43,6 +46,17 @@ export const settingsSlice = createSlice({
         newsUrl: action.payload,
         ipAdress: state.ipAdress,
         soundMode: state.soundMode,
+        rnAdress: state.rnAdress,
+      });
+    },
+    setRNUrlR: (state, action) => {
+      state.rnAdress = action.payload;
+      storeData({
+        newsUrl: action.payload,
+        ipAdress: state.ipAdress,
+        soundMode: state.soundMode,
+        rnAdress: state.rnAdress,
+
       });
     },
     setPinR: (state, action) => {
@@ -52,16 +66,17 @@ export const settingsSlice = createSlice({
     setSoundModeR: (state, action) => {
       state.soundMode = action.payload;
       storeData({
-        soundMode: action.payload,
-        newsUrl: state.newsUrl,
+        newsUrl: action.payload,
         ipAdress: state.ipAdress,
+        soundMode: state.soundMode,
+        rnAdress: state.rnAdress,
       });
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setIPAdressR, setPinR, setNewsUrlR, setSoundModeR } =
+export const { setIPAdressR, setRNUrlR, setPinR, setNewsUrlR, setSoundModeR } =
   settingsSlice.actions;
 
 export default settingsSlice.reducer;
