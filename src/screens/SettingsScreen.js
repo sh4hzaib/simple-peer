@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setIPAdressR,
   setNewsUrlR,
+  setRNUrlR,
   setPinR,
   setSoundModeR,
 } from "../redux/settingsSlice";
@@ -36,6 +37,7 @@ const SettingsScreen = ({ navigation }) => {
   const settings = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   const [IpAdress, setIpAdress] = useState(settings.ipAdress);
+  const [RnAdress, setrnAdress] = useState(settings.rnAdress);
   const [URL, setURL] = useState(settings.newsUrl);
   const deviceList = useSelector((state) => state.device);
 
@@ -215,6 +217,12 @@ const SettingsScreen = ({ navigation }) => {
                   value={URL}
                   placeholder="Set Mediablock Ip"
                   setValue={setURL}
+                />
+                <Title>Set Rosetta Ip</Title>
+                <InputField
+                  value={RnAdress}
+                  placeholder="Set Rosetta Ip"
+                  setValue={setrnAdress}
                 />
                 <RadioButtons
                   title="Choose SP ->"
