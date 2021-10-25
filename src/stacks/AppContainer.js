@@ -52,6 +52,7 @@ const AppContainer = () => {
           <StackContainer queryData={queryData} setQueryData={setQueryData} />
         </UserInactivity>
       ) : (
+        // console.log(active)
         <LockScreen active={active} setActive={setActive} />
       )}
     </>
