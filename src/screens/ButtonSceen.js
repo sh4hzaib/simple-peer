@@ -297,13 +297,7 @@ const ButtonSceen = ({ navigation }) => {
                           <Picker.item label="Pluse" value="Pluse" />
                         </Picker>
                       </View>
-                    ) : // <DropDownList
-                    //   listItems={deviceList}
-                    //   value={deviceName}
-                    //   setValue={setDeviceName}
-                    // />
-
-                    null}
+                    ) : null}
                     {protocol == "Toggle" ? (
                       <InputField
                         value={channel}
