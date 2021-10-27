@@ -1,0 +1,120 @@
+<html lang="en">
+
+<head>
+    <title>WebSocket Testing</title>
+
+    <script type="text/javascript" src="base64.js"></script>
+    <script type="text/javascript" src="md5.js"></script>
+    <script type="text/javascript" src="comm.js"></script>
+
+
+    <script>
+        // or comm object.  The communication will be established to the device that serves this page.
+        _comm = new Comm();
+
+
+        // a function to create a div with a timestamped message to the messages section of the page.
+        // The div will be prepended so that is is at the top of the section.
+        var logToBody = function (message) {
+            var el = document.createElement('div');
+            el.innerHTML = new Date().toLocaleString() + ': ' + message;
+            el.style = 'white-space: nowrap';
+            var messagesElement = document.getElementById('messages');
+            messagesElement.prepend(el);
+        };
+
+
+        // called when the connection is successfully opened
+        _comm.onopen = function () {
+            logToBody('comm opened');
+        };
+
+
+        // called when the connection closed
+        _comm.onclose = function () {
+            _loggedIn = false;
+            logToBody('comm closed');
+        };
+
+
+        _comm.onerror = function (error) {
+            logToBody('comm error: ' + error);
+        };
+
+
+        // called when there is an error
+        _comm.onmessage = function (evt) {
+            var messageJson = JSON.parse(evt.data);
+            logToBody('comm message: ' + JSON.stringify(messageJson));
+        };
+
+
+        // called when the page has been loaded
+        window.onload = function () {
+            logToBody('init comm');
+            _comm.connect();
+        }
+
+
+        // called when the user clicks the inversion checkbox
+        function invert(checkbox, channelNumber) {
+            var registryWriteJson = {
+                "Message": "Registry Write",
+                "Keys": {}
+            };
+
+            registryWriteJson.Keys["IO/Inputs/din" + channelNumber + "/Inversion"] = checkbox.checked.toString();
+            _comm.sendJson(registryWriteJson);
+        }
+        // called when the user clicks the inversion checkbox
+        function output(checkbox, channelNumber) {
+            var registryWriteJson = {
+                "Message":"Control",
+                "Command":"Toggle",
+                "Channel":channelNumber,
+                "Duration": 5000
+            };
+
+            // registryWriteJson.Keys["IO/Inputs/din" + channelNumber + "/Inversion"] = checkbox.checked.toString();
+            _comm.sendJson(registryWriteJson);
+        }
+
+        function outputTasker(checkbox, channelNumber) {
+            var registryWriteJson = {
+                    "Message":"Post Message",
+                    "Number":2010,
+                    "Content":"{\"Message\":\"task.execute\",\"TaskName\":\"Lamp_on\"}"
+                };
+
+            // registryWriteJson.Keys["IO/Inputs/din" + channelNumber + "/Inversion"] = checkbox.checked.toString();
+            _comm.sendJson(registryWriteJson);
+        }
+    </script>
+    
+</head>
+
+<body>
+    <h2>Function testing for Jnior</h2>
+    <p>Try firealarm on input 1 simulate trigger. This will demonstrate writing to the registry.</p>
+    <label>
+        <input type="checkbox" onclick="invert(this, 1)" />Firealarm Invert Input 1
+    </label>
+    <p>Close / Open Relays. Test TCP connection to projector using <b>Tasker</b></p>
+    <label>
+        <input type="checkbox" onclick="output(this, 1)" />Rout 1 toggle
+    </label>
+    <label>
+        <input type="checkbox" onclick="output(this, 2)" />Rout 2 toggle
+    </label>
+    <label>
+        <input type="checkbox" onclick="output(this, 3)" />Rout 3 toggle
+    </label>
+    <label>
+        <button type="button"  onclick="outputTasker(this, 3)">Tasker</button>
+    </label>
+
+    <p id="messages"></p>
+
+</body>
+
+</html>
