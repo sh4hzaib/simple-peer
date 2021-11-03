@@ -3,7 +3,8 @@ import { Alert, SafeAreaView, StyleSheet, View } from "react-native";
 import { Button, Checkbox } from "react-native-paper";
 // import AllDevices from "../components/AllDevices";
 import InputField from "../components/InputField";
-
+import { Picker } from "@react-native-picker/picker";
+import Setting from "../constants/settings.json";
 import { useSelector, useDispatch } from "react-redux";
 import {
   addButtonToDeviceR,
@@ -49,7 +50,7 @@ const ButtonEditScreen = ({ route, navigation }) => {
     button.buttonCommand.VariableName
   );
   const [value, setValue] = useState(button.buttonCommand.Value);
-
+  const [Task, setTask2] = useState(Setting.Setmessage);
   //   const editDeviceHandler = useCallback(() => {
   //     const deviceBtns = [...deviceList[device.index].buttons];
   //     console.log(deviceBtns);
@@ -111,6 +112,15 @@ const ButtonEditScreen = ({ route, navigation }) => {
               TaskName: taskName,
               VariableName: variableName,
               Value: value,
+            }
+          : protocol == "Toggle"
+          ? {
+              Message: message,
+              // TaskName: taskName,
+              // VariableName: variableName,
+              // Value: value,
+              Channel: parseInt(channel),
+              Duration: parseInt(duration),
             }
           : {
               Command: cmd,
@@ -225,13 +235,14 @@ const ButtonEditScreen = ({ route, navigation }) => {
               </View>
             ))}
           </View>
-
-          <RadioButtons
-            title="Choose Mode -->"
-            listItems={protocols}
-            value={protocol}
-            setValue={setProtocol}
-          />
+          <View style={{ height: "15%", width: "85%" }}>
+            <RadioButtons
+              title="Choose Mode -->"
+              listItems={protocols}
+              value={protocol}
+              setValue={setProtocol}
+            />
+          </View>
 
           <View style={{ flexDirection: "row" }}>
             <View style={{ width: "100%" }}>
@@ -243,19 +254,82 @@ const ButtonEditScreen = ({ route, navigation }) => {
                 />
               ) : null}
               {protocol == "ws" ? (
-                <InputField
-                  value={message}
-                  placeholder="Message: Toggle, Open, Close, task.execute"
-                  setValue={setMessage}
-                />
+                // <InputField
+                //   value={message}
+                //   placeholder="Message: Toggle, Open, Close, task.execute"
+                //   setValue={setMessage}
+                // />
+                <View style={{ borderWidth: 1 }}>
+                  <Picker
+                    style={{
+                      height: 50,
+                      width: "100%",
+                    }}
+                    selectedValue={message}
+                    onValueChange={(itemValue, itemIndex) =>
+                      setMessage(itemValue)
+                    }
+                  >
+                    <Picker.Item label="Toggel" value="Toggel" />
+                    <Picker.Item label="Open" value="Open" />
+                    <Picker.Item label="Close" value="Close" />
+                    <Picker.item label="Pluse" value="Pluse" />
+                  </Picker>
+                </View>
               ) : null}
               {protocol == "ws" ? (
-                <InputField
-                  value={channel}
-                  placeholder="Set Channel: 1 - 12"
-                  type={"numeric"}
-                  setValue={setChannel}
-                />
+                // <InputField
+                //   value={channel}
+                //   placeholder="Set Channel: 1 - 12"
+                //   type={"numeric"}
+                //   setValue={setChannel}
+                // />
+                <View
+                  style={{
+                    borderWidth: 1,
+                    alignItems: "center",
+                    top: 2,
+                  }}
+                >
+                  <Picker
+                    style={{
+                      height: 50,
+                      // top: 10,
+                      width: "100%",
+                      textAlign: "center",
+                    }}
+                    selectedValue={channel}
+                    onValueChange={(itemValue, itemIndex) =>
+                      // setMessage(itemValue)
+                      setChannel(itemValue)
+                    }
+                  >
+                    <Picker.Item label="1-24" value="1" />
+                    <Picker.Item label="2" value="2" />
+                    <Picker.Item label="3" value="3" />
+                    <Picker.item label="4" value="4" />
+                    <Picker.item label="5" value="5" />
+                    <Picker.item label="6" value="6" />
+                    <Picker.item label="7" value="7" />
+                    <Picker.item label="8" value="8" />
+                    <Picker.item label="9" value="9" />
+                    <Picker.item label="10" value="10" />
+                    <Picker.item label="11" value="11" />
+                    <Picker.item label="12" value="12" />
+                    <Picker.item label="13" value="13" />
+                    <Picker.item label="14" value="14" />
+                    <Picker.item label="15" value="15" />
+                    <Picker.item label="16" value="16" />
+                    <Picker.item label="17" value="17" />
+                    <Picker.item label="18" value="18" />
+                    <Picker.item label="19" value="19" />
+                    <Picker.item label="20" value="20" />
+                    <Picker.item label="21" value="21" />
+                    <Picker.item label="22" value="22" />
+                    <Picker.item label="23" value="23" />
+                    <Picker.item label="24" value="24" />
+                  </Picker>
+                </View>
               ) : null}
               {protocol == "ws" ? (
                 <InputField
@@ -266,12 +340,30 @@ const ButtonEditScreen = ({ route, navigation }) => {
                 />
               ) : null}
               {protocol == "tasker" ? (
-                <InputField
-                  value={message}
-                  placeholder="Set message: task.execute"
-                  defaultValue="task.execute"
-                  setValue={setMessage}
-                />
+                // <InputField
+                //   value={message}
+                //   placeholder="Set message: task.execute"
+                //   defaultValue="task.execute"
+                //   setValue={setMessage}
+                // />
+                <View style={{ borderWidth: 1 }}>
+                  <Picker
+                    style={{
+                      height: 50,
+                      width: "100%",
+                    }}
+                    selectedValue={message}
+                    onValueChange={(itemValue, itemIndex) =>
+                      setMessage(itemValue)
+                    }
+                  >
+                    {Object.keys(Task).map((key) => {
+                      return (
+                        <Picker.Item label={Task[key]} value={Task[key]} />
+                      );
+                    })}
+                  </Picker>
+                </View>
               ) : null}
               {protocol == "tasker" ? (
                 <InputField
@@ -292,6 +384,92 @@ const ButtonEditScreen = ({ route, navigation }) => {
                   value={value}
                   placeholder="Set Value."
                   setValue={setValue}
+                />
+              ) : null}
+              {protocol == "Toggle" ? (
+                // <InputField
+                //   value={message}
+                //   placeholder="Message: Toggle, Open, Close, task.execute"
+                //   setValue={setMessage}
+                // />
+                <View style={{ borderWidth: 1 }}>
+                  <Picker
+                    style={{
+                      height: 50,
+                      width: "100%",
+                    }}
+                    selectedValue={message}
+                    onValueChange={(itemValue, itemIndex) =>
+                      setMessage(itemValue)
+                    }
+                  >
+                    <Picker.Item label="Toggel" value="Toggel" />
+                    <Picker.Item label="Open" value="Open" />
+                    <Picker.Item label="Close" value="Close" />
+                    <Picker.item label="Pluse" value="Pluse" />
+                  </Picker>
+                </View>
+              ) : null}
+              {protocol == "Toggle" ? (
+                // <InputField
+                //   value={channel}
+                //   placeholder="Set Channel: 1 - 12"
+                //   type={"numeric"}
+                //   setValue={setChannel}
+                // />
+                <View
+                  style={{
+                    borderWidth: 1,
+                    alignItems: "center",
+                    top: 2,
+                  }}
+                >
+                  <Picker
+                    style={{
+                      height: 50,
+                      // top: 10,
+                      width: "100%",
+                      textAlign: "center",
+                    }}
+                    selectedValue={channel}
+                    onValueChange={(itemValue, itemIndex) =>
+                      // setMessage(itemValue)
+                      setChannel(itemValue)
+                    }
+                  >
+                    <Picker.Item label="1-24" value="1" />
+                    <Picker.Item label="2" value="2" />
+                    <Picker.Item label="3" value="3" />
+                    <Picker.item label="4" value="4" />
+                    <Picker.item label="5" value="5" />
+                    <Picker.item label="6" value="6" />
+                    <Picker.item label="7" value="7" />
+                    <Picker.item label="8" value="8" />
+                    <Picker.item label="9" value="9" />
+                    <Picker.item label="10" value="10" />
+                    <Picker.item label="11" value="11" />
+                    <Picker.item label="12" value="12" />
+                    <Picker.item label="13" value="13" />
+                    <Picker.item label="14" value="14" />
+                    <Picker.item label="15" value="15" />
+                    <Picker.item label="16" value="16" />
+                    <Picker.item label="17" value="17" />
+                    <Picker.item label="18" value="18" />
+                    <Picker.item label="19" value="19" />
+                    <Picker.item label="20" value="20" />
+                    <Picker.item label="21" value="21" />
+                    <Picker.item label="22" value="22" />
+                    <Picker.item label="23" value="23" />
+                    <Picker.item label="24" value="24" />
+                  </Picker>
+                </View>
+              ) : null}
+              {protocol == "Toggle" ? (
+                <InputField
+                  value={duration}
+                  type={"numeric"}
+                  placeholder="Set Duration: 1000 for 1sec 0 for null."
+                  setValue={setDuration}
                 />
               ) : null}
             </View>

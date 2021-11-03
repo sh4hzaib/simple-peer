@@ -22,12 +22,12 @@ const ScreenRoomScreen = () => {
   let btnList = [];
   for (let index = 0; index < enabledDevices.length; index++) {
     btnList.push(...enabledDevices[index].buttons);
-    
-    console.log("Index is: " + index)
+
+    console.log("Index is: " + index);
   }
   for (let index = 0; index < btnList.length; index++) {
     console.log(btnList);
-    
+
     btnList = btnList.filter((btn) =>
       btn.rooms.find((room) => {
         return room === "Screen";
@@ -106,7 +106,6 @@ const ScreenRoomScreen = () => {
       <ScrollView style={styles.container}>
         <View style={styles.btnContainer}>
           {btnList.map((button, index) => (
-            
             <ButtonComponent
               key={index + button.buttonName}
               style={styles.btn}

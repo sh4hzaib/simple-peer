@@ -1,11 +1,19 @@
 import React, { useCallback, useState } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Modal,
+  Pressable,
+} from "react-native";
 import { Alert, SafeAreaView } from "react-native";
 import { Button, Checkbox } from "react-native-paper";
 import InputField from "../components/InputField";
 import DropDownList from "../components/DropDownList";
 import RadioButtons from "../components/RadioButtons";
-
+// import { Settings } from "react-native";
+import Setting from "../constants/settings.json";
 import rooms from "../constants/rooms";
 import protocols from "../constants/protocols";
 import ToggleDroplist from "../constants/ToggleDroplist";
@@ -20,6 +28,7 @@ import {
   removeButtonFromDeviceR,
 } from "../redux/deviceSlice";
 import { set } from "react-native-reanimated";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ButtonSceen = ({ navigation }) => {
   const deviceList = useSelector((state) => state.device);
@@ -33,16 +42,19 @@ const ButtonSceen = ({ navigation }) => {
   const [deviceName, setDeviceName] = useState(
     deviceList.length ? deviceList[0].deviceName : "No Devices available"
   );
+  const ScreenData = ["Light", "Controls", "Mic 1", "Mic 2"];
+  const [screenitem, setscreenitem] = useState();
   const [cmd, setCmd] = useState("");
   const [room, setRoom] = useState([]);
   const [protocol, setProtocol] = useState(protocols[0]);
   const [message, setMessage] = useState("");
-  const [channel, setChannel] = useState("");
+  const [channel, setChannel] = useState(0);
   const [duration, setDuration] = useState("");
   const [taskName, setTaskName] = useState("");
   const [variableName, setVariableName] = useState("0");
   const [value, setValue] = useState("0");
-  // const [Selectedpiker, setpiker] = useState();
+  const [Task, setTask] = useState(Setting.Setmessage);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const addBtnHandler = useCallback(() => {
     const button = {
@@ -65,6 +77,14 @@ const ButtonSceen = ({ navigation }) => {
               TaskName: taskName,
               VariableName: variableName,
               Value: value,
+            }
+          : protocol == "Toggle"
+          ? {
+              Message: message,
+              // TaskName: taskName,
+              // VariableName: variableName,
+              Channel: parseInt(channel),
+              Duration: parseInt(duration),
             }
           : {
               Command: cmd,
@@ -182,8 +202,14 @@ const ButtonSceen = ({ navigation }) => {
                         color="#bd0023"
                         onPress={() => {
                           const tempRooms = [...room];
-                          if (!tempRooms.includes(r)) tempRooms.push(r);
-                          else {
+
+                          if (!tempRooms.includes(r)) {
+                            if (r == "Screen") {
+                              setModalVisible(!tempRooms.includes(r));
+                            }
+                            tempRooms.push(r);
+                          } else {
+                            // setModalVisible(false);
                             const roomIndex = tempRooms.indexOf(r);
                             tempRooms.splice(roomIndex, 1);
                           }
@@ -194,6 +220,94 @@ const ButtonSceen = ({ navigation }) => {
                     </View>
                   ))}
                 </View>
+
+                {modalVisible ? (
+                  <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={modalVisible}
+                  >
+                    <View
+                      style={{
+                        // top: "40%",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <View
+                        style={{
+                          borderWidth: 2,
+                          top: 20,
+                          width: 300,
+                          height: 50,
+                          justifyContent: "center",
+                          backgroundColor: "#bd0023",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            justifyContent: "center",
+                            color: "white",
+                            fontSize: 20,
+                          }}
+                        >
+                          Screen Pannels
+                        </Text>
+                      </View>
+                      <FlatList
+                        data={ScreenData}
+                        renderItem={({ item, index }) => (
+                          <Pressable onPress={() => setscreenitem(index)}>
+                            <View
+                              style={{
+                                borderWidth: 2,
+                                marginBottom: 10,
+                                width: 300,
+                                height: 50,
+                                justifyContent: "center",
+                                marginTop: 60,
+                                backgroundColor:
+                                  index == screenitem ? "#098f45" : null,
+                              }}
+                            >
+                              <Text
+                                style={{
+                                  textAlign: "center",
+                                  justifyContent: "center",
+                                  fontSize: 20,
+                                  color:
+                                    index == screenitem ? "white" : "black",
+                                }}
+                              >
+                                {item}
+                              </Text>
+                            </View>
+                          </Pressable>
+                        )}
+                      />
+
+                      <Pressable onPress={() => setModalVisible(false)}>
+                        <View
+                          style={{
+                            alignItems: "center",
+                            alignSelf: "center",
+                            marginTop: 60,
+                            borderWidth: 2,
+                            width: 300,
+                            height: 50,
+                            justifyContent: "center",
+                            backgroundColor: "#841584",
+                          }}
+                        >
+                          <Text style={{ fontSize: 20, color: "white" }}>
+                            okey
+                          </Text>
+                        </View>
+                      </Pressable>
+                    </View>
+                  </Modal>
+                ) : null}
                 <View style={{ height: "15%", width: "85%" }}>
                   <RadioButtons
                     title="Choose Mode -->"
@@ -236,27 +350,97 @@ const ButtonSceen = ({ navigation }) => {
                       </View>
                     ) : null}
                     {protocol == "ws" ? (
-                      <InputField
-                        value={channel}
-                        placeholder="Set Channel: 1 - 24"
-                        type={"numeric"}
-                        setValue={setChannel}
-                      />
+                      // <InputField
+                      //   value={channel}
+                      //   placeholder="Set Channel: 1 - 24"
+                      //   type={"numeric"}
+                      //   setValue={setChannel}
+                      // />
+                      <View
+                        style={{
+                          borderWidth: 1,
+                          alignItems: "center",
+                          top: 3,
+                        }}
+                      >
+                        <Picker
+                          style={{
+                            height: 50,
+
+                            width: "100%",
+                            textAlign: "center",
+                          }}
+                          selectedValue={channel}
+                          onValueChange={(itemValue, itemIndex) =>
+                            // setMessage(itemValue)
+                            setChannel(itemValue)
+                          }
+                        >
+                          <Picker.Item label="1-24" value="1" />
+                          <Picker.Item label="2" value="2" />
+                          <Picker.Item label="3" value="3" />
+                          <Picker.item label="4" value="4" />
+                          <Picker.item label="5" value="5" />
+                          <Picker.item label="6" value="6" />
+                          <Picker.item label="7" value="7" />
+                          <Picker.item label="8" value="8" />
+                          <Picker.item label="9" value="9" />
+                          <Picker.item label="10" value="10" />
+                          <Picker.item label="11" value="11" />
+                          <Picker.item label="12" value="12" />
+                          <Picker.item label="13" value="13" />
+                          <Picker.item label="14" value="14" />
+                          <Picker.item label="15" value="15" />
+                          <Picker.item label="16" value="16" />
+                          <Picker.item label="17" value="17" />
+                          <Picker.item label="18" value="18" />
+                          <Picker.item label="19" value="19" />
+                          <Picker.item label="20" value="20" />
+                          <Picker.item label="21" value="21" />
+                          <Picker.item label="22" value="22" />
+                          <Picker.item label="23" value="23" />
+                          <Picker.item label="24" value="24" />
+                        </Picker>
+                      </View>
                     ) : null}
                     {protocol == "ws" ? (
-                      <InputField
-                        value={duration}
-                        type={"numeric"}
-                        placeholder="Set Duration: 1000 for 1sec 0 for null."
-                        setValue={setDuration}
-                      />
+                      <View style={{ top: 5 }}>
+                        <InputField
+                          value={duration}
+                          type={"numeric"}
+                          placeholder="Set Duration: 1000 for 1sec 0 for null."
+                          setValue={setDuration}
+                        />
+                      </View>
                     ) : null}
                     {protocol == "tasker" ? (
-                      <InputField
-                        value={message}
-                        placeholder="Set message: task.execute"
-                        setValue={setMessage}
-                      />
+                      // <InputField
+                      //   value={Setting.Setmessage}
+                      //   // placeholder="Set message: task.execute"
+                      //   // setValue={setMessage}
+                      //   disabled={true}
+                      // />
+                      <View style={{ borderWidth: 1 }}>
+                        <Picker
+                          style={{
+                            height: 50,
+                            width: "100%",
+                          }}
+                          selectedValue={message}
+                          onValueChange={(itemValue, itemIndex) =>
+                            setMessage(itemValue)
+                          }
+                        >
+                          {Object.keys(Task).map((key) => {
+                            return (
+                              <Picker.Item
+                                label={Task[key]}
+                                value={Task[key]}
+                              />
+                            );
+                          })}
+                        </Picker>
+                      </View>
                     ) : null}
                     {protocol == "tasker" ? (
                       <InputField
@@ -299,20 +483,68 @@ const ButtonSceen = ({ navigation }) => {
                       </View>
                     ) : null}
                     {protocol == "Toggle" ? (
-                      <InputField
-                        value={channel}
-                        placeholder="Set Channel: 1 - 24"
-                        type={"numeric"}
-                        setValue={setChannel}
-                      />
+                      // <InputField
+                      //   value={channel}
+                      //   placeholder="Set Channel: 1 - 24"
+                      //   type={"numeric"}
+                      //   setValue={setChannel}
+                      // />
+                      <View
+                        style={{
+                          borderWidth: 1,
+                          alignItems: "center",
+                          top: 3,
+                        }}
+                      >
+                        <Picker
+                          style={{
+                            height: 50,
+
+                            width: "100%",
+                            textAlign: "center",
+                          }}
+                          selectedValue={channel}
+                          onValueChange={(itemValue, itemIndex) =>
+                            // setMessage(itemValue)
+                            setChannel(itemValue)
+                          }
+                        >
+                          <Picker.Item label="1-24" value="1" />
+                          <Picker.Item label="2" value="2" />
+                          <Picker.Item label="3" value="3" />
+                          <Picker.item label="4" value="4" />
+                          <Picker.item label="5" value="5" />
+                          <Picker.item label="6" value="6" />
+                          <Picker.item label="7" value="7" />
+                          <Picker.item label="8" value="8" />
+                          <Picker.item label="9" value="9" />
+                          <Picker.item label="10" value="10" />
+                          <Picker.item label="11" value="11" />
+                          <Picker.item label="12" value="12" />
+                          <Picker.item label="13" value="13" />
+                          <Picker.item label="14" value="14" />
+                          <Picker.item label="15" value="15" />
+                          <Picker.item label="16" value="16" />
+                          <Picker.item label="17" value="17" />
+                          <Picker.item label="18" value="18" />
+                          <Picker.item label="19" value="19" />
+                          <Picker.item label="20" value="20" />
+                          <Picker.item label="21" value="21" />
+                          <Picker.item label="22" value="22" />
+                          <Picker.item label="23" value="23" />
+                          <Picker.item label="24" value="24" />
+                        </Picker>
+                      </View>
                     ) : null}
                     {protocol == "Toggle" ? (
-                      <InputField
-                        value={duration}
-                        type={"numeric"}
-                        placeholder="Set Duration: 1000 for 1sec 0 for null."
-                        setValue={setDuration}
-                      />
+                      <View style={{ top: 3 }}>
+                        <InputField
+                          value={duration}
+                          type={"numeric"}
+                          placeholder="Set Duration: 1000 for 1sec 0 for null."
+                          setValue={setDuration}
+                        />
+                      </View>
                     ) : null}
                   </View>
                 </View>
