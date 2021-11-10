@@ -5,6 +5,7 @@ import { Button, Checkbox } from "react-native-paper";
 import InputField from "../components/InputField";
 import DropDownList from "../components/DropDownList";
 import RadioButtons from "../components/RadioButtons";
+import { Picker } from "@react-native-picker/picker";
 
 import rooms from "../constants/rooms";
 import protocols from "../constants/protocols";
@@ -28,6 +29,7 @@ const ButtonSceen = ({ navigation }) => {
   }
 
   const [btnName, setBtnName] = useState("");
+  const [sc_location, setSc_location] = useState(["one","two"])
   const [deviceName, setDeviceName] = useState(
     deviceList.length ? deviceList[0].deviceName : "No Devices available"
   );
@@ -40,6 +42,7 @@ const ButtonSceen = ({ navigation }) => {
   const [taskName, setTaskName] = useState("");
   const [variableName, setVariableName] = useState("0");
   const [value, setValue] = useState("0");
+  const [selectedValue, setSelectedValue] = useState("java");
 
   const addBtnHandler = useCallback(() => {
     const button = {
@@ -68,6 +71,7 @@ const ButtonSceen = ({ navigation }) => {
             },
       deviceName: deviceName,
       rooms: room,
+      screen:0
     };
     console.log("-------------------", button);
     try {
@@ -190,8 +194,27 @@ const ButtonSceen = ({ navigation }) => {
                       <Text>{r}</Text>
                     </View>
                   ))}
+                  
+                
+                
                 </View>
+                {
+                  room.includes("Screen")?<View>
+                 <Picker
+                selectedValue={selectedValue}
+                style={{ height: 50, width: 150 }}
+                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                >
+                <Picker.Item label="Java" value="java" />
+                <Picker.Item label="JavaScript" value="js" />
+                </Picker>
 
+                  </View>:
+                  <View>
+
+                  </View>
+                }
+              
                 <RadioButtons
                   title="Choose Mode -->"
                   listItems={protocols}
