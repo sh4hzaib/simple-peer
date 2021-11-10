@@ -42,15 +42,13 @@ const ButtonSceen = ({ navigation }) => {
   const [taskName, setTaskName] = useState("");
   const [variableName, setVariableName] = useState("0");
   const [value, setValue] = useState("0");
-  const [selectedValue, setSelectedValue] = useState("java");
+  const [selectedValue, setSelectedValue] = useState("lights");
 
   const addBtnHandler = useCallback(() => {
     const button = {
       buttonName: btnName,
       buttonProtocol: protocol,
-
       // buttonCommand: protocol + "://" + cmd,
-
       buttonCommand:
         protocol == "ws"
           ? {
@@ -71,7 +69,7 @@ const ButtonSceen = ({ navigation }) => {
             },
       deviceName: deviceName,
       rooms: room,
-      screen:0
+      place:selectedValue
     };
     console.log("-------------------", button);
     try {
@@ -148,11 +146,7 @@ const ButtonSceen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <View>
         <View>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            ListHeaderComponent={
-              <>
-                <InputField
+        <InputField
                   value={btnName}
                   placeholder="Button Name"
                   setValue={setBtnName}
@@ -163,6 +157,11 @@ const ButtonSceen = ({ navigation }) => {
                   value={deviceName}
                   setValue={setDeviceName}
                 />
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            ListHeaderComponent={
+              <>
+               
                 <Text style={{ fontSize: 17, marginTop: 10 }}>
                   Choose Rooms
                 </Text>
@@ -205,8 +204,10 @@ const ButtonSceen = ({ navigation }) => {
                 style={{ height: 50, width: 150 }}
                 onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                 >
-                <Picker.Item label="Java" value="java" />
-                <Picker.Item label="JavaScript" value="js" />
+                <Picker.Item label="Lights" value="lights" />
+                <Picker.Item label="Controls" value="controls" />
+                <Picker.Item label="Misc 1" value="misc1" />
+                <Picker.Item label="Misc 2" value="misc2" />
                 </Picker>
 
                   </View>:
@@ -326,7 +327,9 @@ const ButtonSceen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    minHeight: "100%",
+    // minHeight: "100%",
+    height:"100%",
+    width:"100%"
   },
   btn: {
     marginBottom: 10,

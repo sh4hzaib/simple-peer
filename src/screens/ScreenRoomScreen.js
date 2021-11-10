@@ -22,6 +22,8 @@ const ScreenRoomScreen = () => {
   let btnList = [];
   let lights = []
   let controls=[]
+  let misc1=[]
+  let misc2=[]
   
   for (let index = 0; index < enabledDevices.length; index++) {
     btnList.push(...enabledDevices[index].buttons);
@@ -35,8 +37,10 @@ const ScreenRoomScreen = () => {
       btn.rooms.find((room) =>  room === "Screen")
     );
   }
-  lights = btnList.filter(btn=>btn.place==="light")
+  lights = btnList.filter(btn=>btn.place==="lights")
   controls = btnList.filter(btn=>btn.place==="controls")
+  misc1 = btnList.filter(btn=>btn.place==="misc1")
+  misc2 = btnList.filter(btn=>btn.place==="misc2")
   // console.log(lights);
 
   const initSettings = async () => {
@@ -162,7 +166,7 @@ const ScreenRoomScreen = () => {
         <Text style={styles.btnHeader}>
           Misc 1
           </Text>
-          {btnList.map((button, index) => (
+          {misc1.map((button, index) => (
             
             <ButtonComponent
               key={index + button.buttonName}
@@ -175,7 +179,7 @@ const ScreenRoomScreen = () => {
         <Text style={styles.btnHeader}>
           Misc 2
           </Text>
-          {btnList.map((button, index) => (
+          {misc2.map((button, index) => (
             
             <ButtonComponent
               key={index + button.buttonName}
