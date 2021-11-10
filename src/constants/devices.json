@@ -6,7 +6,7 @@
     "status": true,
     "buttons": [
       {
-        "buttonName": "BtnScreen",
+        "buttonName": "ButnScreen",
         "buttonProtocol": "ws",
         "buttonCommand": {
           "Message": "Hello",
@@ -15,7 +15,8 @@
           "Duration": 5000
         },
         "deviceName": "DeviceOne",
-        "rooms": ["Screen"]
+        "rooms": ["Screen"],
+        "place":"light"
       },
       {
         "buttonName": "BtnProjector",
@@ -56,7 +57,8 @@
           "Duration": 5000
         },
         "deviceName": "Jnior",
-        "rooms": ["Screen", "Projector", "Sound"]
+        "rooms": ["Screen", "Projector", "Sound"],
+        "place":"light"
       },
       {
         "buttonName": "Al22",
@@ -68,7 +70,8 @@
           "Duration": 5000
         },
         "deviceName": "Jnior",
-        "rooms": ["Screen", "Projector", "Sound"]
+        "rooms": ["Screen", "Projector", "Sound"],
+        "place":"controls"
       }
     ]
   },
