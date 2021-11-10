@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView,Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import AppHeader from "../components/AppHeader";
 import ButtonComponent from "../components/ButtonComponent";
@@ -20,21 +20,24 @@ const ScreenRoomScreen = () => {
   const enabledDevices = deviceList.filter((device) => device.status);
   const dispatch = useDispatch();
   let btnList = [];
+  let lights = []
+  let controls=[]
+  
   for (let index = 0; index < enabledDevices.length; index++) {
     btnList.push(...enabledDevices[index].buttons);
     
     console.log("Index is: " + index)
   }
   for (let index = 0; index < btnList.length; index++) {
-    console.log(btnList);
+    console.log("btnList is");
     
     btnList = btnList.filter((btn) =>
-      btn.rooms.find((room) => {
-        return room === "Screen";
-      })
+      btn.rooms.find((room) =>  room === "Screen")
     );
   }
-  console.log(btnList);
+  lights = btnList.filter(btn=>btn.place==="light")
+  controls = btnList.filter(btn=>btn.place==="controls")
+  // console.log(lights);
 
   const initSettings = async () => {
     try {
@@ -103,8 +106,62 @@ const ScreenRoomScreen = () => {
   return (
     <>
       <AppHeader title="Screen" />
-      <ScrollView style={styles.container}>
+      <View style={{height:"100%",
+      backgroundColor:colors.bgColor
+      }}>
+
+      {/* <ScrollView style={styles.container}> */}
+        <View style={{
+          flexDirection:"row", 
+          width:"100%",height:"50%", 
+          // backgroundColor:"black"
+          }}>
+          
         <View style={styles.btnContainer}>
+          <Text style={styles.btnHeader}>
+          Lights
+          </Text>
+          {lights.map((button, index) => (
+            
+            <ButtonComponent
+              key={index + button.buttonName}
+              style={styles.btn}
+              button={button}
+            />
+          ))}
+        </View>
+        <View style={styles.btnContainer}>
+        <Text style={styles.btnHeader}>
+          Controls
+          </Text>
+          {controls.map((button, index) => (
+            
+            <ButtonComponent
+              key={index + button.buttonName}
+              style={styles.btn}
+              button={button}
+            />
+          ))}
+        </View>
+
+        </View>
+            
+            
+
+      {/* </ScrollView> */}
+
+
+
+      <View style={{
+          flexDirection:"row", 
+          width:"100%",height:"50%", 
+          // backgroundColor:"black"
+          }}>
+          
+        <View style={styles.btnContainer}>
+        <Text style={styles.btnHeader}>
+          Misc 1
+          </Text>
           {btnList.map((button, index) => (
             
             <ButtonComponent
@@ -114,27 +171,53 @@ const ScreenRoomScreen = () => {
             />
           ))}
         </View>
-      </ScrollView>
+        <View style={styles.btnContainer}>
+        <Text style={styles.btnHeader}>
+          Misc 2
+          </Text>
+          {btnList.map((button, index) => (
+            
+            <ButtonComponent
+              key={index + button.buttonName}
+              style={styles.btn}
+              button={button}
+            />
+          ))}
+        </View>
+
+        </View>
+       
+
+      </View>
+
     </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.bgColor,
-    height: "100%",
+    // backgroundColor: "black",
+    // height: "10%",
+    // width:"100%"
+  },
+  btnHeader:{
+    fontSize:24, color:"white",fontWeight:"500",marginBottom:"10%"
   },
   btnContainer: {
-    padding: "2%",
+    padding: "4%",
     flexDirection: "row",
     flexWrap: "wrap",
+    width:"50%",
     justifyContent: "space-evenly",
-    paddingTop: 50,
+    borderWidth:1,
+    borderColor:"white"
+    // paddingTop: 50,
   },
   btn: {
     marginBottom: 15,
     padding: 5,
-    width: "32%",
+    width: "80%",
+    margin:"1%"
   },
   header: {
     fontSize: 32,
