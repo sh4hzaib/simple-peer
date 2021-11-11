@@ -6,11 +6,7 @@
     "status": true,
     "buttons": [
       {
-<<<<<<< HEAD
         "buttonName": "ButnScreen",
-=======
-        "buttonName": "BtnScreen",
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
         "buttonProtocol": "ws",
         "buttonCommand": {
           "Message": "Hello",
@@ -19,12 +15,8 @@
           "Duration": 5000
         },
         "deviceName": "DeviceOne",
-<<<<<<< HEAD
         "rooms": ["Screen"],
-        "place":"light"
-=======
-        "rooms": ["Screen"]
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
+        "place": "light"
       },
       {
         "buttonName": "BtnProjector",
@@ -65,12 +57,8 @@
           "Duration": 5000
         },
         "deviceName": "Jnior",
-<<<<<<< HEAD
         "rooms": ["Screen", "Projector", "Sound"],
-        "place":"light"
-=======
-        "rooms": ["Screen", "Projector", "Sound"]
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
+        "place": "light"
       },
       {
         "buttonName": "Al22",
@@ -82,12 +70,8 @@
           "Duration": 5000
         },
         "deviceName": "Jnior",
-<<<<<<< HEAD
         "rooms": ["Screen", "Projector", "Sound"],
-        "place":"controls"
-=======
-        "rooms": ["Screen", "Projector", "Sound"]
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
+        "place": "controls"
       }
     ]
   },

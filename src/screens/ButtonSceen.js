@@ -1,7 +1,4 @@
 import React, { useCallback, useState } from "react";
-<<<<<<< HEAD
-import { View, Text, FlatList, StyleSheet } from "react-native";
-=======
 import {
   View,
   Text,
@@ -10,46 +7,31 @@ import {
   Modal,
   Pressable,
 } from "react-native";
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
 import { Alert, SafeAreaView } from "react-native";
 import { Button, Checkbox } from "react-native-paper";
 import InputField from "../components/InputField";
 import DropDownList from "../components/DropDownList";
 import RadioButtons from "../components/RadioButtons";
-<<<<<<< HEAD
-import { Picker } from "@react-native-picker/picker";
-
-import rooms from "../constants/rooms";
-import protocols from "../constants/protocols";
-=======
 // import { Settings } from "react-native";
 import Setting from "../constants/settings.json";
 import rooms from "../constants/rooms";
 import protocols from "../constants/protocols";
 import ToggleDroplist from "../constants/ToggleDroplist";
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
 import { colors } from "../constants/theme";
 import DropDownPicker from "react-native-dropdown-picker";
 import ButtonListItem from "../components/ButtonListItem";
 import { useSelector, useDispatch } from "react-redux";
 import { Appbar } from "react-native-paper";
-<<<<<<< HEAD
-
-=======
 import { Picker } from "@react-native-picker/picker";
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
 import {
   addButtonToDeviceR,
   removeButtonFromDeviceR,
 } from "../redux/deviceSlice";
-<<<<<<< HEAD
-=======
 import { set } from "react-native-reanimated";
 import { TouchableOpacity } from "react-native-gesture-handler";
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
 
 const ButtonSceen = ({ navigation }) => {
-  const deviceList = useSelector((state) => state.device);
+  const deviceList = useSelector(state => state.device);
   const dispatch = useDispatch();
   const btnList = [];
   for (let index = 0; index < deviceList.length; index++) {
@@ -57,17 +39,6 @@ const ButtonSceen = ({ navigation }) => {
   }
 
   const [btnName, setBtnName] = useState("");
-<<<<<<< HEAD
-  const [sc_location, setSc_location] = useState(["one","two"])
-  const [deviceName, setDeviceName] = useState(
-    deviceList.length ? deviceList[0].deviceName : "No Devices available"
-  );
-  const [cmd, setCmd] = useState("");
-  const [room, setRoom] = useState([]);
-  const [protocol, setProtocol] = useState(protocols[0]);
-  const [message, setMessage] = useState("task.execute");
-  const [channel, setChannel] = useState("");
-=======
   const [deviceName, setDeviceName] = useState(
     deviceList.length ? deviceList[0].deviceName : "No Devices available"
   );
@@ -78,29 +49,20 @@ const ButtonSceen = ({ navigation }) => {
   const [protocol, setProtocol] = useState(protocols[0]);
   const [message, setMessage] = useState("");
   const [channel, setChannel] = useState(0);
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
   const [duration, setDuration] = useState("");
   const [taskName, setTaskName] = useState("");
   const [variableName, setVariableName] = useState("0");
   const [value, setValue] = useState("0");
-<<<<<<< HEAD
-  const [selectedValue, setSelectedValue] = useState("lights");
-=======
   const [Task, setTask] = useState(Setting.Setmessage);
   const [modalVisible, setModalVisible] = useState(false);
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
 
   const addBtnHandler = useCallback(() => {
     const button = {
       buttonName: btnName,
       buttonProtocol: protocol,
-<<<<<<< HEAD
-      // buttonCommand: protocol + "://" + cmd,
-=======
 
       // buttonCommand: protocol + "://" + cmd,
 
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
       buttonCommand:
         protocol == "ws"
           ? {
@@ -116,8 +78,6 @@ const ButtonSceen = ({ navigation }) => {
               VariableName: variableName,
               Value: value,
             }
-<<<<<<< HEAD
-=======
           : protocol == "Toggle"
           ? {
               Message: message,
@@ -126,26 +86,21 @@ const ButtonSceen = ({ navigation }) => {
               Channel: parseInt(channel),
               Duration: parseInt(duration),
             }
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
           : {
               Command: cmd,
             },
       deviceName: deviceName,
       rooms: room,
-<<<<<<< HEAD
-      place:selectedValue
-=======
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
     };
     console.log("-------------------", button);
     try {
       const alreadyExists = btnList.findIndex(
-        (btn) =>
+        btn =>
           btn.buttonName === button.buttonName &&
           btn.deviceName === button.deviceName
       );
       const deviceDoesExist = deviceList.findIndex(
-        (dev) => dev.deviceName === button.deviceName
+        dev => dev.deviceName === button.deviceName
       );
       if (alreadyExists < 0 && deviceDoesExist >= 0) {
         if (protocol == "ws" && (!message || !channel || !duration))
@@ -179,12 +134,12 @@ const ButtonSceen = ({ navigation }) => {
     }
   });
 
-  const removeButtonHandler = useCallback((button) => {
+  const removeButtonHandler = useCallback(button => {
     const indexOfBtn = btnList.findIndex(
-      (btn) => btn.buttonName === button.buttonName
+      btn => btn.buttonName === button.buttonName
     );
     const indexOfDevice = deviceList.findIndex(
-      (dev) => dev.deviceName === button.deviceName
+      dev => dev.deviceName === button.deviceName
     );
     dispatch(
       removeButtonFromDeviceR({
@@ -212,15 +167,11 @@ const ButtonSceen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <View>
         <View>
-<<<<<<< HEAD
-        <InputField
-=======
           <FlatList
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={
               <>
                 <InputField
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
                   value={btnName}
                   placeholder="Button Name"
                   setValue={setBtnName}
@@ -231,14 +182,6 @@ const ButtonSceen = ({ navigation }) => {
                   value={deviceName}
                   setValue={setDeviceName}
                 />
-<<<<<<< HEAD
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            ListHeaderComponent={
-              <>
-               
-=======
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
                 <Text style={{ fontSize: 17, marginTop: 10 }}>
                   Choose Rooms
                 </Text>
@@ -259,10 +202,6 @@ const ButtonSceen = ({ navigation }) => {
                         color="#bd0023"
                         onPress={() => {
                           const tempRooms = [...room];
-<<<<<<< HEAD
-                          if (!tempRooms.includes(r)) tempRooms.push(r);
-                          else {
-=======
 
                           if (!tempRooms.includes(r)) {
                             if (r == "Screen") {
@@ -271,7 +210,6 @@ const ButtonSceen = ({ navigation }) => {
                             tempRooms.push(r);
                           } else {
                             // setModalVisible(false);
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
                             const roomIndex = tempRooms.indexOf(r);
                             tempRooms.splice(roomIndex, 1);
                           }
@@ -281,38 +219,6 @@ const ButtonSceen = ({ navigation }) => {
                       <Text>{r}</Text>
                     </View>
                   ))}
-<<<<<<< HEAD
-                  
-                
-                
-                </View>
-                {
-                  room.includes("Screen")?<View>
-                 <Picker
-                selectedValue={selectedValue}
-                style={{ height: 50, width: 150 }}
-                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-                >
-                <Picker.Item label="Lights" value="lights" />
-                <Picker.Item label="Controls" value="controls" />
-                <Picker.Item label="Misc 1" value="misc1" />
-                <Picker.Item label="Misc 2" value="misc2" />
-                </Picker>
-
-                  </View>:
-                  <View>
-
-                  </View>
-                }
-              
-                <RadioButtons
-                  title="Choose Mode -->"
-                  listItems={protocols}
-                  value={protocol}
-                  setValue={setProtocol}
-                />
-
-=======
                 </View>
 
                 {modalVisible ? (
@@ -410,7 +316,6 @@ const ButtonSceen = ({ navigation }) => {
                     setValue={setProtocol}
                   />
                 </View>
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ width: "100%" }}>
                     {protocol == "http" ? (
@@ -421,36 +326,6 @@ const ButtonSceen = ({ navigation }) => {
                       />
                     ) : null}
                     {protocol == "ws" ? (
-<<<<<<< HEAD
-                      <InputField
-                        value={message}
-                        placeholder="Message: Toggle, Open, Close, task.execute"
-                        setValue={setMessage}
-                      />
-                    ) : null}
-                    {protocol == "ws" ? (
-                      <InputField
-                        value={channel}
-                        placeholder="Set Channel: 1 - 12"
-                        type={"numeric"}
-                        setValue={setChannel}
-                      />
-                    ) : null}
-                    {protocol == "ws" ? (
-                      <InputField
-                        value={duration}
-                        type={"numeric"}
-                        placeholder="Set Duration: 1000 for 1sec 0 for null."
-                        setValue={setDuration}
-                      />
-                    ) : null}
-                    {protocol == "tasker" ? (
-                      <InputField
-                        value={message}
-                        placeholder="Set message: task.execute"
-                        setValue={setMessage}
-                      />
-=======
                       // <InputField
                       //   value={message}
                       //   placeholder="Message: Toggle, Open, Close, task.execute"
@@ -556,7 +431,7 @@ const ButtonSceen = ({ navigation }) => {
                             setMessage(itemValue)
                           }
                         >
-                          {Object.keys(Task).map((key) => {
+                          {Object.keys(Task).map(key => {
                             return (
                               <Picker.Item
                                 label={Task[key]}
@@ -566,7 +441,6 @@ const ButtonSceen = ({ navigation }) => {
                           })}
                         </Picker>
                       </View>
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
                     ) : null}
                     {protocol == "tasker" ? (
                       <InputField
@@ -589,8 +463,6 @@ const ButtonSceen = ({ navigation }) => {
                         setValue={setValue}
                       />
                     ) : null}
-<<<<<<< HEAD
-=======
                     {protocol == "Toggle" ? (
                       <View style={{ borderWidth: 1 }}>
                         <Picker
@@ -674,7 +546,6 @@ const ButtonSceen = ({ navigation }) => {
                         />
                       </View>
                     ) : null}
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
                   </View>
                 </View>
                 <Button
@@ -719,13 +590,7 @@ const ButtonSceen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-<<<<<<< HEAD
-    // minHeight: "100%",
-    height:"100%",
-    width:"100%"
-=======
     minHeight: "100%",
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
   },
   btn: {
     marginBottom: 10,

@@ -1,10 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect } from "react";
-<<<<<<< HEAD
-import { View, StyleSheet, ScrollView,Text } from "react-native";
-=======
-import { View, StyleSheet, ScrollView } from "react-native";
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
+import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import AppHeader from "../components/AppHeader";
 import ButtonComponent from "../components/ButtonComponent";
@@ -19,56 +15,36 @@ import {
 import defaultDevices from "../constants/devices.json";
 
 const ScreenRoomScreen = () => {
-  const deviceList = useSelector((state) => state.device);
-  const settings = useSelector((state) => state.settings);
-  const enabledDevices = deviceList.filter((device) => device.status);
+  const deviceList = useSelector(state => state.device);
+  const settings = useSelector(state => state.settings);
+  const enabledDevices = deviceList.filter(device => device.status);
   const dispatch = useDispatch();
   let btnList = [];
-<<<<<<< HEAD
-  let lights = []
-  let controls=[]
-  let misc1=[]
-  let misc2=[]
-  
-  for (let index = 0; index < enabledDevices.length; index++) {
-    btnList.push(...enabledDevices[index].buttons);
-    
-    console.log("Index is: " + index)
-  }
-  for (let index = 0; index < btnList.length; index++) {
-    console.log("btnList is");
-    
-    btnList = btnList.filter((btn) =>
-      btn.rooms.find((room) =>  room === "Screen")
-    );
-  }
-  lights = btnList.filter(btn=>btn.place==="lights")
-  controls = btnList.filter(btn=>btn.place==="controls")
-  misc1 = btnList.filter(btn=>btn.place==="misc1")
-  misc2 = btnList.filter(btn=>btn.place==="misc2")
-  // console.log(lights);
-=======
+  let lights = [];
+  let controls = [];
+  let misc1 = [];
+  let misc2 = [];
+
   for (let index = 0; index < enabledDevices.length; index++) {
     btnList.push(...enabledDevices[index].buttons);
 
     console.log("Index is: " + index);
   }
   for (let index = 0; index < btnList.length; index++) {
-    console.log(btnList);
+    console.log("btnList is");
 
-    btnList = btnList.filter((btn) =>
-      btn.rooms.find((room) => {
-        return room === "Screen";
-      })
-    );
+    btnList = btnList.filter(btn => btn.rooms.find(room => room === "Screen"));
   }
-  console.log(btnList);
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
+  lights = btnList.filter(btn => btn.place === "lights");
+  controls = btnList.filter(btn => btn.place === "controls");
+  misc1 = btnList.filter(btn => btn.place === "misc1");
+  misc2 = btnList.filter(btn => btn.place === "misc2");
+  // console.log(lights);
 
   const initSettings = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
-      const findSettings = keys.find((key) => key === "SETTINGS");
+      const findSettings = keys.find(key => key === "SETTINGS");
       if (findSettings) {
         const getSettings = await AsyncStorage.getItem("SETTINGS");
         const temp = await JSON.parse(getSettings);
@@ -96,7 +72,7 @@ const ScreenRoomScreen = () => {
     try {
       let temp;
       const keys = await AsyncStorage.getAllKeys();
-      const findDevices = keys.find((key) => key === "DEVICES");
+      const findDevices = keys.find(key => key === "DEVICES");
       if (findDevices) {
         const getDevices = await AsyncStorage.getItem("DEVICES");
         temp = await JSON.parse(getDevices);
@@ -132,144 +108,101 @@ const ScreenRoomScreen = () => {
   return (
     <>
       <AppHeader title="Screen" />
-<<<<<<< HEAD
-      <View style={{height:"100%",
-      backgroundColor:colors.bgColor
-      }}>
-
-      {/* <ScrollView style={styles.container}> */}
-        <View style={{
-          flexDirection:"row", 
-          width:"100%",height:"50%", 
-          // backgroundColor:"black"
-          }}>
-          
-        <View style={styles.btnContainer}>
-          <Text style={styles.btnHeader}>
-          Lights
-          </Text>
-          {lights.map((button, index) => (
-            
-            <ButtonComponent
-              key={index + button.buttonName}
-              style={styles.btn}
-              button={button}
-            />
-          ))}
-        </View>
-        <View style={styles.btnContainer}>
-        <Text style={styles.btnHeader}>
-          Controls
-          </Text>
-          {controls.map((button, index) => (
-            
-            <ButtonComponent
-              key={index + button.buttonName}
-              style={styles.btn}
-              button={button}
-            />
-          ))}
+      <View style={{ height: "100%", backgroundColor: colors.bgColor }}>
+        {/* <ScrollView style={styles.container}> */}
+        <View
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            height: "50%",
+            // backgroundColor:"black"
+          }}
+        >
+          <View style={styles.btnContainer}>
+            <Text style={styles.btnHeader}>Lights</Text>
+            {lights.map((button, index) => (
+              <ButtonComponent
+                key={index + button.buttonName}
+                style={styles.btn}
+                button={button}
+              />
+            ))}
+          </View>
+          <View style={styles.btnContainer}>
+            <Text style={styles.btnHeader}>Controls</Text>
+            {controls.map((button, index) => (
+              <ButtonComponent
+                key={index + button.buttonName}
+                style={styles.btn}
+                button={button}
+              />
+            ))}
+          </View>
         </View>
 
+        {/* </ScrollView> */}
+
+        <View
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            height: "50%",
+            // backgroundColor:"black"
+          }}
+        >
+          <View style={styles.btnContainer}>
+            <Text style={styles.btnHeader}>Misc 1</Text>
+            {misc1.map((button, index) => (
+              <ButtonComponent
+                key={index + button.buttonName}
+                style={styles.btn}
+                button={button}
+              />
+            ))}
+          </View>
+          <View style={styles.btnContainer}>
+            <Text style={styles.btnHeader}>Misc 2</Text>
+            {misc2.map((button, index) => (
+              <ButtonComponent
+                key={index + button.buttonName}
+                style={styles.btn}
+                button={button}
+              />
+            ))}
+          </View>
         </View>
-            
-            
-
-      {/* </ScrollView> */}
-
-
-
-      <View style={{
-          flexDirection:"row", 
-          width:"100%",height:"50%", 
-          // backgroundColor:"black"
-          }}>
-          
-        <View style={styles.btnContainer}>
-        <Text style={styles.btnHeader}>
-          Misc 1
-          </Text>
-          {misc1.map((button, index) => (
-            
-=======
-      <ScrollView style={styles.container}>
-        <View style={styles.btnContainer}>
-          {btnList.map((button, index) => (
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
-            <ButtonComponent
-              key={index + button.buttonName}
-              style={styles.btn}
-              button={button}
-            />
-          ))}
-        </View>
-<<<<<<< HEAD
-        <View style={styles.btnContainer}>
-        <Text style={styles.btnHeader}>
-          Misc 2
-          </Text>
-          {misc2.map((button, index) => (
-            
-            <ButtonComponent
-              key={index + button.buttonName}
-              style={styles.btn}
-              button={button}
-            />
-          ))}
-        </View>
-
-        </View>
-       
-
       </View>
-
-=======
-      </ScrollView>
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
     </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-<<<<<<< HEAD
     // backgroundColor: "black",
     // height: "10%",
     // width:"100%"
   },
-  btnHeader:{
-    fontSize:24, color:"white",fontWeight:"500",marginBottom:"10%"
+  btnHeader: {
+    fontSize: 24,
+    color: "white",
+    fontWeight: "500",
+    marginBottom: "10%",
   },
   btnContainer: {
     padding: "4%",
     flexDirection: "row",
     flexWrap: "wrap",
-    width:"50%",
+    width: "50%",
     justifyContent: "space-evenly",
-    borderWidth:1,
-    borderColor:"white"
+    borderWidth: 1,
+    borderColor: "white",
     // paddingTop: 50,
-=======
-    backgroundColor: colors.bgColor,
-    height: "100%",
-  },
-  btnContainer: {
-    padding: "2%",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-evenly",
-    paddingTop: 50,
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
   },
   btn: {
     marginBottom: 15,
     padding: 5,
-<<<<<<< HEAD
     width: "80%",
-    margin:"1%"
-=======
-    width: "32%",
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
+    margin: "1%",
   },
   header: {
     fontSize: 32,

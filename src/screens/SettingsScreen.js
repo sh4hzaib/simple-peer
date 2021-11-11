@@ -31,15 +31,15 @@ const SettingsScreen = ({ navigation }) => {
   useEffect(() => {
     isServerOnline();
   }, []);
-  const pinR = useSelector((state) => state.settings.pin);
+  const pinR = useSelector(state => state.settings.pin);
   const [pin, setPin] = useState(pinR);
   const [pinModal, setPinModal] = useState(false);
-  const settings = useSelector((state) => state.settings);
+  const settings = useSelector(state => state.settings);
   const dispatch = useDispatch();
   const [IpAdress, setIpAdress] = useState(settings.ipAdress);
   const [RnAdress, setrnAdress] = useState(settings.rnAdress);
   const [URL, setURL] = useState(settings.newsUrl);
-  const deviceList = useSelector((state) => state.device);
+  const deviceList = useSelector(state => state.device);
 
   const [soundMode, setSoundMode] = useState(settings.soundMode);
   const [serverStatus, setServerStatus] = useState("Offline");
@@ -72,7 +72,7 @@ const SettingsScreen = ({ navigation }) => {
     console.log("Sending Request to ip " + IpAdress);
     axios
       .get(`http://${IpAdress}:8080/getstatus`, { timeout: 5000 })
-      .then((response) => {
+      .then(response => {
         console.log("inREsponse");
         console.log(response.status);
         if (response.status === 200) {
@@ -83,7 +83,7 @@ const SettingsScreen = ({ navigation }) => {
           console.log("error");
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.log("network error: " + error);
         setServerStatus("Offline");
         console.log("in Error");
@@ -365,31 +365,6 @@ const SettingsScreen = ({ navigation }) => {
                     alignItems: "center",
                   }}
                 >
-<<<<<<< HEAD
-                <Button
-                  style={styles.btn}
-                  icon="brightness-5"
-                  mode="contained"
-                  color="#bd0023"
-                  onPress={() => {
-                    navigation.navigate("BrightnessScreen");
-                  }}
-                  disabled={!IpAdress || !URL}
-                >
-                  Enable Brightness
-                </Button>
-                <Button
-                  style={styles.btn}
-                  contentStyle={{ width: "100%" }}
-                  icon="reload"
-                  mode="contained"
-                  onPress={() => {
-                    navigation.navigate("QueryScreen");
-                  }}
-                >
-                  Query Page
-                </Button>
-=======
                   <Button
                     style={styles.btn}
                     icon="brightness-5"
@@ -413,7 +388,6 @@ const SettingsScreen = ({ navigation }) => {
                   >
                     Query Page
                   </Button>
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
                 </View>
               </View>
               <View
@@ -426,23 +400,19 @@ const SettingsScreen = ({ navigation }) => {
               >
                 <Text style={styles.title}>Devices:</Text>
                 <TouchableOpacity
-<<<<<<< HEAD
-                disabled
-=======
                   disabled
->>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
                   onPress={() => {
                     console.log("Fetching Devices");
                     axios
                       .get(`http://${IpAdress}:8090/getTaskDevices`)
-                      .then((response) => {
+                      .then(response => {
                         // console.log();
                         const fetchedButtons =
                           response.data.workspaces[0].tasks;
                         const fetchedDevices =
                           response.data.workspaces[0].devices;
 
-                        const btns = fetchedButtons.map((btn) => {
+                        const btns = fetchedButtons.map(btn => {
                           return {
                             buttonName: btn.name,
                             deviceName: btn.devicesReferenced.length
@@ -472,7 +442,7 @@ const SettingsScreen = ({ navigation }) => {
                           };
                         });
 
-                        const devices = fetchedDevices.map((device) => {
+                        const devices = fetchedDevices.map(device => {
                           return {
                             deviceIP: device.ipAddress,
                             deviceName: device.name,
@@ -482,11 +452,11 @@ const SettingsScreen = ({ navigation }) => {
                           };
                         });
 
-                        const devicesWithButtonsAdded = devices.map((dev) => {
+                        const devicesWithButtonsAdded = devices.map(dev => {
                           return {
                             ...dev,
                             buttons: btns.filter(
-                              (b) => b.deviceName == dev.deviceName
+                              b => b.deviceName == dev.deviceName
                             ),
                           };
                         });
@@ -494,7 +464,7 @@ const SettingsScreen = ({ navigation }) => {
                         console.log(devicesWithButtonsAdded);
                         dispatch(addDevicesR(devicesWithButtonsAdded));
                       })
-                      .catch((err) => {
+                      .catch(err => {
                         Alert.alert(err.message);
                       });
                   }}
