@@ -6,7 +6,7 @@ import { RadioButton, Text } from "react-native-paper";
 const RadioButtons = ({ title, listItems, value, setValue }) => {
   return (
     <RadioButton.Group
-      onValueChange={(newValue) => {
+      onValueChange={newValue => {
         console.log(newValue);
         setValue(newValue);
       }}
@@ -15,6 +15,8 @@ const RadioButtons = ({ title, listItems, value, setValue }) => {
       <View
         style={{
           //   marginTop: 10,
+          marginRight: 100,
+
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
@@ -45,7 +47,9 @@ const styles = StyleSheet.create({
   radioBtnItem: {
     flexDirection: "row",
     alignItems: "center",
-    margin: 5,
+    // margin: 5,
+    // marginRight: ,
+    // marginRight: 70,
   },
 });
 

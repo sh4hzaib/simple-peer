@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -136,3 +137,6 @@ web-build/
 # @end expo-cli
 
 java_pid17176.hprof
+=======
+node_modules
+>>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b

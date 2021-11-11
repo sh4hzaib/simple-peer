@@ -1,5 +1,6 @@
 {
   "newsUrl": "10.0.0.102",
   "ipAdress": "10.0.0.102",
-  "PIN": "1234"
+  "PIN": "1234",
+  "Setmessage": ["Task.excute", "Task2"]
 }

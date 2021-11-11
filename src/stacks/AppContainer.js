@@ -13,12 +13,12 @@ const AppContainer = () => {
   const [queryData, setQueryData] = useState([]);
   const [active, setActive] = useState(true);
   //Set timer for inactivity here...
-  const [timer, setTimer] = useState(80000);
+  const [timer, setTimer] = useState(800000);
   const dispatch = useDispatch();
   const initPIN = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
-      const findSettings = keys.find((key) => key === "_pin");
+      const findSettings = keys.find(key => key === "_pin");
       if (findSettings) {
         const getPIN = await AsyncStorage.getItem("_pin");
         dispatch(setPinR(getPIN));
@@ -44,7 +44,7 @@ const AppContainer = () => {
           isActive={active}
           timeForInactivity={timer}
           skipKeyboard={true}
-          onAction={(isActive) => {
+          onAction={isActive => {
             setActive(isActive);
             console.log(isActive);
           }}
@@ -52,7 +52,6 @@ const AppContainer = () => {
           <StackContainer queryData={queryData} setQueryData={setQueryData} />
         </UserInactivity>
       ) : (
-        // console.log(active)
         <LockScreen active={active} setActive={setActive} />
       )}
     </>

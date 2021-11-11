@@ -3,7 +3,6 @@ import { Alert, SafeAreaView, StyleSheet, View } from "react-native";
 import { Button, Checkbox } from "react-native-paper";
 // import AllDevices from "../components/AllDevices";
 import InputField from "../components/InputField";
-
 import { useSelector, useDispatch } from "react-redux";
 import {
   addButtonToDeviceR,
@@ -20,7 +19,7 @@ import rooms from "../constants/rooms";
 const ButtonEditScreen = ({ route, navigation }) => {
   const button = route.params;
   console.log(button);
-  const deviceList = useSelector((state) => state.device);
+  const deviceList = useSelector(state => state.device);
   const dispatch = useDispatch();
   const btnList = [];
   for (let index = 0; index < deviceList.length; index++) {
@@ -49,7 +48,6 @@ const ButtonEditScreen = ({ route, navigation }) => {
     button.buttonCommand.VariableName
   );
   const [value, setValue] = useState(button.buttonCommand.Value);
-
   //   const editDeviceHandler = useCallback(() => {
   //     const deviceBtns = [...deviceList[device.index].buttons];
   //     console.log(deviceBtns);
@@ -121,7 +119,7 @@ const ButtonEditScreen = ({ route, navigation }) => {
     console.log("-------------------", button);
     try {
       const deviceDoesExist = deviceList.findIndex(
-        (dev) => dev.deviceName === button.deviceName
+        dev => dev.deviceName === button.deviceName
       );
       if (deviceDoesExist >= 0) {
         if (protocol == "ws" && (!message || !channel || !duration))
@@ -159,13 +157,13 @@ const ButtonEditScreen = ({ route, navigation }) => {
     console.log("editing btn");
     //Find device index...
     const lastDeviceIndex = deviceList.findIndex(
-      (device) => device.deviceName == button.deviceName
+      device => device.deviceName == button.deviceName
     );
     const newDeviceIndex = deviceList.findIndex(
-      (device) => device.deviceName == deviceName
+      device => device.deviceName == deviceName
     );
     const buttonIndex = deviceList[lastDeviceIndex].buttons.findIndex(
-      (btn) => btn.buttonName == button.buttonName
+      btn => btn.buttonName == button.buttonName
     );
     console.log(
       "Device & Button Index of this device is:",

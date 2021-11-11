@@ -1,1 +1,1 @@
-export default ["http", "ws", "tasker"];
+export default ["tasker", "http", "ws", "Toggle"];
