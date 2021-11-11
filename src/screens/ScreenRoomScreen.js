@@ -1,6 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect } from "react";
+<<<<<<< HEAD
 import { View, StyleSheet, ScrollView,Text } from "react-native";
+=======
+import { View, StyleSheet, ScrollView } from "react-native";
+>>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
 import { useDispatch, useSelector } from "react-redux";
 import AppHeader from "../components/AppHeader";
 import ButtonComponent from "../components/ButtonComponent";
@@ -20,6 +24,7 @@ const ScreenRoomScreen = () => {
   const enabledDevices = deviceList.filter((device) => device.status);
   const dispatch = useDispatch();
   let btnList = [];
+<<<<<<< HEAD
   let lights = []
   let controls=[]
   let misc1=[]
@@ -42,6 +47,23 @@ const ScreenRoomScreen = () => {
   misc1 = btnList.filter(btn=>btn.place==="misc1")
   misc2 = btnList.filter(btn=>btn.place==="misc2")
   // console.log(lights);
+=======
+  for (let index = 0; index < enabledDevices.length; index++) {
+    btnList.push(...enabledDevices[index].buttons);
+
+    console.log("Index is: " + index);
+  }
+  for (let index = 0; index < btnList.length; index++) {
+    console.log(btnList);
+
+    btnList = btnList.filter((btn) =>
+      btn.rooms.find((room) => {
+        return room === "Screen";
+      })
+    );
+  }
+  console.log(btnList);
+>>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
 
   const initSettings = async () => {
     try {
@@ -110,6 +132,7 @@ const ScreenRoomScreen = () => {
   return (
     <>
       <AppHeader title="Screen" />
+<<<<<<< HEAD
       <View style={{height:"100%",
       backgroundColor:colors.bgColor
       }}>
@@ -168,6 +191,11 @@ const ScreenRoomScreen = () => {
           </Text>
           {misc1.map((button, index) => (
             
+=======
+      <ScrollView style={styles.container}>
+        <View style={styles.btnContainer}>
+          {btnList.map((button, index) => (
+>>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
             <ButtonComponent
               key={index + button.buttonName}
               style={styles.btn}
@@ -175,6 +203,7 @@ const ScreenRoomScreen = () => {
             />
           ))}
         </View>
+<<<<<<< HEAD
         <View style={styles.btnContainer}>
         <Text style={styles.btnHeader}>
           Misc 2
@@ -194,12 +223,16 @@ const ScreenRoomScreen = () => {
 
       </View>
 
+=======
+      </ScrollView>
+>>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
     </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+<<<<<<< HEAD
     // backgroundColor: "black",
     // height: "10%",
     // width:"100%"
@@ -216,12 +249,27 @@ const styles = StyleSheet.create({
     borderWidth:1,
     borderColor:"white"
     // paddingTop: 50,
+=======
+    backgroundColor: colors.bgColor,
+    height: "100%",
+  },
+  btnContainer: {
+    padding: "2%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    paddingTop: 50,
+>>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
   },
   btn: {
     marginBottom: 15,
     padding: 5,
+<<<<<<< HEAD
     width: "80%",
     margin:"1%"
+=======
+    width: "32%",
+>>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
   },
   header: {
     fontSize: 32,

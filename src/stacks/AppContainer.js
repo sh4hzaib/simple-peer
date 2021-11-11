@@ -13,7 +13,11 @@ const AppContainer = () => {
   const [queryData, setQueryData] = useState([]);
   const [active, setActive] = useState(true);
   //Set timer for inactivity here...
+<<<<<<< HEAD
   const [timer, setTimer] = useState(80000);
+=======
+  const [timer, setTimer] = useState(800000);
+>>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
   const dispatch = useDispatch();
   const initPIN = async () => {
     try {
@@ -52,7 +56,10 @@ const AppContainer = () => {
           <StackContainer queryData={queryData} setQueryData={setQueryData} />
         </UserInactivity>
       ) : (
+<<<<<<< HEAD
         // console.log(active)
+=======
+>>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
         <LockScreen active={active} setActive={setActive} />
       )}
     </>

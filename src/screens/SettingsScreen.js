@@ -365,6 +365,7 @@ const SettingsScreen = ({ navigation }) => {
                     alignItems: "center",
                   }}
                 >
+<<<<<<< HEAD
                 <Button
                   style={styles.btn}
                   icon="brightness-5"
@@ -388,6 +389,31 @@ const SettingsScreen = ({ navigation }) => {
                 >
                   Query Page
                 </Button>
+=======
+                  <Button
+                    style={styles.btn}
+                    icon="brightness-5"
+                    mode="contained"
+                    color="#bd0023"
+                    onPress={() => {
+                      navigation.navigate("BrightnessScreen");
+                    }}
+                    disabled={!IpAdress || !URL}
+                  >
+                    Enable Brightness
+                  </Button>
+                  <Button
+                    style={styles.btn}
+                    contentStyle={{ width: "100%" }}
+                    icon="reload"
+                    mode="contained"
+                    onPress={() => {
+                      navigation.navigate("QueryScreen");
+                    }}
+                  >
+                    Query Page
+                  </Button>
+>>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
                 </View>
               </View>
               <View
@@ -400,7 +426,11 @@ const SettingsScreen = ({ navigation }) => {
               >
                 <Text style={styles.title}>Devices:</Text>
                 <TouchableOpacity
+<<<<<<< HEAD
                 disabled
+=======
+                  disabled
+>>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
                   onPress={() => {
                     console.log("Fetching Devices");
                     axios

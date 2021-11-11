@@ -15,6 +15,11 @@ const RadioButtons = ({ title, listItems, value, setValue }) => {
       <View
         style={{
           //   marginTop: 10,
+<<<<<<< HEAD
+=======
+          marginRight: 100,
+
+>>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
@@ -45,7 +50,13 @@ const styles = StyleSheet.create({
   radioBtnItem: {
     flexDirection: "row",
     alignItems: "center",
+<<<<<<< HEAD
     margin: 5,
+=======
+    // margin: 5,
+    // marginRight: ,
+    // marginRight: 70,
+>>>>>>> c7898b4dc5b0493d83acb38aca8b9e4df246303b
   },
 });
 
